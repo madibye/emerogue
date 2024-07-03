@@ -27,6 +27,7 @@
 
 #include "rogue_controller.h"
 #include "rogue_trainers.h"
+#include "rogue_gifts.h"
 
 #define AI_ACTION_DONE          (1 << 0)
 #define AI_ACTION_FLEE          (1 << 1)
@@ -5426,7 +5427,7 @@ static s32 AI_Roaming(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     if (IsBattlerTrapped(battlerAtk, FALSE))
         return score;
 
-    AI_Flee();
+    // AI_Flee();  // Fleeing is stupid!!
     return score;
 }
 

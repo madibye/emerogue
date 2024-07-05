@@ -765,6 +765,8 @@ struct BattleStruct
     u8 supersweetSyrup[NUM_BATTLE_SIDES];
     u8 supremeOverlordCounter[MAX_BATTLERS_COUNT];
     u8 distortedTypeMatchups;
+    u8 quickClawRandom[MAX_BATTLERS_COUNT];
+    u8 quickDrawRandom[MAX_BATTLERS_COUNT];
     u8 boosterEnergyActivates;
 };
 

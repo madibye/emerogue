@@ -71,7 +71,7 @@ BerryBlender_Text_WhatKindOfPokeblockWillIGet:
 	.string "This is so exciting!$"
 
 BerryBlender_Text_WantToBlendPokeblocksWithUs:
-	.string "Hi, there! Did you want to blend some\n"
+	.string "Hiya! Did you want to blend some\n"
 	.string "{POKEBLOCK}S with us?$"
 
 BerryBlender_Text_Okay:

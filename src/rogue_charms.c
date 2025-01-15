@@ -252,6 +252,12 @@ bool8 IsCurseActive(u8 effectType)
     return GetCurseValue(effectType) != 0;
 }
 
+bool8 IsCharmAllowedForQuests(u8 effectType)
+{
+    return (effectType == EFFECT_ALLOW_SAVE_SCUM) || (effectType == EFFECT_EXTRA_LIFE) || 
+        (effectType == EFFECT_INFINITE_EXTRA_LIFE);
+}
+
 bool8 AnyCharmsActive()
 {
     u8 effectType;
@@ -259,7 +265,7 @@ bool8 AnyCharmsActive()
 
     for(effectType = 0; effectType < EFFECT_COUNT; ++effectType)
     {
-        if(IsCharmActive(effectType) && (effectType != EFFECT_INFINITE_EXTRA_LIFE))  // Allow Retry Charm for legend chains
+        if(IsCharmActive(effectType) && !IsCharmAllowedForQuests(effectType))
             return TRUE;
     }
 

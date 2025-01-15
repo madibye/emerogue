@@ -4912,7 +4912,7 @@ static u8 UNUSED RandomMonType(u16 seedFlag)
 
 static u8 WildDenEncounter_CalculateWeight(u16 index, u16 species, void* data)
 {
-    if(RoguePokedex_IsSpeciesParadox(species))
+    if(RoguePokedex_IsSpeciesParadox(species) || RoguePokedex_IsSpeciesUltraBeast(species))
     {
         if(Rogue_GetCurrentDifficulty() < ROGUE_GYM_START_DIFFICULTY + 2)
             return 0;
@@ -9014,7 +9014,7 @@ static u8 RandomiseWildEncounters_CalculateWeight(u16 index, u16 species, void* 
 
 #endif
 
-    if(RoguePokedex_IsSpeciesParadox(species))
+    if(RoguePokedex_IsSpeciesParadox(species) || RoguePokedex_IsSpeciesUltraBeast(species))
     {
         if(Rogue_GetCurrentDifficulty() < ROGUE_GYM_MID_DIFFICULTY)
             return 0;

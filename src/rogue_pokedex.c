@@ -4101,20 +4101,9 @@ bool8 RoguePokedex_IsSpeciesLegendary(u16 species)
         case SPECIES_COSMOEM:
         case SPECIES_SOLGALEO:
         case SPECIES_LUNALA:
-        case SPECIES_NIHILEGO:
-        case SPECIES_BUZZWOLE:
-        case SPECIES_PHEROMOSA:
-        case SPECIES_XURKITREE:
-        case SPECIES_CELESTEELA:
-        case SPECIES_KARTANA:
-        case SPECIES_GUZZLORD:
         case SPECIES_NECROZMA:
         case SPECIES_MAGEARNA:
         case SPECIES_MARSHADOW:
-        case SPECIES_POIPOLE:
-        case SPECIES_NAGANADEL:
-        case SPECIES_STAKATAKA:
-        case SPECIES_BLACEPHALON:
         case SPECIES_ZERAORA:
         case SPECIES_MELTAN:
         case SPECIES_MELMETAL:
@@ -4296,20 +4285,9 @@ bool8 RoguePokedex_IsSpeciesValidRoamerLegendary(u16 species)
         case SPECIES_HOOPA:
         
         case SPECIES_COSMOG:
-        case SPECIES_NIHILEGO:
-        case SPECIES_BUZZWOLE:
-        case SPECIES_PHEROMOSA:
-        case SPECIES_XURKITREE:
-        case SPECIES_CELESTEELA:
-        case SPECIES_KARTANA:
-        case SPECIES_GUZZLORD:
         case SPECIES_NECROZMA:
         case SPECIES_MAGEARNA:
         case SPECIES_MARSHADOW:
-        case SPECIES_POIPOLE:
-        case SPECIES_NAGANADEL:
-        case SPECIES_STAKATAKA:
-        case SPECIES_BLACEPHALON:
         case SPECIES_ZERAORA:
 
         case SPECIES_KUBFU:
@@ -4345,6 +4323,36 @@ bool8 RoguePokedex_IsSpeciesValidRoamerLegendary(u16 species)
             return TRUE;
     };
 
+    return FALSE;
+}
+
+bool8 RoguePokedex_IsSpeciesUltraBeast(u16 species)
+{
+#ifdef ROGUE_EXPANSION
+    switch (species) 
+    {
+        case SPECIES_NIHILEGO:
+        case SPECIES_BUZZWOLE:
+        case SPECIES_PHEROMOSA:
+        case SPECIES_XURKITREE:
+        case SPECIES_CELESTEELA:
+        case SPECIES_KARTANA:
+        case SPECIES_GUZZLORD:
+        case SPECIES_POIPOLE:
+        case SPECIES_NAGANADEL:
+        case SPECIES_STAKATAKA:
+        case SPECIES_BLACEPHALON:
+        case SPECIES_COSMOG:
+        case SPECIES_COSMOEM:
+        case SPECIES_SOLGALEO:
+        case SPECIES_LUNALA:
+        case SPECIES_NECROZMA:
+        case SPECIES_NECROZMA_DAWN_WINGS:
+        case SPECIES_NECROZMA_DUSK_MANE:
+        case SPECIES_NECROZMA_ULTRA:
+            return TRUE;
+    }
+#endif
     return FALSE;
 }
 

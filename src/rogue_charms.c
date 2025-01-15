@@ -254,8 +254,14 @@ bool8 IsCurseActive(u8 effectType)
 
 bool8 IsCharmAllowedForQuests(u8 effectType)
 {
-    return (effectType == EFFECT_ALLOW_SAVE_SCUM) || (effectType == EFFECT_EXTRA_LIFE) || 
-        (effectType == EFFECT_INFINITE_EXTRA_LIFE);
+    switch(effectType) {
+        case EFFECT_ALLOW_SAVE_SCUM:
+        case EFFECT_EXTRA_LIFE:
+        case EFFECT_INFINITE_EXTRA_LIFE:
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }
 
 bool8 AnyCharmsActive()

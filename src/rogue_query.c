@@ -796,6 +796,22 @@ void RogueMonQuery_IsLegendaryWithPresetFlags(u8 func, u32 presetflags)
         }
     }
 }
+void RogueMonQuery_IsUltraBeast(u8 func)
+{
+#ifdef ROGUE_EXPANSION
+    u32 species;
+    const bool32 checkState = (func == QUERY_FUNC_INCLUDE);
+    ASSERT_MON_QUERY;
+    
+    for(species = SPECIES_NONE + 1; species < QUERY_NUM_SPECIES; ITERATOR_INC(species))
+    {
+        if(GetQueryBitFlag(species) && RoguePokedex_IsSpeciesUltraBeast(species) != checkState)
+        {
+            SetQueryBitFlag(species, FALSE);
+        }
+    }
+#endif
+}
 
 void RogueMonQuery_IsParadox(u8 func)
 {

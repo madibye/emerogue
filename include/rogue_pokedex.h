@@ -34,6 +34,7 @@ bool8 RoguePokedex_IsSpeciesLegendary(u16 species);
 bool8 RoguePokedex_IsSpeciesValidBoxLegendary(u16 species);
 bool8 RoguePokedex_IsSpeciesValidRoamerLegendary(u16 species);
 
+bool8 RoguePokedex_IsSpeciesUltraBeast(u16 species);
 bool8 RoguePokedex_IsSpeciesParadox(u16 species);
 
 u8 const* RoguePokedex_GetSpeciesName(u16 species);

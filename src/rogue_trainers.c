@@ -809,6 +809,34 @@ s32 Rogue_GetSwitchAISpeedDivisor(u16 trainerNum, u8 slot)
     return 1;
 }
 
+static bool8 ShouldAllowUltraBeasts(struct TrainerPartyScratch* scratch)
+{
+#ifdef ROGUE_EXPANSION
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    {
+    case DIFFICULTY_LEVEL_EASY:
+        if(Rogue_GetCurrentDifficulty() >= ROGUE_ELITE_START_DIFFICULTY - 1)
+            return TRUE;
+        break;
+
+    case DIFFICULTY_LEVEL_AVERAGE:
+        if(Rogue_GetCurrentDifficulty() >= ROGUE_GYM_MID_DIFFICULTY)
+            return TRUE;
+        break;
+
+    case DIFFICULTY_LEVEL_HARD:
+        if(Rogue_GetCurrentDifficulty() >= ROGUE_GYM_START_DIFFICULTY + 2)
+            return TRUE;
+        break;
+
+    case DIFFICULTY_LEVEL_BRUTAL:
+        return TRUE;
+    }
+#endif
+
+    return FALSE;
+}
+
 static bool8 ShouldAllowParadoxMons(struct TrainerPartyScratch* scratch)
 {
 #ifdef ROGUE_EXPANSION
@@ -2805,6 +2833,11 @@ static u16 SampleNextSpeciesInternal(struct TrainerPartyScratch* scratch)
         {
             RogueMonQuery_TransformIntoEggSpecies();
             RogueMonQuery_TransformIntoEvos(scratch->evoLevel, scratch->allowItemEvos, FALSE);
+        }
+
+        if(!ShouldAllowUltraBeasts(scratch))
+        {
+            RogueMonQuery_IsUltraBeast(QUERY_FUNC_EXCLUDE);
         }
 
         if(!ShouldAllowParadoxMons(scratch))

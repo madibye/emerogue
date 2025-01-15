@@ -854,18 +854,6 @@ BattleScript_EffectSpinOut::
 	setmoveeffect MOVE_EFFECT_SPD_MINUS_2 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
-BattleScript_EffectClangingScales::
-	setmoveeffect MOVE_EFFECT_DEF_MINUS_1 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
-	goto BattleScript_SetEffectPrimaryReturn
-
-BattleScript_EffectDiamondStorm::
-	setmoveeffect MOVE_EFFECT_DEF_PLUS_2 | MOVE_EFFECT_AFFECTS_USER
-	goto BattleScript_SetEffectPrimaryReturn
-
-BattleScript_SetEffectPrimaryReturn:
-	seteffectprimary
-	return
-
 BattleScript_EffectMakeItRain::
 	setmoveeffect MOVE_EFFECT_PAYDAY
 	seteffectprimary

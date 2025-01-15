@@ -6175,13 +6175,12 @@ static void Cmd_moveend(void)
             break;
         case MOVEEND_SPREAD_MOVE_WITH_EFFECT:
             if (IsBattlerAlive(gBattlerAttacker)
-                && ( (gBattleMoves[gCurrentMove].target == MOVE_TARGET_BOTH) || (gBattleMoves[gCurrentMove].target == MOVE_TARGET_FOES_AND_ALLY) )
-                && gBattleMoves[gCurrentMove].spreadMoveAndEffect
-                && (gSpecialStatuses[gBattlerAttacker].damagedMons)
-                && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)) // needless, since we check which battler was hit. Safety net I guess
+                && gBattleMoves[gCurrentMove].target == MOVE_TARGET_BOTH
+                && gCurrentMove == MOVE_MAKE_IT_RAIN
+                && gSpecialStatuses[gBattlerAttacker].damagedMons)
                 {
                     BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = gBattleMoves[gCurrentMove].argument2;
+                    gBattlescriptCurrInstr = BattleScript_EffectMakeItRain;
                     effect = TRUE;
                 }
             gBattleScripting.moveendState++;

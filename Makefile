@@ -106,7 +106,7 @@ ELF_NAME := $(ROM_NAME:.gba=.elf)
 MAP_NAME := $(ROM_NAME:.gba=.map)
 OBJ_DIR_NAME := $(OBJ_BASE_DIR_NAME)/emerald_$(BUILD_CONFIG)
 
-MODERN_ROM_NAME := emeraldrogue.gba
+MODERN_ROM_NAME := Pokemon Emerald Rogue.gba
 MODERN_ELF_NAME := $(MODERN_ROM_NAME:.gba=.elf)
 MODERN_MAP_NAME := $(MODERN_ROM_NAME:.gba=.map)
 MODERN_OBJ_DIR_NAME := $(OBJ_BASE_DIR_NAME)/modern_$(BUILD_CONFIG)

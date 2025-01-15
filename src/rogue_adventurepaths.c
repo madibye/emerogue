@@ -358,9 +358,9 @@ static u8 SelectRoomType_CalculateWeight(u16 weightIndex, u16 roomType, void* da
         // Prefer a 2nd rest stop
         else if(count == 1)
             return 20;
-        // Let's cap it at 4.
+        // If we already have 4, prefer most other encounters
         else if(count >= 4)
-            return 0;
+            return 1;
         break;
 
     // Only allow 1 but we really want to place it
@@ -422,15 +422,12 @@ static u8 SelectRoomType_CalculateWeight(u16 weightIndex, u16 roomType, void* da
     // Only allow 1 of this type at once
     case ADVPATH_ROOM_GAMESHOW:
     case ADVPATH_ROOM_CATCHING_CONTEST:
+    case ADVPATH_ROOM_SIGN:
     case ADVPATH_ROOM_BATTLE_SIM:
         count = CountRoomType(roomType);
         if(count != 0)
             return 0;
         break;
-    
-    // This room is kind of cringe in tandem with save states, so I'm disabling it.
-    case ADVPATH_ROOM_SIGN:
-        return 0;
 
     // We really want this to spawn when we allow it to
     case ADVPATH_ROOM_SHRINE:
@@ -545,9 +542,13 @@ static u8 ReplaceRoomEncounters_CalculateWeight(u16 weightIndex, u16 roomId, voi
         break;
 
     case ADVPATH_ROOM_SIGN:
-        // Don't place this one. As stated above, Madi thinks its cringe.
-        weight = 0;
-        break;
+        // Prefer being placed in first column
+        if(existingRoom->coords.x + 1 == gRogueAdvPath.pathLength)
+            weight += 80;
+
+        // Like being placed in the middle columns but can occasionally end up in other one
+        if(existingRoom->coords.x > 2)
+            weight += 40;
     }
 
     // If we've got this encounter immediately before or after prefer not this one
@@ -660,19 +661,15 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
             chance = 0;
 
-        if(chance != 0)
+        for(i = 0; i < gRogueAdvPath.roomCount; ++i)
         {
-            for(i = 0; i < gRogueAdvPath.roomCount; ++i)
+            if(chance != 0)
             {
                 if(gRogueAdvPath.rooms[i].roomType == ADVPATH_ROOM_ROUTE && RogueRandomChance(chance, 0))
                 {
                     GenerateRoomInstance(i, ADVPATH_ROOM_NONE);
                     --freeRoomCount;
-
-                    if(chance <= chanceFalloff)
-                        chance = 1;
-                    else
-                        chance -= chanceFalloff;
+                    chance -= chanceFalloff;
                 }
             }
         }
@@ -717,8 +714,10 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_CATCHING_CONTEST;
 
     // Mysterious Sign
+    /*
     if(Rogue_GetModeRules()->adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() < ROGUE_ELITE_START_DIFFICULTY && RogueRandomChance(40, 0))
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_SIGN;
+    */
 
     // Shrine (Gauntlet will always offer this encounter)
     if((Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET) || GetPathGenerationDifficulty() == gRogueRun.shrineSpawnDifficulty)

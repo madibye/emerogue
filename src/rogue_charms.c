@@ -259,7 +259,7 @@ bool8 AnyCharmsActive()
 
     for(effectType = 0; effectType < EFFECT_COUNT; ++effectType)
     {
-        if(IsCharmActive(effectType))
+        if(IsCharmActive(effectType) && (effectType != EFFECT_INFINITE_EXTRA_LIFE))  // Allow Retry Charm for legend chains
             return TRUE;
     }
 

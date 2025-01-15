@@ -546,7 +546,7 @@ static u8 ReplaceRoomEncounters_CalculateWeight(u16 weightIndex, u16 roomId, voi
 
     case ADVPATH_ROOM_SIGN:
         // Don't place this one. As stated above, Madi thinks its cringe.
-        weight -= 40;
+        weight = 0;
         break;
     }
 

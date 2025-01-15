@@ -358,9 +358,9 @@ static u8 SelectRoomType_CalculateWeight(u16 weightIndex, u16 roomType, void* da
         // Prefer a 2nd rest stop
         else if(count == 1)
             return 20;
-        // If we already have 4 perfer most other encounters
+        // Let's cap it at 4.
         else if(count >= 4)
-            return 1;
+            return 0;
         break;
 
     // Only allow 1 but we really want to place it
@@ -422,12 +422,15 @@ static u8 SelectRoomType_CalculateWeight(u16 weightIndex, u16 roomType, void* da
     // Only allow 1 of this type at once
     case ADVPATH_ROOM_GAMESHOW:
     case ADVPATH_ROOM_CATCHING_CONTEST:
-    case ADVPATH_ROOM_SIGN:
     case ADVPATH_ROOM_BATTLE_SIM:
         count = CountRoomType(roomType);
         if(count != 0)
             return 0;
         break;
+    
+    // This room is kind of cringe in tandem with save states, so I'm disabling it.
+    case ADVPATH_ROOM_SIGN:
+        return 0;
 
     // We really want this to spawn when we allow it to
     case ADVPATH_ROOM_SHRINE:
@@ -494,7 +497,7 @@ static u8 ReplaceRoomEncounters_CalculateWeight(u16 weightIndex, u16 roomId, voi
     case ADVPATH_ROOM_LEGENDARY:
         // Like being placed in the final column but can occasionally end up in other one
         if(existingRoom->coords.x <= 2)
-            weight += 80;
+            weight += 100;
 
         // Don't want to place in first column
         if(existingRoom->coords.x + 1 == gRogueAdvPath.pathLength)
@@ -542,13 +545,8 @@ static u8 ReplaceRoomEncounters_CalculateWeight(u16 weightIndex, u16 roomId, voi
         break;
 
     case ADVPATH_ROOM_SIGN:
-        // Prefer being placed in first column
-        if(existingRoom->coords.x + 1 == gRogueAdvPath.pathLength)
-            weight += 80;
-
-        // Like being placed in the middle columns but can occasionally end up in other one
-        if(existingRoom->coords.x > 2)
-            weight += 40;
+        // Don't place this one. As stated above, Madi thinks its cringe.
+        weight -= 40;
         break;
     }
 

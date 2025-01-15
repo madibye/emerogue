@@ -44,6 +44,7 @@ void RecalcCharmCurseValues(void);
 
 bool8 IsCharmActive(u8 effectType);
 bool8 IsCurseActive(u8 effectType);
+bool8 IsCharmAllowedForQuests(u8 effectType);
 
 bool8 AnyCharmsActive();
 bool8 AnyCursesActive();

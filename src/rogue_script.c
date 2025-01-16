@@ -90,7 +90,7 @@ static const u8 sStatNamesTable[NUM_STATS][13] = // a;t versopm pf gStatNamesTab
 
 static u8 const sText_The[] = _(" the ");
 static u8 const sText_TheShiny[] = _(" the shiny ");
-static u8 const sText_TheShinyNoNick[] = _("the shiny ");
+static u8 const sText_TheShinyNoNick[] = _("The shiny ");
 
 bool8 Rogue_CheckPartyHasRoomForMon(void)
 {

@@ -558,8 +558,8 @@ static const struct SpriteTemplate sSpriteTemplate_KeyItemBoxWin = {
     .callback = SpriteCallbackDummy,
 };
 
-static const u8 sKeyItemBoxXPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_WIDTH / 2), (DISPLAY_WIDTH / 2) + 32, (DISPLAY_WIDTH / 2), (DISPLAY_WIDTH / 2) - 32};
-static const u8 sKeyItemBoxYPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_HEIGHT / 2) - 32, (DISPLAY_HEIGHT / 2), (DISPLAY_HEIGHT / 2) + 32, (DISPLAY_HEIGHT / 2)};
+static const u8 sKeyItemBoxXPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_WIDTH / 2), (DISPLAY_WIDTH / 2) + 32, (DISPLAY_WIDTH / 2), (DISPLAY_WIDTH / 2) - 32, (DISPLAY_WIDTH / 2) - 32, (DISPLAY_WIDTH / 2) + 32};
+static const u8 sKeyItemBoxYPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_HEIGHT / 2) - 32, (DISPLAY_HEIGHT / 2), (DISPLAY_HEIGHT / 2) + 32, (DISPLAY_HEIGHT / 2), (DISPLAY_HEIGHT / 2) - 32, (DISPLAY_HEIGHT / 2) - 32};
 
 enum {
     COLORID_NORMAL,
@@ -2463,7 +2463,7 @@ static void Task_ChooseHowManyToToss(u8 taskId)
     }
 }
 
-// Returns [1-4] based on dpad, or 0 otherwise
+// Returns [1-6] based on dpad/L/R, or 0 otherwise
 static u32 DpadInputToRegisteredItemIndex(bool32 check) {
     u32 i = 0;
     if (JOY_NEW(DPAD_UP))
@@ -2474,6 +2474,10 @@ static u32 DpadInputToRegisteredItemIndex(bool32 check) {
         i = 3;
     else if (JOY_NEW(DPAD_LEFT))
         i = 4;
+    else if (JOY_NEW(L_BUTTON))
+        i = 5;
+    else if (JOY_NEW(R_BUTTON))
+        i = 6;
     // If `check`, verify that slot actually has an item registered
     if (i && check && gSaveBlock1Ptr->registeredItems[i-1] == ITEM_NONE && CheckBagHasItem(gSaveBlock1Ptr->registeredItems[i-1], 1))
         i = 0;

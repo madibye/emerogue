@@ -15160,12 +15160,13 @@ static void Cmd_handleballthrow(void)
         u16 catchRate;
 
         gBallToDisplay = gLastUsedItem;
+        const struct SpeciesInfo *targetSpeciesInfo = &gSpeciesInfo[gBattleMons[gBattlerTarget].species];
         if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
             catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
         else
-            catchRate = gSpeciesInfo[gBattleMons[gBattlerTarget].species].catchRate;
+            catchRate = targetSpeciesInfo->catchRate;
 
-        if (gSpeciesInfo[gBattleMons[gBattlerTarget].species].isUltraBeast)
+        if ((targetSpeciesInfo->isUltraBeast == TRUE) && (targetSpeciesInfo->isLegendary == FALSE))
         {
             if (gLastUsedItem == ITEM_BEAST_BALL)
                 ballMultiplier = 500;
@@ -15272,7 +15273,7 @@ static void Cmd_handleballthrow(void)
                 }
                 break;
             case ITEM_FAST_BALL:
-                if (gSpeciesInfo[gBattleMons[gBattlerTarget].species].baseSpeed >= 100)
+                if (targetSpeciesInfo->baseSpeed >= 100)
                     ballMultiplier = 400;
                 break;
             case ITEM_HEAVY_BALL:
@@ -15318,7 +15319,11 @@ static void Cmd_handleballthrow(void)
                     ballMultiplier = 400;
                 break;
             case ITEM_BEAST_BALL:
-                ballMultiplier = 10;
+                // Cosmog & Necrozma lines have only slightly increased effectiveness with Beast Balls, and normal effectiveness with other balls.
+                if (targetSpeciesInfo->isUltraBeast)
+                    ballMultiplier = 200;
+                else
+                    ballMultiplier = 10;
                 break;
             }
         }

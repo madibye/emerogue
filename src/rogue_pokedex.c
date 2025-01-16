@@ -4329,29 +4329,7 @@ bool8 RoguePokedex_IsSpeciesValidRoamerLegendary(u16 species)
 bool8 RoguePokedex_IsSpeciesUltraBeast(u16 species)
 {
 #ifdef ROGUE_EXPANSION
-    switch (species) 
-    {
-        case SPECIES_NIHILEGO:
-        case SPECIES_BUZZWOLE:
-        case SPECIES_PHEROMOSA:
-        case SPECIES_XURKITREE:
-        case SPECIES_CELESTEELA:
-        case SPECIES_KARTANA:
-        case SPECIES_GUZZLORD:
-        case SPECIES_POIPOLE:
-        case SPECIES_NAGANADEL:
-        case SPECIES_STAKATAKA:
-        case SPECIES_BLACEPHALON:
-        case SPECIES_COSMOG:
-        case SPECIES_COSMOEM:
-        case SPECIES_SOLGALEO:
-        case SPECIES_LUNALA:
-        case SPECIES_NECROZMA:
-        case SPECIES_NECROZMA_DAWN_WINGS:
-        case SPECIES_NECROZMA_DUSK_MANE:
-        case SPECIES_NECROZMA_ULTRA:
-            return TRUE;
-    }
+    return gSpeciesInfo[species].isUltraBeast;
 #endif
     return FALSE;
 }
@@ -4359,33 +4337,14 @@ bool8 RoguePokedex_IsSpeciesUltraBeast(u16 species)
 bool8 RoguePokedex_IsSpeciesParadox(u16 species)
 {
 #ifdef ROGUE_EXPANSION
-    if(species >= SPECIES_GREAT_TUSK && species <= SPECIES_IRON_THORNS)
-        return TRUE;
-
-    switch (species)
-    {
-    case SPECIES_ROARING_MOON:
-    case SPECIES_IRON_VALIANT:
-    case SPECIES_WALKING_WAKE:
-    case SPECIES_IRON_LEAVES:
-    case SPECIES_GOUGING_FIRE:
-    case SPECIES_RAGING_BOLT:
-    case SPECIES_IRON_BOULDER:
-    case SPECIES_IRON_CROWN:
-        return TRUE;
-    }
+    return gSpeciesInfo[species].isParadoxForm;
 #endif
-
     return FALSE;
 }
 
 u8 const* RoguePokedex_GetSpeciesName(u16 species)
 {
-#ifdef ROGUE_EXPANSION
     return gSpeciesInfo[species].speciesName;
-#else
-    return gSpeciesNames[species];
-#endif
 }
 
 u8 RoguePokedex_GetSpeciesType(u16 species, u8 typeIndex)

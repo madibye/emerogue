@@ -980,7 +980,7 @@ void RogueGift_EnsureDynamicCustomMonsAreValid()
         RogueMonQuery_Begin();
         RogueMonQuery_IsSpeciesActive();
         RogueMonQuery_TransformIntoEggSpecies();
-        //RogueMonQuery_IsLegendary(QUERY_FUNC_EXCLUDE);
+        RogueMonQuery_IsLegendary(QUERY_FUNC_EXCLUDE);
         
         for(i = 0; i < DYNAMIC_UNIQUE_MON_COUNT; ++i)
         {

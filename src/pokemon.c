@@ -2656,288 +2656,363 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
 void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
 {
     const u8 *data = dataArg;
-
-    struct PokemonSubstruct0 *substruct0 = NULL;
-    struct PokemonSubstruct1 *substruct1 = NULL;
-    struct PokemonSubstruct2 *substruct2 = NULL;
-    struct PokemonSubstruct3 *substruct3 = NULL;
-
-    if (field > MON_DATA_ENCRYPT_SEPARATOR)
+    switch (field)
     {
-        substruct0 = &(GetSubstruct(boxMon, boxMon->personality, 0)->type0);
-        substruct1 = &(GetSubstruct(boxMon, boxMon->personality, 1)->type1);
-        substruct2 = &(GetSubstruct(boxMon, boxMon->personality, 2)->type2);
-        substruct3 = &(GetSubstruct(boxMon, boxMon->personality, 3)->type3);
-
-        DecryptBoxMon(boxMon);
-
-        if (CalculateBoxMonChecksum(boxMon) != boxMon->checksum)
-        {
-            boxMon->isBadEgg = TRUE;
-            boxMon->isEgg = TRUE;
-            substruct3->isEgg = TRUE;
-            EncryptBoxMon(boxMon);
-            return;
-        }
-
-        switch (field)
-        {
-        case MON_DATA_SPECIES:
-        {
-            SET16(substruct0->species);
-            if (substruct0->species)
-                boxMon->hasSpecies = TRUE;
-            else
-                boxMon->hasSpecies = FALSE;
-            break;
-        }
-        case MON_DATA_HELD_ITEM:
-            SET16(substruct0->heldItem);
-            break;
-        case MON_DATA_EXP:
-            SET32(substruct0->experience);
-            break;
-        case MON_DATA_PP_BONUSES:
-            SET8(substruct0->ppBonuses);
-            break;
-        case MON_DATA_FRIENDSHIP:
-            SET8(substruct0->friendship);
-            break;
-        case MON_DATA_MOVE1:
-        case MON_DATA_MOVE2:
-        case MON_DATA_MOVE3:
-        case MON_DATA_MOVE4:
-            SET16(substruct1->moves[field - MON_DATA_MOVE1]);
-            break;
-        case MON_DATA_PP1:
-        case MON_DATA_PP2:
-        case MON_DATA_PP3:
-        case MON_DATA_PP4:
-            SET8(substruct1->pp[field - MON_DATA_PP1]);
-            break;
-        case MON_DATA_HP_EV:
-            SET8(substruct2->hpEV);
-            break;
-        case MON_DATA_ATK_EV:
-            SET8(substruct2->attackEV);
-            break;
-        case MON_DATA_DEF_EV:
-            SET8(substruct2->defenseEV);
-            break;
-        case MON_DATA_SPEED_EV:
-            SET8(substruct2->speedEV);
-            break;
-        case MON_DATA_SPATK_EV:
-            SET8(substruct2->spAttackEV);
-            break;
-        case MON_DATA_SPDEF_EV:
-            SET8(substruct2->spDefenseEV);
-            break;
-        case MON_DATA_COOL:
-            SET8(substruct2->cool);
-            break;
-        case MON_DATA_BEAUTY:
-            SET8(substruct2->beauty);
-            break;
-        case MON_DATA_CUTE:
-            SET8(substruct2->cute);
-            break;
-        case MON_DATA_SMART:
-            SET8(substruct2->smart);
-            break;
-        case MON_DATA_TOUGH:
-            SET8(substruct2->tough);
-            break;
-        case MON_DATA_SHEEN:
-            SET8(substruct2->sheen);
-            break;
-        case MON_DATA_POKERUS:
-            SET8(substruct3->pokerus);
-            break;
-        case MON_DATA_MET_LOCATION:
-            SET8(substruct3->metLocation);
-            break;
-        case MON_DATA_MET_LEVEL:
-        {
-            u8 metLevel = *data;
-            substruct3->metLevel = metLevel;
-            break;
-        }
-        case MON_DATA_MET_GAME:
-            SET8(substruct3->metGame);
-            break;
-        case MON_DATA_POKEBALL:
-        {
-            u8 pokeball = *data;
-            substruct0->pokeball = pokeball;
-            break;
-        }
-        case MON_DATA_OT_GENDER:
-            SET8(substruct3->otGender);
-            break;
-        case MON_DATA_HP_IV:
-            SET8(substruct3->hpIV);
-            break;
-        case MON_DATA_ATK_IV:
-            SET8(substruct3->attackIV);
-            break;
-        case MON_DATA_DEF_IV:
-            SET8(substruct3->defenseIV);
-            break;
-        case MON_DATA_SPEED_IV:
-            SET8(substruct3->speedIV);
-            break;
-        case MON_DATA_SPATK_IV:
-            SET8(substruct3->spAttackIV);
-            break;
-        case MON_DATA_SPDEF_IV:
-            SET8(substruct3->spDefenseIV);
-            break;
-        case MON_DATA_IS_EGG:
-            SET8(substruct3->isEgg);
-            if (substruct3->isEgg)
-                boxMon->isEgg = TRUE;
-            else
-                boxMon->isEgg = FALSE;
-            break;
-        case MON_DATA_ABILITY_NUM:
-            SET8(substruct3->abilityNum);
-            break;
+    case MON_DATA_PERSONALITY:
+        SET32(boxMon->personality);
+        break;
+    case MON_DATA_OT_ID:
+        SET32(boxMon->otId);
+        break;
+    case MON_DATA_NICKNAME:
+    {
+        s32 i;
+        for (i = 0; i < POKEMON_NAME_LENGTH; i++)
+            boxMon->nickname[i] = data[i];
+        break;
+    }
+    case MON_DATA_OT_NAME:
+    {
+        s32 i;
+        for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+            boxMon->otName[i] = data[i];
+        break;
+    }
+    case MON_DATA_MARKINGS:
+        SET8(boxMon->markings);
+        break;
+    case MON_DATA_SPECIES:
+        SET16(boxMon->species);
+        break;
+    case MON_DATA_HELD_ITEM:
+        SET16(boxMon->heldItem);
+        break;
+    case MON_DATA_EXP:
+        SET32(boxMon->experience);
+        break;
+    case MON_DATA_PP_BONUSES:
+        SET8(boxMon->ppBonuses);
+        break;
+    case MON_DATA_FRIENDSHIP:
+        SET8(boxMon->friendship);
+        break;
+    case MON_DATA_MOVE1:
+        SET16(boxMon->move1);
+        break;
+    case MON_DATA_MOVE2:
+        SET16(boxMon->move2);
+        break;
+    case MON_DATA_MOVE3:
+        SET16(boxMon->move3);
+        break;
+    case MON_DATA_MOVE4:
+        SET16(boxMon->move4);
+        break;
+    case MON_DATA_PP1:
+        SET8(boxMon->ppmove1);
+        break;
+    case MON_DATA_PP2:
+        SET8(boxMon->ppmove2);
+        break;
+    case MON_DATA_PP3:
+        SET8(boxMon->ppmove3);
+        break;
+    case MON_DATA_PP4:
+        SET8(boxMon->ppmove4);
+        break;
+    case MON_DATA_HP_EV:
+        SET8(boxMon->hpEV);
+        break;
+    case MON_DATA_ATK_EV:
+        SET8(boxMon->attackEV);
+        break;
+    case MON_DATA_DEF_EV:
+        SET8(boxMon->defenseEV);
+        break;
+    case MON_DATA_SPEED_EV:
+        SET8(boxMon->speedEV);
+        break;
+    case MON_DATA_SPATK_EV:
+        SET8(boxMon->spAttackEV);
+        break;
+    case MON_DATA_SPDEF_EV:
+        SET8(boxMon->spDefenseEV);
+        break;
+    case MON_DATA_COOL:
+        SET8(boxMon->cool);
+        break;
+    case MON_DATA_BEAUTY:
+        SET8(boxMon->beauty);
+        break;
+    case MON_DATA_CUTE:
+        SET8(boxMon->cute);
+        break;
+    case MON_DATA_SMART:
+        SET8(boxMon->smart);
+        break;
+    case MON_DATA_TOUGH:
+        SET8(boxMon->tough);
+        break;
+    case MON_DATA_SHEEN:
+        SET8(boxMon->sheen);
+        break;
+    case MON_DATA_MET_LOCATION:
+        SET8(boxMon->metLocation);
+        break;
+    case MON_DATA_MET_LEVEL:
+    {
+        u8 metLevel = *data;
+        boxMon->metLevel = metLevel;
+        break;
+    }
+    case MON_DATA_POKEBALL:
+    {
+        u8 pokeball = *data;
+        boxMon->pokeball = pokeball;
+        break;
+    }
+    case MON_DATA_OT_GENDER:
+        SET8(boxMon->otGender);
+        break;
+    case MON_DATA_HP_IV:
+        SET8(boxMon->hpIV);
+        break;
+    case MON_DATA_ATK_IV:
+        SET8(boxMon->attackIV);
+        break;
+    case MON_DATA_DEF_IV:
+        SET8(boxMon->defenseIV);
+        break;
+    case MON_DATA_SPEED_IV:
+        SET8(boxMon->speedIV);
+        break;
+    case MON_DATA_SPATK_IV:
+        SET8(boxMon->spAttackIV);
+        break;
+    case MON_DATA_SPDEF_IV:
+        SET8(boxMon->spDefenseIV);
+        break;
+    case MON_DATA_IS_EGG:
+        SET8(boxMon->isEgg);
+        break;
+    case MON_DATA_ABILITY_NUM:
+        SET8(boxMon->abilityNum);
+        break;
+    case MON_DATA_CHAMPION_RIBBON:
+        SET8(boxMon->championRibbon);
+        break;
+    case MON_DATA_WINNING_RIBBON:
+        SET8(boxMon->winningRibbon);
+        break;
+    case MON_DATA_VICTORY_RIBBON:
+        SET8(boxMon->victoryRibbon);
+        break;
+    case MON_DATA_EFFORT_RIBBON:
+        SET8(boxMon->effortRibbon);
+        break;
+    case MON_DATA_NATURE:
+        SET8(boxMon->nature);
+        break;
+    case MON_DATA_CUSTOM_ATK:
+        SET8(boxMon->customAtk);
+        break;
+    case MON_DATA_CUSTOM_DEF:
+        SET8(boxMon->customDef);
+        break;
+    case MON_DATA_CUSTOM_SPEED:
+        SET8(boxMon->customSpeed);
+        break;
+    case MON_DATA_CUSTOM_SPATK:
+        SET8(boxMon->customSpAtk);
+        break;
+    case MON_DATA_CUSTOM_SPDEF:
+        SET8(boxMon->customSpDef);
+        break;
+    case MON_DATA_CUSTOM_ABILITY:
+        SET16(boxMon->customAbility);
+        break;
+    case MON_DATA_CUSTOM_TYPE1:
+        SET8(boxMon->customType1);
+        break;
+    case MON_DATA_CUSTOM_TYPE2:
+        SET8(boxMon->customType2);
+        break;
     case MON_DATA_IS_SHINY:
-            SET8(substruct3->isShiny);
-            break;
+        SET8(boxMon->isShiny);
+        break;
     case MON_DATA_GENDER_FLAG:
-            SET8(substruct3->genderFlag);
-            break;
-        case MON_DATA_CUTE_RIBBON:
-            SET8(substruct3->cuteRibbon);
-            break;
-        case MON_DATA_SMART_RIBBON:
-            SET8(substruct3->smartRibbon);
-            break;
-        case MON_DATA_TOUGH_RIBBON:
-            SET8(substruct3->toughRibbon);
-            break;
-        case MON_DATA_CHAMPION_RIBBON:
-            SET8(substruct3->championRibbon);
-            break;
-        case MON_DATA_WINNING_RIBBON:
-            SET8(substruct3->winningRibbon);
-            break;
-        case MON_DATA_VICTORY_RIBBON:
-            SET8(substruct3->victoryRibbon);
-            break;
-        case MON_DATA_ARTIST_RIBBON:
-            SET8(substruct3->artistRibbon);
-            break;
-        case MON_DATA_EFFORT_RIBBON:
-            SET8(substruct3->effortRibbon);
-            break;
-        case MON_DATA_MARINE_RIBBON:
-            SET8(substruct3->marineRibbon);
-            break;
-        case MON_DATA_LAND_RIBBON:
-            SET8(substruct3->landRibbon);
-            break;
-        case MON_DATA_SKY_RIBBON:
-            SET8(substruct3->skyRibbon);
-            break;
-        case MON_DATA_COUNTRY_RIBBON:
-            SET8(substruct3->countryRibbon);
-            break;
-        case MON_DATA_NATIONAL_RIBBON:
-            SET8(substruct3->nationalRibbon);
-            break;
-        case MON_DATA_EARTH_RIBBON:
-            SET8(substruct3->earthRibbon);
-            break;
-        case MON_DATA_WORLD_RIBBON:
-            SET8(substruct3->worldRibbon);
-            break;
-        case MON_DATA_UNUSED_RIBBONS:
-            SET8(substruct3->unusedRibbons);
-            break;
-        case MON_DATA_MODERN_FATEFUL_ENCOUNTER:
-            SET8(substruct3->modernFatefulEncounter);
-            break;
-        case MON_DATA_IVS:
-        {
-            u32 ivs = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
-            substruct3->hpIV = ivs & MAX_IV_MASK;
-            substruct3->attackIV = (ivs >> 5) & MAX_IV_MASK;
-            substruct3->defenseIV = (ivs >> 10) & MAX_IV_MASK;
-            substruct3->speedIV = (ivs >> 15) & MAX_IV_MASK;
-            substruct3->spAttackIV = (ivs >> 20) & MAX_IV_MASK;
-            substruct3->spDefenseIV = (ivs >> 25) & MAX_IV_MASK;
-            break;
-        }
-        case MON_DATA_GIGANTAMAX_FACTOR:
-            SET8(substruct3->gigantamaxFactor);
-            break;
-        case MON_DATA_TERA_TYPE:
-        {
-            u32 teraType;
-            SET8(teraType);
-            substruct0->teraType = 1 + teraType;
-            break;
-        }
-        default:
-            break;
-        }
+        SET8(boxMon->genderFlag);
+        break;
+    case MON_DATA_GIGANTAMAX_FACTOR:
+        SET8(boxMon->gigantamaxFactor);
+        break;
+    case MON_DATA_TERA_TYPE:
+    {
+        u32 teraType;
+        SET8(teraType);
+        boxMon->teraType = 1 + teraType;
+        break;
+    }
+    case MON_DATA_IVS:
+    {
+        u32 ivs = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
+        boxMon->hpIV = ivs & MAX_IV_MASK;
+        boxMon->attackIV = (ivs >> 5) & MAX_IV_MASK;
+        boxMon->defenseIV = (ivs >> 10) & MAX_IV_MASK;
+        boxMon->speedIV = (ivs >> 15) & MAX_IV_MASK;
+        boxMon->spAttackIV = (ivs >> 20) & MAX_IV_MASK;
+        boxMon->spDefenseIV = (ivs >> 25) & MAX_IV_MASK;
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+u16 GetDataCalculatedStats(struct Pokemon *mon, u8 ivid, u8 evid, u8 customstatid, u8 statIndex)
+{
+    u32 n = 0;
+    u16 baseStat = 1; // Initialize basestats at 1
+    s32 statIv = GetMonData(mon, ivid, NULL);
+    s32 statEv = GetMonData(mon, evid, NULL);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 customStat = GetMonData(mon, customstatid, NULL);
+    u8 normalBaseStat = GetSpeciesBaseStat(species, statIndex);
+    u8 nature = GetMonData(mon, MON_DATA_NATURE, NULL);
+    s32 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
+    if (customStat <= 0x7F) // Not exactly a signed number because we want the base stats to be able to go above 255, but not underflow at 65K
+        baseStat = normalBaseStat +customStat;
+    else if (customStat > 0x7F && normalBaseStat > customStat - 0x7F)
+        baseStat = normalBaseStat - (customStat - 0x7F);
+    else
+        baseStat = normalBaseStat;
+    if (statIndex != STAT_HP)
+    {
+        n = (((2 * baseStat + statIv + statEv / 4) * level) / 100) + 5;
+        n = ModifyStatByNature(nature, n, statIndex);
     }
     else
+        n = (((2 * baseStat + statIv + statEv / 4) * level) / 100) + level + 10;
+    return n;
+}
+
+u8 GetSpeciesBaseStat(u16 species, u8 statIndex)
+{
+    u8 stat=0;
+    switch(statIndex)
     {
-        switch (field)
+    case STAT_HP:
+        stat = gSpeciesInfo[species].baseHP;
+        break;
+    case STAT_ATK:
+        stat = gSpeciesInfo[species].baseAttack;
+        break;
+    case STAT_DEF:
+        stat = gSpeciesInfo[species].baseDefense;
+        break;
+    case STAT_SPEED:
+        stat = gSpeciesInfo[species].baseSpeed;
+        break;
+    case STAT_SPATK:
+        stat = gSpeciesInfo[species].baseSpAttack;
+        break;
+    case STAT_SPDEF:
+        stat = gSpeciesInfo[species].baseSpDefense;
+        break;
+    default:
+        break;
+    }
+    return stat;
+}
+
+u8 GetDataPokemonType(struct Pokemon *mon, u8 customtype)
+{
+    u8 type = GetMonData(mon, customtype, NULL);
+    u16 item = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
+    u16 ability = GetMonData(mon, MON_DATA_ABILITY, NULL);
+
+    if (type != 0)
+    {
+        type = type & 0x3F;
+    }
+    else if (ability == ABILITY_MULTITYPE)
+    {
+        switch (item)
         {
-        case MON_DATA_PERSONALITY:
-            SET32(boxMon->personality);
-            break;
-        case MON_DATA_OT_ID:
-            SET32(boxMon->otId);
-            break;
-        case MON_DATA_HIDDEN_NATURE:
-        {
-            u32 nature = GetNatureFromPersonality(boxMon->personality);
-            u32 hiddenNature;
-            SET8(hiddenNature);
-            boxMon->hiddenNatureModifier = nature ^ hiddenNature;
-            break;
-        }
-        case MON_DATA_NICKNAME:
-        {
-            s32 i;
-            for (i = 0; i < POKEMON_NAME_LENGTH; i++)
-                boxMon->nickname[i] = data[i];
-            break;
-        }
-        case MON_DATA_LANGUAGE:
-            SET8(boxMon->language);
-            break;
-        case MON_DATA_SANITY_IS_BAD_EGG:
-            SET8(boxMon->isBadEgg);
-            break;
-        case MON_DATA_SANITY_HAS_SPECIES:
-            SET8(boxMon->hasSpecies);
-            break;
-        case MON_DATA_SANITY_IS_EGG:
-            SET8(boxMon->isEgg);
-            break;
-        case MON_DATA_OT_NAME:
-        {
-            s32 i;
-            for (i = 0; i < PLAYER_NAME_LENGTH; i++)
-                boxMon->otName[i] = data[i];
-            break;
-        }
-        case MON_DATA_MARKINGS:
-            SET8(boxMon->markings);
-            break;
-        case MON_DATA_CHECKSUM:
-            SET16(boxMon->checksum);
-            break;
-        case MON_DATA_ENCRYPT_SEPARATOR:
-            SET16(boxMon->unknown);
-            break;
+            case ITEM_FIST_PLATE:
+            case ITEM_FIGHTINIUM_Z:
+	            type = TYPE_FIGHTING;
+	            break;
+            case ITEM_SKY_PLATE:
+            case ITEM_FLYINIUM_Z:
+	            type = TYPE_FLYING;
+	            break;
+            case ITEM_TOXIC_PLATE:
+            case ITEM_POISONIUM_Z:
+	            type = TYPE_POISON;
+	            break;
+            case ITEM_STONE_PLATE:
+            case ITEM_ROCKIUM_Z:
+    	        type = TYPE_ROCK;
+	            break;
+            case ITEM_EARTH_PLATE:
+            case ITEM_GROUNDIUM_Z:
+	            type = TYPE_GROUND;
+	            break;
+            case ITEM_INSECT_PLATE:
+            case ITEM_BUGINIUM_Z:
+    	        type = TYPE_BUG;
+	            break;
+            case ITEM_SPOOKY_PLATE:
+            case ITEM_GHOSTIUM_Z:
+	            type = TYPE_GHOST;
+	            break;
+            case ITEM_IRON_PLATE:
+            case ITEM_STEELIUM_Z:
+	            type = TYPE_STEEL;
+	            break;
+            case ITEM_FLAME_PLATE:
+            case ITEM_FIRIUM_Z:
+	            type = TYPE_FIRE;
+	            break;
+            case ITEM_SPLASH_PLATE:
+            case ITEM_WATERIUM_Z:
+	            type = TYPE_WATER;
+	            break;
+            case ITEM_MEADOW_PLATE:
+            case ITEM_GRASSIUM_Z:
+	            type = TYPE_GRASS;
+	            break;
+            case ITEM_ZAP_PLATE:
+            case ITEM_ELECTRIUM_Z:
+	            type = TYPE_ELECTRIC;
+	            break;
+            case ITEM_MIND_PLATE:
+            case ITEM_PSYCHIUM_Z:
+	            type = TYPE_PSYCHIC;
+	            break;
+            case ITEM_ICICLE_PLATE:
+            case ITEM_ICIUM_Z:
+	            type = TYPE_ICE;
+	            break;
+            case ITEM_DRACO_PLATE:
+            case ITEM_DRAGONIUM_Z:
+	            type = TYPE_DRAGON;
+	            break;
+            case ITEM_DREAD_PLATE:
+            case ITEM_DARKINIUM_Z:
+	            type = TYPE_DARK;
+	            break;
+            case ITEM_PIXIE_PLATE:
+            case ITEM_FAIRIUM_Z:
+	            type = TYPE_FAIRY;
+	            break;
+            default:
+                if (customtype == MON_DATA_CUSTOM_TYPE1)
+                    type = gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].types[0];
+                else
+                    type = gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].types[1];
+                break;
         }
     }
 

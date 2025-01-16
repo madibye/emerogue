@@ -8100,7 +8100,7 @@ void Rogue_ModifyWildMon(struct Pokemon* mon)
             FillWithRoamerState(mon, GetMonData(mon, MON_DATA_LEVEL));
 
             // TODO - Consider interaction for roamer 
-            TryApplyCustomMon(species, mon);
+            //TryApplyCustomMon(species, mon);
         }
         else if(gRogueAdvPath.currentRoomType == ADVPATH_ROOM_GAMESHOW)
         {

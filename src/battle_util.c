@@ -118,6 +118,8 @@ static const u16 sSkillSwapBannedAbilities[] =
     ABILITY_GULP_MISSILE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
+	ABILITY_PROTOSYNTHESIS,
+    ABILITY_QUARK_DRIVE,
 };
 
 static const u16 sRolePlayBannedAbilities[] =
@@ -145,6 +147,8 @@ static const u16 sRolePlayBannedAbilities[] =
     ABILITY_GULP_MISSILE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
+	ABILITY_PROTOSYNTHESIS,
+    ABILITY_QUARK_DRIVE,
 
     ABILITY_FORECAST_PRIORITY,
 };
@@ -203,6 +207,9 @@ static const u16 sGastroAcidBannedAbilities[] =
     ABILITY_ZEN_MODE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
+	ABILITY_PROTOSYNTHESIS,
+    ABILITY_QUARK_DRIVE,
+
 };
 
 static const u16 sEntrainmentBannedAttackerAbilities[] =
@@ -6343,8 +6350,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_PROTOSYNTHESIS:
-            if (!gDisableStructs[battler].weatherAbilityDone && IsBattlerWeatherAffected(battler, B_WEATHER_SUN))
-            {
+            if (!gDisableStructs[battler].weatherAbilityDone && (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler]))) // Check if booster is NOT used so that it won't activate again when booster is up            {
                 gDisableStructs[battler].weatherAbilityDone = TRUE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;
@@ -6369,8 +6375,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_QUARK_DRIVE:
-            if (!gDisableStructs[battler].terrainAbilityDone && IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN))
-            {
+            if (!gDisableStructs[battler].terrainAbilityDone && (IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler])))
+			{
                 gDisableStructs[battler].terrainAbilityDone = TRUE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;

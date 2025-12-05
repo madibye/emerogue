@@ -14,8 +14,9 @@ enum
     SAVE_VER_ID_2_0_PRERELEASE,
     SAVE_VER_ID_2_0,
     SAVE_VER_ID_2_0_1,
+	SAVE_VER_ID_2_0_2L,
 
-    SAVE_VER_ID_LATEST = SAVE_VER_ID_2_0_1,
+    SAVE_VER_ID_LATEST = SAVE_VER_ID_2_0_2L,
 };
 
 void RogueSave_UpdatePointers();

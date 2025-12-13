@@ -1,6 +1,21 @@
 Lemon ER Changelist
 
-2.01L (The first Lemon patch)
+2.0.2L (2025.12.13 Update)
+	BUGFIXES
+		Booster Energy
+			Merged AlexOnl1ne's Booster Energy Implementation, which hopefully fixes both the not triggering and the double trigger bug which popped up sometimes.
+		Ridemon Elevation
+			Previously, you could hop off impassible ledges into water or ground using a ride pokemon. Notably this could cause a softlock on Hoenn's Cycling Road. I copied Mocha's fix (with her permission) because she's the goat
+		National Dex
+			The Gen 6, Gen 7, and Gen 8 national pokedexes all had incorrect pokemon lists. This should now be fixed.
+	SYLVEON
+		Uh I think I fixed sylveon. W Mocha once again
+	NEW FEATURES
+		This version should be shipping with a script that allows you to export your team directly into a damage calculator. Just in case you're interested in sweating. Note: this only applies to your party. I did not want to implement the box for what I hope are obvious reasons.
+			
+
+
+2.0.1L (The first Lemon patch)
 	MISSED FEATURES
 		Nature Fix
 			Previously, natures were always random. This is because natures were never set to competitive natures despite code indicating that they should.  This has now been fixed.

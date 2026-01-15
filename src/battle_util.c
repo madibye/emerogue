@@ -10676,11 +10676,10 @@ s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 ma
 
 s32 GetStealthHazardDamage(u8 hazardType, u32 battler)
 {
-    u8 type1 = gBattleMons[battler].type1;
-    u8 type2 = gBattleMons[battler].type2;
+	u32 types[3] = GetBattlerType(battler, 1, FALSE);
     u32 maxHp = gBattleMons[battler].maxHP;
 
-    return GetStealthHazardDamageByTypesAndHP(hazardType, type1, type2, maxHp);
+    return GetStealthHazardDamageByTypesAndHP(hazardType, type[0], type[1], maxHp);
 }
 
 bool32 IsPartnerMonFromSameTrainer(u32 battler)
@@ -11860,7 +11859,8 @@ u8 GetBattlerType(u32 battler, u8 typeIndex, bool32 ignoreTera)
 
     // Handle Terastallization
     if (IsTerastallized(battler) && teraType != TYPE_STELLAR && !ignoreTera)
-        return GetBattlerTeraType(battler);
+        types[0] = types[1] = types[2] = teraType;
+		return types;
 
     // Handle Roost's Flying-type suppression
     if (typeIndex == 0 || typeIndex == 1)

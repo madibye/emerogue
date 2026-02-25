@@ -717,6 +717,10 @@ static u16 ModifyTrainerClass(u16 trainerNum, u16 trainerClass, bool8 forMusic)
         case TRAINER_CLASS_COMMUNITY_MOD:
             trainerClass = TRAINER_CLASS_LEADER;
             break;
+		
+		case TRAINER_CLASS_BLOOD_GOD:
+			trainerClass = TRAINER_CLASS_LEADER;
+			break;
         }
     }
 

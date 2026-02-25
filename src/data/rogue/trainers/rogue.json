@@ -1371,7 +1371,7 @@
                 "name": "NACHO",
                 "object_event": "OBJ_EVENT_GFX_GLITCH_NACHO",
                 "trainer_pic": "TRAINER_PIC_COMMUNITY_NACHOLORD",
-                "trainer_class": "TRAINER_CLASS_COMMUNITY_MOD",
+                "trainer_class": "TRAINER_CLASS_NACHO",
                 "class_flags": [ "BOSS_ANY_ELITE" ],
                 "weather": "PSYCHIC_FOG",
                 "shiny_species": "SPECIES_MUDKIP",

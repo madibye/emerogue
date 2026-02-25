@@ -912,7 +912,7 @@ u8 GetTrainerBattleTransition(void)
     if (trainer.trainerClass == TRAINER_CLASS_RIVAL)
         return B_TRANSITION_ANGLED_WIPES;
 
-    if (trainer.trainerClass == TRAINER_CLASS_ELITE_FOUR || trainer.trainerClass == TRAINER_CLASS_COMMUNITY_MOD)
+    if (trainer.trainerClass == TRAINER_CLASS_ELITE_FOUR || trainer.trainerClass == TRAINER_CLASS_COMMUNITY_MOD || trainer.trainerClass == TRAINER_CLASS_BLOOD_GOD)
     {
         switch(Rogue_GetCurrentDifficulty() % 4)
         {

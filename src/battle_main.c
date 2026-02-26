@@ -4821,6 +4821,9 @@ s8 GetMovePriority(u32 battler, u16 move)
         move = gBattleStruct->zmove.toBeUsed[battler];
 
     priority = gBattleMoves[move].priority;
+	// if battler is dynamaxed, set move prio to 0
+	if (IsDynamaxed(battler))
+		priority = 0;
 
     // Max Guard check
     if (gBattleStruct->dynamax.usingMaxMove[battler] && gBattleMoves[move].split == SPLIT_STATUS)
@@ -4832,6 +4835,8 @@ s8 GetMovePriority(u32 battler, u16 move)
     {
         priority++;
     }
+	else if (IsDynamaxed(battler))
+		return priority;
     else if (ability == ABILITY_FORECAST_PRIORITY && IsWeatherAffectedMove(move))
     {
         priority++;

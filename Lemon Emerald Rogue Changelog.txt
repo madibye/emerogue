@@ -1,5 +1,21 @@
 Lemon ER Changelist
 
+2.0.3L (2026.02.26 Update)
+	BUGFIXES
+		Terastallization Hazards
+			So it turns out that if you terastallized in this game, switched out, and switched back in, your tera type did not control the amount of hazard damage you took. But who else but the goat AlexOnl1ne already had a fix. So yeah that's fixed now.
+		Dynamax Priority
+			Previously, Max moves incorrectly carried priority from the move that became a Max move, e.g. if you clicked Max Strike but it would have been Extremespeed otherwise, Max Strike would have +2 priority. Made a hacky but effective little fix to make sure that doesn't happen.
+			
+		
+	SYLVEON
+		100% Confirmed Sylveon Fixed. Look I'm sorry it took so damn long but she's HERE now
+	NEW FEATURES
+		BLOOD GOD NACHO would like to battle!
+			My good friend and #1 opp Nacholord has a new trainer class, made specifically for him.
+		Covert Cloak / Shield Dust
+			The item Covert Cloak and the ability Shield Dust were missing implementation. Credit to cfmnephrite for their fix.
+
 2.0.2L (2025.12.13 Update)
 	BUGFIXES
 		Booster Energy

@@ -768,7 +768,6 @@ struct BattleStruct
     u8 distortedTypeMatchups;
     u8 quickClawRandom[MAX_BATTLERS_COUNT];
     u8 quickDrawRandom[MAX_BATTLERS_COUNT];
-    u8 boosterEnergyActivates;
 };
 
 // The palaceFlags member of struct BattleStruct contains 1 flag per move to indicate which moves the AI should consider,

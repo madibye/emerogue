@@ -37,10 +37,11 @@ enum
 {
     MENUITEM_MENU_GAME,
     MENUITEM_MENU_GRAPHICS,
-    MENUITEM_MENU_UI,
+    MENUITEM_MENU_SPEED,
     MENUITEM_MENU_AUDIO,
     MENUITEM_MENU_MOCHA_QOL,
     MENUITEM_TEXTSPEED,
+    MENUITEM_FADESPEED,
     MENUITEM_BATTLESCENE_WILD_BATTLES,
     MENUITEM_BATTLESCENE_TRAINER_BATTLES,
     MENUITEM_BATTLESCENE_KEY_BATTLES,
@@ -70,7 +71,7 @@ enum
     SUBMENUITEM_NONE,
     SUBMENUITEM_GAME,
     SUBMENUITEM_GRAPHICS,
-    SUBMENUITEM_UI,
+    SUBMENUITEM_SPEED,
     SUBMENUITEM_AUDIO,
     SUBMENUITEM_MOCHA_QOL,
     SUBMENUITEM_COUNT,
@@ -185,9 +186,9 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = Empty_ProcessInput,
         .drawChoices = Empty_DrawChoices
     },
-    [MENUITEM_MENU_UI] = 
+    [MENUITEM_MENU_SPEED] = 
     {
-        .itemName = gText_OptionUI,
+        .itemName = gText_OptionSpeed,
         .processInput = Empty_ProcessInput,
         .drawChoices = Empty_DrawChoices
     },
@@ -200,6 +201,12 @@ static const struct MenuEntry sOptionMenuItems[] =
     [MENUITEM_TEXTSPEED] = 
     {
         .itemName = gText_TextSpeed,
+        .processInput = TextSpeed_ProcessInput,
+        .drawChoices = TextSpeed_DrawChoices
+    },
+    [MENUITEM_FADESPEED] = 
+    {
+        .itemName = gText_FadeSpeed,
         .processInput = TextSpeed_ProcessInput,
         .drawChoices = TextSpeed_DrawChoices
     },
@@ -351,8 +358,8 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
         .menuOptions = 
         {
             MENUITEM_MENU_GAME,
+            MENUITEM_MENU_SPEED,
             MENUITEM_MENU_GRAPHICS,
-            MENUITEM_MENU_UI,
             MENUITEM_MENU_AUDIO,
             MENUITEM_MENU_MOCHA_QOL,
             MENUITEM_CANCEL
@@ -374,22 +381,23 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
         .titleName = gText_OptionGraphics,
         .menuOptions = 
         {
+            MENUITEM_FRAMETYPE,
             MENUITEM_TIME_OF_DAY,
             MENUITEM_SEASON,
             MENUITEM_WEATHER,
-            MENUITEM_BATTLESCENE_WILD_BATTLES,
-            MENUITEM_BATTLESCENE_TRAINER_BATTLES,
-            MENUITEM_BATTLESCENE_KEY_BATTLES,
             MENUITEM_CANCEL
         }
     },
-    [SUBMENUITEM_UI] = 
+    [SUBMENUITEM_SPEED] = 
     {
-        .titleName = gText_OptionUI,
+        .titleName = gText_OptionSpeed,
         .menuOptions = 
         {
             MENUITEM_TEXTSPEED,
-            MENUITEM_FRAMETYPE,
+            MENUITEM_FADESPEED,
+            MENUITEM_BATTLESCENE_WILD_BATTLES,
+            MENUITEM_BATTLESCENE_TRAINER_BATTLES,
+            MENUITEM_BATTLESCENE_KEY_BATTLES,
             MENUITEM_CANCEL
         }
     },
@@ -620,8 +628,8 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             submenuChanged = TRUE;
             break;
 
-        case MENUITEM_MENU_UI:
-            submenuSelection = SUBMENUITEM_UI;
+        case MENUITEM_MENU_SPEED:
+            submenuSelection = SUBMENUITEM_SPEED;
             submenuChanged = TRUE;
             break;
 
@@ -1334,6 +1342,9 @@ static u8 GetMenuItemValue(u8 menuItem)
     {
     case MENUITEM_TEXTSPEED:
         return gSaveBlock2Ptr->optionsTextSpeed;
+
+    case MENUITEM_FADESPEED:
+        return gSaveBlock2Ptr->optionsFadeSpeed;
         
     case MENUITEM_BATTLESCENE_WILD_BATTLES:
         return gSaveBlock2Ptr->optionsWildBattleScene;
@@ -1408,6 +1419,10 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
     {
     case MENUITEM_TEXTSPEED:
         gSaveBlock2Ptr->optionsTextSpeed = value;
+        break;
+
+    case MENUITEM_FADESPEED:
+        gSaveBlock2Ptr->optionsFadeSpeed = value;
         break;
 
     case MENUITEM_BATTLESCENE_WILD_BATTLES:

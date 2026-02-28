@@ -417,6 +417,7 @@ static u8 GetBattleSceneOption()
 
 u8 Rogue_GetBattleSpeedScale(bool8 forHealthbar)
 {
+    u8 speedScale = 1;
     u8 battleSceneOption = GetBattleSceneOption();
 
     // Hold L to slow down
@@ -437,31 +438,64 @@ u8 Rogue_GetBattleSpeedScale(bool8 forHealthbar)
         if (!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && InBattleRunningActions())
             return 1;
     }
-
-    // We don't need to speed up health bar anymore as that passively happens now
-    switch (battleSceneOption)
+    else
     {
-    case OPTIONS_BATTLE_SCENE_1X:
-        return forHealthbar ? 1 : 1;
-
-    case OPTIONS_BATTLE_SCENE_2X:
-        return forHealthbar ? 1 : 2;
-
-    case OPTIONS_BATTLE_SCENE_3X:
-        return forHealthbar ? 1 : 3;
-
-    case OPTIONS_BATTLE_SCENE_4X:
-        return forHealthbar ? 1 : 4;
-
-    // Print text at a readable speed still
-    case OPTIONS_BATTLE_SCENE_DISABLED:
-        if (gRogueLocal.hasBattleInputStarted)
-            return forHealthbar ? 10 : 1;
-        else
-            return 4;
+        // Use menu transition speed here to speed it up, if requested
+        if(gSaveBlock2Ptr->optionsFadeSpeed == OPTIONS_TEXT_SPEED_MID)
+        {
+            battleSceneOption = max(battleSceneOption, OPTIONS_BATTLE_SCENE_2X);
+        }
+        else if(gSaveBlock2Ptr->optionsFadeSpeed == OPTIONS_TEXT_SPEED_FAST)
+        {
+            battleSceneOption = max(battleSceneOption, OPTIONS_BATTLE_SCENE_4X);
+        }
     }
 
-    return 1;
+    if(gRogueLocal.hasBattleInputStarted)
+    {
+        // We don't need to speed up health bar anymore as that passively happens now
+        switch (battleSceneOption)
+        {
+        case OPTIONS_BATTLE_SCENE_1X:
+            return forHealthbar ? 1 : 1;
+
+        case OPTIONS_BATTLE_SCENE_2X:
+            return forHealthbar ? 1 : 2;
+
+        case OPTIONS_BATTLE_SCENE_3X:
+            return forHealthbar ? 1 : 3;
+
+        case OPTIONS_BATTLE_SCENE_4X:
+            return forHealthbar ? 1 : 4;
+
+        // Print text at a readable speed still
+        case OPTIONS_BATTLE_SCENE_DISABLED:
+            if(gRogueLocal.hasBattleInputStarted)
+                return forHealthbar ? 10 : 1;
+            else
+                return 4;
+        }
+    }
+    else // speeds for battle transitions
+    {
+        switch (battleSceneOption)
+        {
+        case OPTIONS_BATTLE_SCENE_1X:
+            return 1;
+
+        case OPTIONS_BATTLE_SCENE_2X:
+            return 3;
+
+        case OPTIONS_BATTLE_SCENE_3X:
+            return 4;
+
+        case OPTIONS_BATTLE_SCENE_4X:
+        case OPTIONS_BATTLE_SCENE_DISABLED:
+            return 6;
+        }
+    }
+
+    return 1 ;
 }
 
 bool8 Rogue_UseKeyBattleAnims(void)
@@ -3233,8 +3267,10 @@ void Rogue_SetDefaultOptions(void)
 {
 #ifdef ROGUE_DEBUG
     gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
+    gSaveBlock2Ptr->optionsFadeSpeed = OPTIONS_TEXT_SPEED_FAST;
 #else
     gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
+    gSaveBlock2Ptr->optionsFadeSpeed = OPTIONS_TEXT_SPEED_MID;
 #endif
     // gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
     // gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
@@ -9431,11 +9467,15 @@ static u8 TRMove_CalculateWeight(u16 index, u16 move, void *data)
     // We're specifically going to use moves which would be Tutor moves i.e. ignore moves like growl or splash
     u16 usage = gRoguePokemonSpecialMoveUsages[move];
 
-    // If we don't have comp usage, the chance is impossible
-    if (usage == 0)
+    // If we only have little usage on mons we're not going to allow it to be a tm
+#ifdef ROGUE_EXPANSION
+    if(usage <= 2)
+#else
+    if(usage <= 1)
+#endif
         return 0;
 
-    if (usage >= 300)
+    if(usage >= 300)
         return 5;
     if (usage >= 200)
         return 4;

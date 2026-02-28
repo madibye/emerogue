@@ -44,7 +44,7 @@ jobs:
         env:
           MODERN: 1
           COMPARE: 0
-          RELEASE: 1
+          RELEASE: 0
         run: make -j${nproc} -O -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-function all
 
       - name: Update Memory Stats

@@ -118,7 +118,7 @@ static const u16 sSkillSwapBannedAbilities[] =
     ABILITY_GULP_MISSILE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
-    ABILITY_PROTOSYNTHESIS,
+	ABILITY_PROTOSYNTHESIS,
     ABILITY_QUARK_DRIVE,
 };
 
@@ -147,7 +147,7 @@ static const u16 sRolePlayBannedAbilities[] =
     ABILITY_GULP_MISSILE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
-    ABILITY_PROTOSYNTHESIS,
+	ABILITY_PROTOSYNTHESIS,
     ABILITY_QUARK_DRIVE,
 
     ABILITY_FORECAST_PRIORITY,
@@ -207,8 +207,9 @@ static const u16 sGastroAcidBannedAbilities[] =
     ABILITY_ZEN_MODE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
-    ABILITY_PROTOSYNTHESIS,
+	ABILITY_PROTOSYNTHESIS,
     ABILITY_QUARK_DRIVE,
+
 };
 
 static const u16 sEntrainmentBannedAttackerAbilities[] =
@@ -5244,7 +5245,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             u16 moveTarget = GetBattlerMoveTargetType(battler, move);
             u16 battlerAbility = GetBattlerAbility(battler);
             u16 targetAbility = GetBattlerAbility(gBattlerTarget);
-            u16 partnerBattler = BATTLE_PARTNER(battler);
+			u16 partnerBattler = BATTLE_PARTNER(battler);
             u16 partnerAbility = GetBattlerAbility(partnerBattler);
 
             if ((gLastUsedAbility == ABILITY_SOUNDPROOF && gBattleMoves[move].soundMove && !(moveTarget & MOVE_TARGET_USER))
@@ -5255,18 +5256,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 gBattlescriptCurrInstr = BattleScript_SoundproofProtected;
                 effect = 1;
             }
-            else if
-            (
-            (
-            (IsBattlerAlive(battler) && (gLastUsedAbility == ABILITY_DAZZLING || gLastUsedAbility == ABILITY_QUEENLY_MAJESTY || gLastUsedAbility == ABILITY_ARMOR_TAIL))
-            ||
-            (IsBattlerAlive(partnerBattler) && (partnerAbility == ABILITY_DAZZLING || partnerAbility == ABILITY_QUEENLY_MAJESTY || partnerAbility == ABILITY_ARMOR_TAIL))
-            )
-            && 
-            (GetChosenMovePriority(gBattlerAttacker) > 0)
-            &&
-            (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)))
-            {
+            else if(((IsBattlerAlive(battler) && (gLastUsedAbility == ABILITY_DAZZLING || gLastUsedAbility == ABILITY_QUEENLY_MAJESTY || gLastUsedAbility == ABILITY_ARMOR_TAIL))||(IsBattlerAlive(partnerBattler) 
+			&& (partnerAbility == ABILITY_DAZZLING || partnerAbility == ABILITY_QUEENLY_MAJESTY || partnerAbility == ABILITY_ARMOR_TAIL)))
+			&& (GetChosenMovePriority(gBattlerAttacker) > 0)
+			&& (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)))
+			{
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                     gHitMarker |= HITMARKER_NO_PPDEDUCT;
                 gBattlescriptCurrInstr = BattleScript_DazzlingProtected;
@@ -6350,17 +6344,17 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_PROTOSYNTHESIS:
-            if (!gDisableStructs[battler].weatherAbilityDone && (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler]))) // Check if booster is NOT used so that it won't activate again when booster is up
-            {
+            if (!gDisableStructs[battler].weatherAbilityDone && (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler]))) // Check if booster is NOT used so that it won't activate again when booster is up           
+			{
                 gDisableStructs[battler].weatherAbilityDone = TRUE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;
                 BattleScriptPushCursorAndCallback(BattleScript_ProtosynthesisActivates);
                 effect++;
-            }
-            break;
-        }
-        break;
+			}
+			break;
+		}
+	
     case ABILITYEFFECT_ON_TERRAIN:  // For ability effects that activate when the field terrain changes.
         gLastUsedAbility = GetBattlerAbility(battler);
         switch (gLastUsedAbility)
@@ -6377,7 +6371,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break;
         case ABILITY_QUARK_DRIVE:
             if (!gDisableStructs[battler].terrainAbilityDone && (IsBattlerTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler])))
-            {
+			{
                 gDisableStructs[battler].terrainAbilityDone = TRUE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;
@@ -6386,14 +6380,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         }
-        break;
-    }
-
+ 
+	}
     if (effect && gLastUsedAbility != 0xFFFF)
         RecordAbilityBattle(battler, gLastUsedAbility);
     if (effect && caseID <= ABILITYEFFECT_MOVE_END)
         gBattlerAbility = battler;
-
     return effect;
 }
 
@@ -7632,7 +7624,7 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
                 BattleScriptPushCursorAndCallback(BattleScript_BerserkGeneRet);
                 effect = ITEM_STATS_CHANGE;
                 break;
-            case HOLD_EFFECT_BOOSTER_ENERGY:
+			case HOLD_EFFECT_BOOSTER_ENERGY:
                 if (!(gBattleStruct->boosterEnergyActivates & gBitTable[battler])
                  && (((GetBattlerAbility(battler) == ABILITY_PROTOSYNTHESIS) && !(gBattleWeather & B_WEATHER_SUN))
                   || ((GetBattlerAbility(battler) == ABILITY_QUARK_DRIVE) && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))))
@@ -7908,13 +7900,13 @@ u8 ItemBattleEffects(u8 caseID, u32 battler, bool32 moveTurn)
             case HOLD_EFFECT_MIRROR_HERB:
                 effect = TryConsumeMirrorHerb(battler, TRUE);
                 break;
-            case HOLD_EFFECT_BOOSTER_ENERGY:
+			case HOLD_EFFECT_BOOSTER_ENERGY:
                 if (!(gBattleStruct->boosterEnergyActivates & gBitTable[battler])
                  && (((GetBattlerAbility(battler) == ABILITY_PROTOSYNTHESIS) && !(gBattleWeather & B_WEATHER_SUN))
                   || ((GetBattlerAbility(battler) == ABILITY_QUARK_DRIVE) && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))))
                 {
                     PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
-                    gBattlerAbility = gBattleScripting.battler = battler;
+                    gBattleScripting.battler = battler;
                     gBattleStruct->boosterEnergyActivates |= gBitTable[battler];
                     BattleScriptExecute(BattleScript_BoosterEnergyEnd2);
                     effect = ITEM_EFFECT_OTHER;
@@ -10686,9 +10678,13 @@ s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 ma
 
 s32 GetStealthHazardDamage(u8 hazardType, u32 battler)
 {
-    u8 type1 = gBattleMons[battler].type1;
-    u8 type2 = gBattleMons[battler].type2;
     u32 maxHp = gBattleMons[battler].maxHP;
+	u32 teraType = GetBattlerTeraType(battler);
+    if(IsTerastallized(battler) && teraType != TYPE_STELLAR) {
+		return GetStealthHazardDamageByTypesAndHP(hazardType, GetBattlerTeraType(battler), TYPE_NONE, maxHp);
+	}
+	u8 type1 = gBattleMons[battler].type1;
+    u8 type2 = gBattleMons[battler].type2;
 
     return GetStealthHazardDamageByTypesAndHP(hazardType, type1, type2, maxHp);
 }
@@ -11108,7 +11104,10 @@ bool32 CanBattlerGetOrLoseItem(u32 battler, u16 itemId)
         return FALSE;
     else if (holdEffect == HOLD_EFFECT_Z_CRYSTAL)
         return FALSE;
-    // Cannot lose item when behind sub
+    else if (holdEffect == HOLD_EFFECT_BOOSTER_ENERGY
+         && (gSpeciesInfo[gBattleMons[gBattlerAttacker].species].isParadoxForm || gSpeciesInfo[gBattleMons[gBattlerTarget].species].isParadoxForm))
+        return FALSE;
+	// Cannot lose item when behind sub
     else if(gBattleMons[battler].status2 & STATUS2_SUBSTITUTE)
         return FALSE;
     else if (holdEffect == HOLD_EFFECT_BOOSTER_ENERGY

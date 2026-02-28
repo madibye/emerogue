@@ -577,6 +577,7 @@
 #define TRAINER_CLASS_BIKER                 0x48
 #define TRAINER_CLASS_TEAM_GALACTIC         0x49
 #define TRAINER_CLASS_TEAM_GALACTIC_LEADER  0x4A
+#define TRAINER_CLASS_BLOOD_GOD		0x4B
 
 #define TRAINER_CLASS_COUNT          0x46
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music

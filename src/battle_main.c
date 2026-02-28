@@ -361,6 +361,7 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     {TRAINER_CLASS_GENTLEMAN, 20},
     {TRAINER_CLASS_ELITE_FOUR, 25},
     {TRAINER_CLASS_COMMUNITY_MOD, 25},
+    {TRAINER_CLASS_BLOOD_GOD, 25},
     {TRAINER_CLASS_LEADER, 25},
     {TRAINER_CLASS_TOTEM_LEADER, 25},
     {TRAINER_CLASS_SCHOOL_KID, 5},
@@ -3224,7 +3225,7 @@ void SwitchInClearSetData(u32 battler)
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
     gBattleStruct->lastMoveFailed &= ~(gBitTable[battler]);
     gBattleStruct->palaceFlags &= ~(gBitTable[battler]);
-    gBattleStruct->boosterEnergyActivates &= ~(gBitTable[battler]);
+	gBattleStruct->boosterEnergyActivates &= ~(gBitTable[battler]);
 
     for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
     {
@@ -3355,7 +3356,7 @@ const u8* FaintClearSetData(u32 battler)
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
 
     gBattleStruct->palaceFlags &= ~(gBitTable[battler]);
-    gBattleStruct->boosterEnergyActivates &= ~(gBitTable[battler]);
+	gBattleStruct->boosterEnergyActivates &= ~(gBitTable[battler]);
 
     for (i = 0; i < ARRAY_COUNT(gSideTimers); i++)
     {
@@ -4819,6 +4820,9 @@ s8 GetMovePriority(u32 battler, u16 move)
         move = gBattleStruct->zmove.toBeUsed[battler];
 
     priority = gBattleMoves[move].priority;
+	// if battler is dynamaxed, set move prio to 0
+	if (IsDynamaxed(battler))
+		priority = 0;
 
     // Max Guard check
     if (gBattleStruct->dynamax.usingMaxMove[battler] && gBattleMoves[move].split == SPLIT_STATUS)
@@ -4830,6 +4834,8 @@ s8 GetMovePriority(u32 battler, u16 move)
     {
         priority++;
     }
+	else if (IsDynamaxed(battler))
+		return priority;
     else if (ability == ABILITY_FORECAST_PRIORITY && IsWeatherAffectedMove(move))
     {
         priority++;

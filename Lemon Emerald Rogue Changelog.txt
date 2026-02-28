@@ -1,0 +1,63 @@
+Lemon ER Changelist
+
+2.0.3L (2026.02.26 Update)
+	BUGFIXES
+		Terastallization Hazards
+			So it turns out that if you terastallized in this game, switched out, and switched back in, your tera type did not control the amount of hazard damage you took. But who else but the goat AlexOnl1ne already had a fix. So yeah that's fixed now.
+		Dynamax Priority
+			Previously, Max moves incorrectly carried priority from the move that became a Max move, e.g. if you clicked Max Strike but it would have been Extremespeed otherwise, Max Strike would have +2 priority. Made a hacky but effective little fix to make sure that doesn't happen.
+			
+		
+	SYLVEON
+		100% Confirmed Sylveon Fixed. Look I'm sorry it took so damn long but she's HERE now
+	NEW FEATURES
+		BLOOD GOD NACHO would like to battle!
+			My good friend and #1 opp Nacholord has a new trainer class, made specifically for him.
+		Covert Cloak / Shield Dust
+			The item Covert Cloak and the ability Shield Dust were missing implementation. Credit to cfmnephrite for their fix.
+
+2.0.2L (2025.12.13 Update)
+	BUGFIXES
+		Booster Energy
+			Merged AlexOnl1ne's Booster Energy Implementation, which hopefully fixes both the not triggering and the double trigger bug which popped up sometimes.
+		Ridemon Elevation
+			Previously, you could hop off impassible ledges into water or ground using a ride pokemon. Notably this could cause a softlock on Hoenn's Cycling Road. I copied Mocha's fix (with her permission) because she's the goat
+		National Dex
+			The Gen 6, Gen 7, and Gen 8 national pokedexes all had incorrect pokemon lists. This should now be fixed.
+	SYLVEON
+		Uh I think I fixed sylveon. W Mocha once again
+	NEW FEATURES
+		This version should be shipping with a script that allows you to export your team directly into a damage calculator. Just in case you're interested in sweating. Note: this only applies to your party. I did not want to implement the box for what I hope are obvious reasons.
+			
+
+
+2.0.1L (The first Lemon patch)
+	MISSED FEATURES
+		Nature Fix
+			Previously, natures were always random. This is because natures were never set to competitive natures despite code indicating that they should.  This has now been fixed.
+		Missing Pokemon
+			Previously, pecharunt, zorua-h, and growlithe-ha were unavailable. No Nut November is over, and Hamilton and Baguera have been fixed as spawns, thanks to Mocha's fix.
+			Additionally, added routes for the Galarian birds to spawn normally. Now you shouldn't have to find them only through Wahey.
+		Missing Evolutions
+			Previously, eevee could not evolve to sylveon. Copied Mocha's sylveon fix.
+	BUGFIXES
+		Armor Tail / Dazzling / Queenly Majesty
+			Previously, these abilities did not protect the partner pokemon despite doing so in live. Skolgrahd's fix has been implemented.
+		Shed Tail
+			Previously, Shed Tail was creating a substitute with 50% of cyclizar's max HP and not 25%. I've implemented iriv24's fix.
+		Soul Heart
+			Previously, Soul Heart's boosts landed on the wrong pokemon. DizzyEgg's Soul Heart fix has been implemented.
+		Spectral Thief
+			Previously, Spectral Thief only stole boosts if it did not KO the target. Kleen's Spectral Thief fix has been implemented.
+	OTHER
+		Commander
+			Changed the ability description of Commander to reflect that it doesn't work.
+	UPCOMING
+		Booster Energy
+			Literally going to be trying to get it working later this week. Expect this for 2.02L.
+		Commander
+			Probably not. Fucking hate tatsugiri
+		Disguise
+			Maybe. There are like six bugs with this ability and idk if I want to try to get it working :)
+		The ZA Megas
+			God, yeah. Fine. I will. Eventually.

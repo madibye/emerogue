@@ -1492,3 +1492,4 @@ bool8 MetatileBehavior_IsRidemonOnCliff(u8 metatileBehavior)
     else
         return FALSE;
 }
+

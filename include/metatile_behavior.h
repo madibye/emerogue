@@ -158,6 +158,8 @@ bool8 MetatileBehavior_IsSidewaysStairsRightSideBottom(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsLeftSideBottom(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsRightSideAny(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 metatileBehavior);
+//ridemon
+bool8 MetatileBehavior_IsRidemonOnCliff(u8 metatileBehavior);
 
 //ridemon
 bool8 MetatileBehavior_IsRidemonOnCliff(u8 metatileBehavior);

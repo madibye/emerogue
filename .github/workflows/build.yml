@@ -1,6 +1,7 @@
 name: Compile
 
-on: workflow_dispatch
+on: 
+  push:
 
 jobs:
   build:
@@ -13,10 +14,10 @@ jobs:
       COMPARE: 0
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
 
       - name: Checkout agbcc
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           path: agbcc
           repository: pret/agbcc

@@ -59,7 +59,6 @@ void CreateAvailableDecorationsMenu(u8 taskId)
 {
     u8 i;
     s16 * data = gTasks[taskId].data;
-    struct MauvilleOldManTrader *trader = &gSaveBlock1Ptr->oldMan.trader;
     struct WindowTemplate windowTemplate = {
         .bg = 0,
         .tilemapLeft = 1,

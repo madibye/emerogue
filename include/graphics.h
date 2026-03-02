@@ -3324,6 +3324,7 @@ extern const u32 gBattleAnimSpritePal_Angel[];
 extern const u32 gBattleAnimSpritePal_Devil[];
 extern const u32 gBattleAnimSpritePal_Swipe[];
 extern const u32 gBattleAnimSpritePal_Roots[];
+extern const u32 gTrainerPalette_PlayerPokabbieBackBase[];
 extern const u32 gBattleAnimSpritePal_ItemBag[];
 extern const u32 gBattleAnimSpritePal_JaggedMusicNote[];
 extern const u32 gBattleAnimSpritePal_Pokeball[];
@@ -3438,6 +3439,7 @@ extern const u32 gBattleAnimSpritePal_Apple[];
 extern const u32 gBattleAnimSpriteGfx_Arrows[];
 extern const u32 gBattleAnimSpriteGfx_AssuranceHand[];
 extern const u32 gBattleAnimSpritePal_AssuranceHand[];
+extern const u8 gTrainerBackPic_CommunityPokabbie[];
 extern const u32 gBattleAnimSpriteGfx_AuraSphere[];
 extern const u32 gBattleAnimSpritePal_AuraSphere[];
 extern const u32 gBattleAnimSpritePal_AvalancheRocks[];
@@ -4089,9 +4091,12 @@ extern const u16 gObjectEventPal_PlayerJulianaLayers[];
 extern const u16 gObjectEventPal_PlayerZefaBase[];
 extern const u16 gObjectEventPal_PlayerLightningStrike7Base[];
 extern const u16 gObjectEventPal_PlayerNacholordBase[];
+extern const u16 gObjectEventPal_PlayerPokabbieBase[];
 
 extern const u16 gObjectEventPal_LaterMannerNormal[];
 extern const u16 gObjectEventPal_DolphinNormal[];
+
+extern const u16 gObjectEventPal_PokabbieNormal[];
 
 extern const u16 gObjectEventPal_RubySapphireBrendan[];
 extern const u16 gObjectEventPal_RubySapphireMay[];

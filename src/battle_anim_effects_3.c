@@ -2481,7 +2481,6 @@ void AnimTask_TransformMon(u8 taskId)
 
         gTasks[taskId].data[10] = gBattleAnimArgs[0];
         gTasks[taskId].data[11] = gBattleAnimArgs[1];
-        gTasks[taskId].data[12] = gBattleAnimArgs[2];
         gTasks[taskId].data[0]++;
         break;
     case 1:
@@ -2496,7 +2495,7 @@ void AnimTask_TransformMon(u8 taskId)
         }
         break;
     case 2:
-        HandleSpeciesGfxDataChange(gBattleAnimAttacker, gBattleAnimTarget, gTasks[taskId].data[10], gTasks[taskId].data[11], gTasks[taskId].data[12]);
+        HandleSpeciesGfxDataChange(gBattleAnimAttacker, gBattleAnimTarget, gTasks[taskId].data[10], gTasks[taskId].data[11]);
         GetBgDataForTransform(&animBg, gBattleAnimAttacker);
 
         if (IsContest())

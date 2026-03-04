@@ -229,7 +229,7 @@ const struct RogueItem gRogueItems[ITEM_ROGUE_ITEM_COUNT] =
 #ifdef ROGUE_EXPANSION
     [ITEM_ALOLA_STONE - ITEM_ROGUE_ITEM_FIRST] =
     {
-        .name = _("Alola Artefact"),
+        .name = _("Alola Artifact"),
         .itemId = ITEM_ALOLA_STONE,
         .price = 2100,
         .description = gItemDesc_EvolutionItem,
@@ -239,7 +239,7 @@ const struct RogueItem gRogueItems[ITEM_ROGUE_ITEM_COUNT] =
     },
     [ITEM_GALAR_STONE - ITEM_ROGUE_ITEM_FIRST] =
     {
-        .name = _("Galar Artefact"),
+        .name = _("Galar Artifact"),
         .itemId = ITEM_GALAR_STONE,
         .price = 2100,
         .description = gItemDesc_EvolutionItem,
@@ -249,7 +249,7 @@ const struct RogueItem gRogueItems[ITEM_ROGUE_ITEM_COUNT] =
     },
     [ITEM_HISUI_STONE - ITEM_ROGUE_ITEM_FIRST] =
     {
-        .name = _("Hisui Artefact"),
+        .name = _("Hisui Artifact"),
         .itemId = ITEM_HISUI_STONE,
         .price = 2100,
         .description = gItemDesc_EvolutionItem,

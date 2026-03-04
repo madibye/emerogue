@@ -833,7 +833,7 @@ script RogueHub_CombineMons
 {
     lock
 
-    msgbox(format("I found a powerful artefact in the ground here...\pThe deeper I dig...\nThe more I find...\pThe artefacts I've found have the power to combine specific Pokémon together!"), MSGBOX_DEFAULT)
+    msgbox(format("I found a powerful artifact in the ground here...\pThe deeper I dig...\nThe more I find...\pThe artifacts I've found have the power to combine specific Pokémon together!"), MSGBOX_DEFAULT)
 
     specialvar(VAR_RESULT, CalculatePlayerPartyCount)
     faceplayer
@@ -882,7 +882,7 @@ script RogueHub_CombineMons
                         bufferitemname(STR_VAR_1, VAR_0x8005)
                         bufferspeciesname(STR_VAR_2, VAR_0x8006)
         
-                        msgbox(format("Oh yes!\nMy artefacts!\p{STR_VAR_1} is responding!\pWhat's that {STR_VAR_1}..?\pMhm..."), MSGBOX_DEFAULT)
+                        msgbox(format("Oh yes!\nMy artifacts!\p{STR_VAR_1} is responding!\pWhat's that {STR_VAR_1}..?\pMhm..."), MSGBOX_DEFAULT)
                         msgbox(format("I can combine those Pokémon together!\pAlthough once it's done..\nit can NEVER be undone...\pWould you like to combine those Pokémon?"), MSGBOX_YESNO)
 
                         if(var(VAR_RESULT) == YES)
@@ -902,7 +902,7 @@ script RogueHub_CombineMons
                     }
                     else
                     {
-                        msgbox(format("Hmm...\nMy artefacts don't seem to be responding..."), MSGBOX_DEFAULT)
+                        msgbox(format("Hmm...\nMy artifacts don't seem to be responding..."), MSGBOX_DEFAULT)
                         setvar(VAR_RESULT, YES)
                     }
                 }
@@ -911,7 +911,7 @@ script RogueHub_CombineMons
 
         if(var(VAR_RESULT) == NO)
         {
-            msgbox(format("That's a shame...\nThe artefacts are gonna be sad now..."), MSGBOX_DEFAULT)
+            msgbox(format("That's a shame...\nThe artifacts are gonna be sad now..."), MSGBOX_DEFAULT)
         }
     }
     else

@@ -1,3 +1,5 @@
+#include "battle_scripts.h"
+
 const struct BattleMove gBattleMoves_Mainline[MOVES_COUNT_DYNAMAX] =
 {
     [MOVE_NONE] =

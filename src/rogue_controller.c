@@ -57,6 +57,7 @@
 #include "rogue_assistant.h"
 #include "rogue_automation.h"
 #include "rogue_adventurepaths.h"
+#include "rogue_battlehud.h"
 #include "rogue_campaign.h"
 #include "rogue_charms.h"
 #include "rogue_controller.h"
@@ -3663,6 +3664,7 @@ void Rogue_OnObjectEventsInit()
 void Rogue_OnResetAllSprites()
 {
     Rogue_OnResetRideMonSprites();
+    RogueBH_RemoveBattleOverlay(TRUE);
 }
 
 bool8 Rogue_TryGetCachedObjectEventId(u32 localId, u8 *eventObjectId)

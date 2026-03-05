@@ -9785,6 +9785,13 @@ BattleScript_CuteCharmActivates::
 	call BattleScript_TryDestinyKnotTarget
 	return
 
+BattleScript_VoodooCurseActivates::
+	call BattleScript_AbilityPopUp
+	status2animation BS_ATTACKER, STATUS2_CURSED
+	printstring STRINGID_PKMNLAIDCURSE
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_GooeyActivates::
 	waitstate
 	call BattleScript_AbilityPopUp

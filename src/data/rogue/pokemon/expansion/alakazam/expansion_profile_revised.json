@@ -7,7 +7,7 @@
   "PerSpecies": {
     "SPECIES_ALAKAZAM": {
       "Abilities": [
-        "ABILITY_ENLIGHTENMENT",
+        "ABILITY_SYNCHRONIZE",
         "ABILITY_INNER_FOCUS",
         "ABILITY_MAGIC_GUARD"
       ]

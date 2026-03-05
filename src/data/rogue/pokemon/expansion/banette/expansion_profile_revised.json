@@ -10,6 +10,11 @@
         "TYPE_GHOST",
         "TYPE_NORMAL"
       ],
+      "Abilities": [
+        "ABILITY_VOODOO_CURSE",
+        "ABILITY_FRISK",
+        "ABILITY_CURSED_BODY"
+      ],
       "BaseStats": {
         "HP": 64,
         "Attack": 125,
@@ -23,6 +28,11 @@
       "Types": [
         "TYPE_GHOST",
         "TYPE_NORMAL"
+      ],
+      "Abilities": [
+        "ABILITY_VOODOO_CURSE",
+        "ABILITY_VOODOO_CURSE",
+        "ABILITY_VOODOO_CURSE"
       ],
       "BaseStats": {
         "HP": 64,

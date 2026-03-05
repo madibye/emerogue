@@ -301,9 +301,10 @@ static const u8 sTeraShiftDescription[] = _("Terasteralizes upon entry.");
 static const u8 sTeraShellDescription[] = _("Resistant to types at full HP.");
 static const u8 sTeraformZeroDescription[] = _("Removes weather and terrain.");
 static const u8 sPoisonPuppeteerDescription[] = _("Confuses poisoned foes.");
+static const u8 sEnlightenmentDescription[] = _("Half sp. damage, double Dark.");
+static const u8 sVoodooCurseDescription[] = _("Curses on contact.");
 
 static const u8 sForecastPriorityDescription[] = _("Weather moves go first.");
-static const u8 sEnlightenmentDescription[] = _("Half sp. damage, double Dark damage.");
 
 #if B_EXPANDED_ABILITY_NAMES == TRUE
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -619,9 +620,10 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_TERA_SHELL] = _("Tera Shell"),
     [ABILITY_TERAFORM_ZERO] = _("Teraform Zero"),
     [ABILITY_POISON_PUPPETEER] = _("Poison Puppeteer"),
+    [ABILITY_ENLIGHTENMENT] = _("Enlightenment"),
+    [ABILITY_VOODOO_CURSE] = _("Voodoo Curse"),
     
     [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
-    [ABILITY_ENLIGHTENMENT] = _("Enlightenment"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -937,9 +939,10 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_TERA_SHELL] = _("Tera Shell"),
     [ABILITY_TERAFORM_ZERO] = _("TeraformZero"),
     [ABILITY_POISON_PUPPETEER] = _("PoisnPuppter"),
+    [ABILITY_ENLIGHTENMENT] = _("Enlightnment"),
+    [ABILITY_VOODOO_CURSE] = _("Voodoo Curse"),
     
     [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
-    [ABILITY_ENLIGHTENMENT] = _("Enlightenment"),
 };
 #endif
 
@@ -1256,7 +1259,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_TERA_SHELL] = sTeraShellDescription,
     [ABILITY_TERAFORM_ZERO] = sTeraformZeroDescription,
     [ABILITY_POISON_PUPPETEER] = sPoisonPuppeteerDescription,
+    [ABILITY_ENLIGHTENMENT] = sEnlightenmentDescription,
+    [ABILITY_VOODOO_CURSE] = sVoodooCurseDescription,
     
     [ABILITY_FORECAST_PRIORITY] = sForecastPriorityDescription,
-    [ABILITY_ENLIGHTENMENT] = sEnlightenmentDescription,
 };

@@ -144,6 +144,7 @@ enum RandomTag
     RNG_ROGUE_ENDURE_CHARM,
     RNG_TRACE,
     RNG_FICKLE_BEAM,
+    RNG_VOODOO_CURSE,
 };
 
 #define RandomWeighted(tag, ...) \

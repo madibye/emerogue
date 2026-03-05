@@ -5816,6 +5816,21 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
+        case ABILITY_VOODOO_CURSE:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && gBattleMons[gBattlerAttacker].hp != 0
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && TARGET_TURN_DAMAGED
+             && RandomWeighted(RNG_VOODOO_CURSE, 2, 1)
+             && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_CURSED)
+             && IsMoveMakingContact(move, gBattlerAttacker)
+            {
+                gBattleMons[gBattlerAttacker].status2 |= STATUS2_CURSED;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_VoodooCurseActivates;
+                effect++;
+            }
+            break;
         case ABILITY_ILLUSION:
             if (gBattleStruct->illusion[gBattlerTarget].on && !gBattleStruct->illusion[gBattlerTarget].broken && TARGET_TURN_DAMAGED)
             {

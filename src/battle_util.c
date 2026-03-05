@@ -5823,7 +5823,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
              && TARGET_TURN_DAMAGED
              && RandomWeighted(RNG_VOODOO_CURSE, 2, 1)
              && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_CURSED)
-             && IsMoveMakingContact(move, gBattlerAttacker)
+             && IsMoveMakingContact(move, gBattlerAttacker))
             {
                 gBattleMons[gBattlerAttacker].status2 |= STATUS2_CURSED;
                 BattleScriptPushCursor();

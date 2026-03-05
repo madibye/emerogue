@@ -1002,6 +1002,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
     [ABILITY_DAZZLING] = 1,
     [ABILITY_DISGUISE] = 1,
     [ABILITY_FLUFFY] = 1,
+    [ABILITY_ENLIGHTENMENT] = 1,
     [ABILITY_QUEENLY_MAJESTY] = 1,
     [ABILITY_WATER_BUBBLE] = 1,
     [ABILITY_MIRROR_ARMOR] = 1,
@@ -10122,6 +10123,12 @@ static inline uq4_12_t GetDefenderAbilitiesModifier(u32 move, u32 moveType, u32 
         if (!IsMoveMakingContact(move, battlerAtk) && moveType == TYPE_FIRE)
             return UQ_4_12(2.0);
         if (IsMoveMakingContact(move, battlerAtk) && moveType != TYPE_FIRE)
+            return UQ_4_12(0.5);
+        break;
+    case ABILITY_ENLIGHTENMENT:
+        if (!IS_MOVE_SPECIAL(move) && moveType == TYPE_DARK)
+            return UQ_4_12(2.0);
+        if (IS_MOVE_SPECIAL(move) && moveType != TYPE_DARK)
             return UQ_4_12(0.5);
         break;
     case ABILITY_PUNK_ROCK:

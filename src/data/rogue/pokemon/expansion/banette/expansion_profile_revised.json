@@ -27,10 +27,10 @@
       "BaseStats": {
         "HP": 64,
         "Attack": 175,
-        "Defense": 75,
+        "Defense": 100,
         "Speed": 75,
-        "SpAttack": 103,
-        "SpDefense": 83
+        "SpAttack": 63,
+        "SpDefense": 98
       }
     }
   },

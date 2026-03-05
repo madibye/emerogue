@@ -4,6 +4,15 @@
     "TutorMoves": "MERGE",
     "CompetitiveSets": "MERGE"
   },
+  "PerSpecies": {
+    "SPECIES_ALAKAZAM_MEGA": {
+      "Abilities": [
+        "ABILITY_ENLIGHTENMENT",
+        "ABILITY_ENLIGHTENMENT",
+        "ABILITY_ENLIGHTENMENT"
+      ]
+    }
+  },
   "LevelUpMoves": [
     {
       "Move": "MOVE_KINESIS",

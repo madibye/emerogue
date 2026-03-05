@@ -5,6 +5,13 @@
     "CompetitiveSets": "MERGE"
   },
   "PerSpecies": {
+    "SPECIES_ALAKAZAM": {
+      "Abilities": [
+        "ABILITY_ENLIGHTENMENT",
+        "ABILITY_INNER_FOCUS",
+        "ABILITY_MAGIC_GUARD"
+      ]
+    },
     "SPECIES_ALAKAZAM_MEGA": {
       "Abilities": [
         "ABILITY_ENLIGHTENMENT",

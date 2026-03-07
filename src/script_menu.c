@@ -1208,7 +1208,12 @@ static u32 CalculatePresetDisplayScore(struct Pokemon* mon, struct RoguePokemonC
         score += 1;
 
 #ifdef ROGUE_EXPANSION
-    if(temp >= ITEM_VENUSAURITE && temp <= ITEM_DIANCITE && !IsMegaEvolutionEnabled())
+    if((temp >= ITEM_VENUSAURITE && temp <= ITEM_DIANCITE) && !IsMegaEvolutionEnabled())
+    {
+        return 1;
+    }
+    
+    if((temp >= ITEM_CLEFABLITE && temp <= ITEM_GLIMMORANITE) && !IsMegaEvolutionEnabled())
     {
         return 1;
     }

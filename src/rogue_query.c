@@ -1390,6 +1390,9 @@ static bool8 Query_IsGeneralShopItem(u16 itemId)
         return FALSE;
     }
 
+    if(!(itemId >= ITEM_POKE_BALL && itemId <= ITEM_GLIMMORANITE))
+        return FALSE;
+
 #ifdef ROGUE_EXPANSION
     if(itemId >= ITEM_RED_NECTAR && itemId <= ITEM_PURPLE_NECTAR)
         return FALSE;

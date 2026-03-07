@@ -2057,16 +2057,48 @@ static u8 ItemToGen(u16 item)
     // Mega stones are gonna be gen'd by the mons as we already feature toggle them based on key items
     if (item >= ITEM_VENUSAURITE && item <= ITEM_MEWTWONITE_Y)
         return 1;
-    if (item >= ITEM_AMPHAROSITE && item <= ITEM_TYRANITARITE)
+    if (item >= ITEM_CLEFABLITE && item <= ITEM_DRAGONINITE)
+        return 1;
+    if ((item == ITEM_RAICHUNITE_X) || (item == ITEM_RAICHUNITE_Y))
+        return 1;
+    if (item >= ITEM_AMPHAROSITE && item <= ITEM_TYRANITARITE) 
         return 2;
-    if (item >= ITEM_SCEPTILITE && item <= ITEM_LATIOSITE)
+    if (item >= ITEM_MEGANIUMITE && item <= ITEM_SKARMORITE)
+        return 2;
+    if (item >= ITEM_SCEPTILITE && item <= ITEM_LATIOSITE) 
         return 3;
-    if (item >= ITEM_LOPUNNITE && item <= ITEM_GALLADITE)
+    if ((item == ITEM_CHIMECHITE) || (item == ITEM_ABSOLITE_Z))
+        return 3;
+    if (item >= ITEM_LOPUNNITE && item <= ITEM_GALLADITE) 
         return 4;
-    if (item == ITEM_AUDINITE)
+    if (item == ITEM_FROSLASSITE) 
+        return 4;
+    if (item >= ITEM_STARAPTITE && item <= ITEM_LUCARIONITE_Z) 
+        return 4;
+    if ((item == ITEM_HEATRANITE) || (item == ITEM_DARKRANITE))
+        return 4;
+    if (item == ITEM_AUDINITE) 
         return 5;
-    if (item == ITEM_DIANCITE)
+    if (item >= ITEM_EMBOARITE && item <= ITEM_CHANDELURITE) 
+        return 5;
+    if (item == ITEM_GOLURKITE)
+        return 5;
+    if (item == ITEM_DIANCITE) 
         return 6;
+    if (item >= ITEM_CHESNAUGHTITE && item <= ITEM_ZYGARDITE) 
+        return 6;
+    if (item == ITEM_MEOWSTICITE)
+        return 6;
+    if (item == ITEM_DRAMPANITE) 
+        return 7;
+    if (item >= ITEM_CRABOMINITE && item <= ITEM_MAGEARNITE) 
+        return 7;
+    if (item == ITEM_ZERAORITE)
+        return 7;
+    if (item == ITEM_FALINKSITE)
+        return 8;
+    if (item >= ITEM_SCOVILLAINITE && item <= ITEM_GLIMMORANITE)
+        return 9;
 
     // Z-crystals are key item feature toggled so leave them as always on except to for mon specific ones
     if (item >= ITEM_NORMALIUM_Z && item <= ITEM_MEWNIUM_Z)
@@ -2493,6 +2525,14 @@ bool8 Rogue_IsItemEnabled(u16 itemId)
         }
 
         if (itemId >= ITEM_RED_ORB && itemId <= ITEM_DIANCITE)
+        {
+            if (Rogue_IsRunActive())
+                return IsMegaEvolutionEnabled();
+            else
+                return TRUE;
+        }
+
+        if (itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
         {
             if (Rogue_IsRunActive())
                 return IsMegaEvolutionEnabled();
@@ -5842,6 +5882,8 @@ void Rogue_ModifyObjectEvents(struct MapHeader *mapHeader, bool8 loadingFromSave
 #ifdef ROGUE_EXPANSION
                             case POCKET_STONES:
                                 if (itemId >= ITEM_RED_ORB && itemId <= ITEM_DIANCITE)
+                                    objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MEGA_STONE;
+                                if (itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
                                     objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MEGA_STONE;
                                 else if (itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z)
                                     objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_Z_CRYSTAL;

@@ -3341,6 +3341,22 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
                     }
                 }
 
+                // Handle gen 9 megas
+                if(currPreset->heldItem >= ITEM_CLEFABLITE && currPreset->heldItem <= ITEM_GLIMMORANITE)
+                {
+                    if(IsMegaEvolutionEnabled())
+                    {
+                        if(!scratch->heldItems.hasMegaStone)
+                            currentScore *= ShouldBoostBattleGimickItems(scratch) ? 32 : 4;
+                        else
+                            currentScore /= 4;
+                    }
+                    else
+                    {
+                        currentScore /= 4;
+                    }
+                }
+
                 if(currPreset->heldItem >= ITEM_NORMALIUM_Z && currPreset->heldItem <= ITEM_ULTRANECROZIUM_Z)
                 {
                     if(IsZMovesEnabled())
@@ -3444,6 +3460,10 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
             {
                 outPreset->heldItem = ITEM_NONE;
             }
+            if(outPreset->heldItem >= ITEM_CLEFABLITE && outPreset->heldItem <= ITEM_GLIMMORANITE)
+            {
+                outPreset->heldItem = ITEM_NONE;
+            }
         }
 
         if(scratch->heldItems.hasZCrystal || !IsZMovesEnabled())
@@ -3487,6 +3507,10 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
             }
         }
         else if(outPreset->heldItem >= ITEM_VENUSAURITE && outPreset->heldItem <= ITEM_DIANCITE)
+        {
+            scratch->heldItems.hasMegaStone = TRUE;
+        }
+        else if(outPreset->heldItem >= ITEM_CLEFABLITE && outPreset->heldItem <= ITEM_GLIMMORANITE)
         {
             scratch->heldItems.hasMegaStone = TRUE;
         }
@@ -3726,6 +3750,12 @@ s16 CalulcateMonSortScore(u16 trainerNum, struct Pokemon* mon)
     }
 
     if(item >= ITEM_VENUSAURITE && item <= ITEM_DIANCITE)
+    {
+        // Try to push megas towards the end
+        score -= 20;
+    }
+
+    if(item >= ITEM_CLEFABLITE && item <= ITEM_GLIMMORANITE)
     {
         // Try to push megas towards the end
         score -= 20;
@@ -3992,7 +4022,7 @@ static u16 CalculateDynamaxScore(struct Pokemon *mon)
     // Ignore any banned items
     if(
         (item == ITEM_RED_ORB || item == ITEM_BLUE_ORB) ||
-        (item >= ITEM_VENUSAURITE && item <= ITEM_DIANCITE) ||
+        ((item >= ITEM_VENUSAURITE && item <= ITEM_DIANCITE) || (item >= ITEM_CLEFABLITE && item <= ITEM_GLIMMORANITE)) ||
         (item >= ITEM_NORMALIUM_Z && item <= ITEM_ULTRANECROZIUM_Z)
     )
         return 0;
@@ -4040,7 +4070,7 @@ static u16 CalculateTerastallizeScore(struct Pokemon *mon)
     // Ignore any banned items
     if(
         (item == ITEM_RED_ORB || item == ITEM_BLUE_ORB) ||
-        (item >= ITEM_VENUSAURITE && item <= ITEM_DIANCITE) ||
+        ((item >= ITEM_VENUSAURITE && item <= ITEM_DIANCITE) || (item >= ITEM_CLEFABLITE && item <= ITEM_GLIMMORANITE)) ||
         (item >= ITEM_NORMALIUM_Z && item <= ITEM_ULTRANECROZIUM_Z)
     )
         return 0;

@@ -6,6 +6,7 @@
 #include "constants/battle_ai.h"
 #include "constants/items.h"
 #include "constants/pokemon.h"
+#include "constants/rogue.h"
 #include "constants/songs.h"
 #include "constants/species.h"
 #include "constants/trainers.h"
@@ -1239,6 +1240,13 @@ u16 Rogue_GetPrice(u16 itemId)
         applyDefaultHubIncrease = TRUE;
     }
 
+    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
+    {
+        // Expect price from above
+        price = HELD_ITEM_HIGH_PRICE;
+        applyDefaultHubIncrease = TRUE;
+    }
+
     if(itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z)
     {
         // Expect price from above
@@ -1542,6 +1550,11 @@ void Rogue_ModifyItem(u16 itemId, struct Item* outItem)
 
 #ifdef ROGUE_EXPANSION
     if(itemId >= ITEM_VENUSAURITE && itemId <= ITEM_DIANCITE)
+    {
+        outItem->pocket = POCKET_STONES;
+    }
+    
+    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
     {
         outItem->pocket = POCKET_STONES;
     }

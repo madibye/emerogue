@@ -1,0 +1,3 @@
+[submodule "tools/poryscript/poryscript-linux"]
+	path = tools/poryscript/poryscript-linux
+	url = https://github.com/huderlem/poryscript

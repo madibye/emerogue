@@ -465,7 +465,7 @@
             },
             {
                 "name": "Collector S",
-                "description": "Collect data for 10 Shiny Pokémon in the Pokédex.\n\n(Pokémon can be chained to increase odds by knocking out back to back)",
+                "description": "Collect data for 10 Shiny Pokémon in the Pokédex. (Pokémon can be chained to increase odds by knocking out back to back)",
                 "flags": 
                 [
                     "MAIN_QUEST_DEFAULT",

@@ -933,6 +933,7 @@ static u32 SelectUnusedUnlockedExoticMon()
     u32 questId, j;
     u32 questCount;
 
+    // Add in unlocked-by-default exotics
     for(j = 0; j < CUSTOM_MON_COUNT; ++j)
     {
         if(sCustomPokemon[j].isDefaultSpawn)

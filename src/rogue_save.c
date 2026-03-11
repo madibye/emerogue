@@ -329,6 +329,9 @@ u16 RogueSave_GetVersionIdFor(u16 saveVersion)
 		
 	case 6:
 		return SAVE_VER_ID_2_0_4L;
+		
+	case 7:
+		return SAVE_VER_ID_2_0_5MADI;
     
     default:
         AGB_ASSERT(FALSE);

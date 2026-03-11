@@ -380,7 +380,7 @@
 
             {
                 "#if": "!defined(ROGUE_EXPANSION)",
-                "species": "SPECIES_PIKACHU",
+                "species": "SPECIES_PICHU",
                 "trainer": "Exotic",
                 "pokeball": "ITEM_ROGUE_BALL",
                 "held_item": "ITEM_NONE",
@@ -396,17 +396,18 @@
                     "ABILITY_VOLT_ABSORB"
                 ]
             },
+
             {
                 "#if": "defined(ROGUE_EXPANSION)",
-                "species": "SPECIES_PIKACHU_ORIGINAL_CAP",
+                "species": "SPECIES_PICHU",
                 "trainer": "Exotic",
                 "pokeball": "ITEM_ROGUE_BALL",
                 "held_item": "ITEM_NONE",
                 "moves":
                 [
                     "MOVE_FLY",
-                    "MOVE_FLIP_TURN",
                     "MOVE_EXTREME_SPEED",
+                    "MOVE_FLIP_TURN",
                     "MOVE_MOONBLAST"
                 ],
                 "abilities":
@@ -468,6 +469,25 @@
             {
                 "#if": "!defined(ROGUE_EXPANSION)",
                 "species": "SPECIES_CHIMECHO",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_WATER_SPOUT",
+                    "MOVE_ERUPTION",
+                    "MOVE_METRONOME",
+                    "MOVE_CRUNCH"
+                ],
+                "abilities":
+                [
+                    "ABILITY_COLOR_CHANGE"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_CHINGLING",
                 "trainer": "Exotic",
                 "pokeball": "ITEM_ROGUE_BALL",
                 "held_item": "ITEM_NONE",
@@ -705,6 +725,126 @@
                     "ABILITY_TOXIC_DEBRIS",
                     "ABILITY_POISON_PUPPETEER",
                     "ABILITY_TECHNICIAN"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_SKRELP",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_MORTAL_SPIN",
+                    "MOVE_TAIL_GLOW",
+                    "MOVE_STRENGTH_SAP",
+                    "MOVE_SPIKES"
+                ],
+                "abilities":
+                [
+                    "ABILITY_UNAWARE",
+                    "ABILITY_REGENERATOR"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_CHESPIN",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_HORN_LEECH",
+                    "MOVE_COTTON_GUARD",
+                    "MOVE_RAPID_SPIN",
+                    "MOVE_JUNGLE_HEALING"
+                ],
+                "abilities":
+                [
+                    "ABILITY_TRIAGE",
+                    "ABILITY_SCRAPPY"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_KRICKETOT",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_ATTACK_ORDER",
+                    "MOVE_DEFEND_ORDER",
+                    "MOVE_HEAL_ORDER",
+                    "MOVE_NO_RETREAT"
+                ],
+                "abilities":
+                [
+                    "ABILITY_PURE_POWER",
+                    "ABILITY_SIMPLE"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_GRIMER_ALOLAN",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_DIRE_CLAW",
+                    "MOVE_JAW_LOCK",
+                    "MOVE_TOXIC_SPIKES",
+                    "MOVE_RECOVER"
+                ],
+                "abilities":
+                [
+                    "ABILITY_CORROSION",
+                    "ABILITY_EARTH_EATER"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_ZORUA",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_TRANSFORM",
+                    "MOVE_PARTING_SHOT",
+                    "MOVE_SHED_TAIL",
+                    "MOVE_TOPSY_TURVY"
+                ],
+                "abilities":
+                [
+                    "ABILITY_PRANKSTER",
+                    "ABILITY_IMPOSTER"
+                ]
+            },
+            {
+                "#if": "defined(ROGUE_EXPANSION)",
+                "species": "SPECIES_ZORUA_HISUIAN",
+                "trainer": "Exotic",
+                "pokeball": "ITEM_ROGUE_BALL",
+                "held_item": "ITEM_NONE",
+                "is_default_spawn": true,
+                "moves":
+                [
+                    "MOVE_PERISH_SONG",
+                    "MOVE_MOONLIGHT",
+                    "MOVE_ENTRAINMENT",
+                    "MOVE_ODOR_SLEUTH"
+                ],
+                "abilities":
+                [
+                    "ABILITY_SHADOW_TAG",
+                    "ABILITY_NORMALIZE"
                 ]
             }
         ]

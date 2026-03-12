@@ -1734,6 +1734,10 @@ static void DisplayMonEvosText()
                     StringCopy(gStringVar1, gTypeNames[evo.param]);
                     StringExpandPlaceholders(gStringVar4, gText_PokedexEvoMoveType);
                     break;
+				case EVO_FRIENDSHIP_MOVE_TYPE:
+                    StringCopy(gStringVar1, gTypeNames[evo.param]);
+                    StringExpandPlaceholders(gStringVar4, gText_PokedexEvoFriendshipMoveType);
+                    break;
 
                 case EVO_ITEM_MALE:
                     StringCopy(gStringVar1, Rogue_GetItemName(evo.param));

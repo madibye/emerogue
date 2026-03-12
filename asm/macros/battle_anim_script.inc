@@ -332,3 +332,35 @@
 	createvisualtask AnimTask_IsDoubleBattle, 0
 	jumprettrue \ptr
 	.endm
+
+	.macro jumpifmovetypeequal type:req, jumpInstr:req
+	.byte 0x33
+	.byte \type
+	.4byte \jumpInstr
+	.endm
+
+	.macro create_basic_hitsplat_sprite anim_battler:req, subpriority_offset:req, x:req, y:req, relative_to:req, animation:req
+	createsprite gBasicHitSplatSpriteTemplate, \anim_battler, \subpriority_offset, \x, \y, \relative_to, \animation
+	.endm
+	
+	.macro blend_color_cycle priority=2, selector:req, delay:req, num_blends:req, initial_blend_y:req, target_blend_y:req, color:req
+	createvisualtask AnimTask_BlendColorCycle, \priority, \selector, \delay, \num_blends, \initial_blend_y, \target_blend_y, \color
+	.endm
+
+	.macro create_dragon_rage_fire_plume_sprite anim_battler:req, subpriority_offset:req, relative_to:req, x:req, y:req
+	createsprite gDragonRageFirePlumeSpriteTemplate, \anim_battler, \subpriority_offset, \relative_to, \x, \y
+	.endm
+
+	.macro metallic_shine priority=5, permanent:req, color
+	.ifb \color
+	createvisualtask AnimTask_MetallicShine, \priority, \permanent, FALSE, RGB_BLACK
+	.else
+	createvisualtask AnimTask_MetallicShine, \priority, \permanent, TRUE, \color
+	.endif
+	.endm
+
+	@ NOTE: This function is different on expansion compared to pret
+	.macro invert_screen_color priority=2, scenery:req
+	@ NOTE: These generate 0x000 or 0x101 to match, but the code checks for '& 0x100'.
+	createvisualtask AnimTask_InvertScreenColor, \priority, \scenery
+	.endm

@@ -1,3 +1,4 @@
+#include "gba/types.h"
 #include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -11928,4 +11929,19 @@ void RemoveBattlerType(u32 battler, u8 type)
         if (*(u8 *)(&gBattleMons[battler].type1 + i) == type)
             *(u8 *)(&gBattleMons[battler].type1 + i) = TYPE_MYSTERY;
     }
+}
+
+u16 GetBattleMoveType(u16 move)
+{
+    if (gMain.inBattle)
+    {
+        if (gBattleStruct->dynamicMoveType)
+            return gBattleStruct->dynamicMoveType & DYNAMIC_TYPE_MASK;
+
+        u32 effect = gBattleMoves[move].effect;
+        if (B_UPDATED_MOVE_TYPES < GEN_5
+         && (effect == EFFECT_BEAT_UP || effect == EFFECT_FUTURE_SIGHT))
+          return TYPE_MYSTERY;
+    }
+    return gBattleMoves[move].type;
 }

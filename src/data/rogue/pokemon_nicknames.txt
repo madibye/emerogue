@@ -1604,6 +1604,7 @@ Lion
 Lizard
 Llama
 Lobster
+Madi
 Margay
 Monitor lizard
 Monkey

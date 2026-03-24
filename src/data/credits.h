@@ -45,8 +45,8 @@
     method(5052, "Amber Starlight", 0) \
     method(5053, "DepressoMocha", 0) \
     method(5054, "Lemonancy", 0) \
-    method(5054, "madibye", 0) \
-    method(5055, "", CREDITS_FLAG_BREAK) \
+    method(5055, "madibye", 0) \
+    method(5056, "", CREDITS_FLAG_BREAK) \
     \
     method(5060, "Vanilla Revised Balancing", CREDITS_FLAG_TITLE) \
     method(5061, "Based on Royal Sapphire by", 0) \

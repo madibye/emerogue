@@ -863,10 +863,6 @@ BattleScript_EffectClangorousSoulblaze::
 	setmoveeffect MOVE_EFFECT_ALL_STATS_UP | MOVE_EFFECT_AFFECTS_USER
 	goto BattleScript_SetEffectPrimaryReturn
 
-BattleScript_SetEffectPrimaryReturn:
-	seteffectprimary
-	return
-
 BattleScript_EffectSpinOut::
 	setmoveeffect MOVE_EFFECT_SPD_MINUS_2 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
@@ -9981,16 +9977,6 @@ BattleScript_BerryCureSlpRet::
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
 	return
-
-BattleScript_BoosterEnergyEnd2::
-	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT, sB_ANIM_ARG1
-	call BattleScript_AbilityPopUp
-	printstring STRINGID_BOOSTERENERGYACTIVATES
-	waitmessage B_WAIT_TIME_MED
-	printstring STRINGID_STATWASHEIGHTENED
-	waitmessage B_WAIT_TIME_MED
-	removeitem BS_SCRIPTING
-	end2
 
 BattleScript_GemActivates::
 	playanimation BS_ATTACKER, B_ANIM_HELD_ITEM_EFFECT

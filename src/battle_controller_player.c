@@ -453,7 +453,7 @@ static void HandleInputChooseAction(u32 battler)
         SwapHpBarsWithHpText();
     }
 #if DEBUG_BATTLE_MENU == TRUE
-    else if (JOY_NEW(SELECT_BUTTON) && JOY_HELD(R_BUTTON))
+    else if (JOY_NEW(SELECT_BUTTON) && JOY_HELD(L_BUTTON))
     {
         BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_DEBUG, 0);
         PlayerBufferExecCompleted(battler);

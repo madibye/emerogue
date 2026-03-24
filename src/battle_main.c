@@ -5772,8 +5772,9 @@ void RunBattleScriptCommands(void)
 
 void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
 {
-    u32 moveType, ateType, attackerAbility;
+    u32 moveType, ateType;
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
+    u32 attackerAbility = GetBattlerAbility(battlerAtk);
 
     if (move == MOVE_STRUGGLE)
         return;
@@ -5786,13 +5787,15 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
     {
         if (WEATHER_HAS_EFFECT)
         {
-            if (gBattleWeather & B_WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+            bool32 hasUtilityUmbrella = holdEffect == HOLD_EFFECT_UTILITY_UMBRELLA;
+            bool32 hasMegaSol = attackerAbility == ABILITY_MEGA_SOL;
+            if (gBattleWeather & B_WEATHER_RAIN && !hasUtilityUmbrella && !hasMegaSol)
                 gBattleStruct->dynamicMoveType = TYPE_WATER | F_DYNAMIC_TYPE_SET;
-            else if (gBattleWeather & B_WEATHER_SANDSTORM)
+            else if (gBattleWeather & B_WEATHER_SANDSTORM && !hasMegaSol)
                 gBattleStruct->dynamicMoveType = TYPE_ROCK | F_DYNAMIC_TYPE_SET;
-            else if (gBattleWeather & B_WEATHER_SUN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+            else if ((gBattleWeather & B_WEATHER_SUN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA) || hasMegaSol)
                 gBattleStruct->dynamicMoveType = TYPE_FIRE | F_DYNAMIC_TYPE_SET;
-            else if (gBattleWeather & (B_WEATHER_HAIL |B_WEATHER_SNOW))
+            else if (gBattleWeather & (B_WEATHER_HAIL |B_WEATHER_SNOW) && !hasMegaSol)
                 gBattleStruct->dynamicMoveType = TYPE_ICE | F_DYNAMIC_TYPE_SET;
             else
                 gBattleStruct->dynamicMoveType = TYPE_NORMAL | F_DYNAMIC_TYPE_SET;
@@ -5867,8 +5870,6 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
         gBattleStruct->dynamicMoveType = TYPE_STELLAR | F_DYNAMIC_TYPE_SET;
     }
 
-    attackerAbility = GetBattlerAbility(battlerAtk);
-
     if (gBattleMoves[move].type == TYPE_NORMAL
              && gBattleMoves[move].effect != EFFECT_HIDDEN_POWER
              && gBattleMoves[move].effect != EFFECT_WEATHER_BALL
@@ -5880,6 +5881,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battlerAtk)
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
                  || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))
+                 || (attackerAbility == ABILITY_DRAGONIZE && (ateType = TYPE_DRAGON))
                 )
              )
     {

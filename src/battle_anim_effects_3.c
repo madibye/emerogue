@@ -18,6 +18,7 @@
 #include "task.h"
 #include "trig.h"
 #include "util.h"
+#include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
@@ -5725,17 +5726,18 @@ static void AnimRecycle_Step(struct Sprite *sprite)
 void AnimTask_GetWeather(u8 taskId)
 {
     bool32 utilityUmbrellaAffected = GetBattlerHoldEffect(gBattleAnimAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA;
+    bool32 hasMegaSol = GetBattlerAbility(gBattleAnimAttacker) == ABILITY_MEGA_SOL;
 
     gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_NONE;
-    if (gWeatherMoveAnim & B_WEATHER_SUN && !utilityUmbrellaAffected)
+    if ((gWeatherMoveAnim & B_WEATHER_SUN && !utilityUmbrellaAffected) || hasMegaSol)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SUN;
-    else if (gWeatherMoveAnim & B_WEATHER_RAIN && !utilityUmbrellaAffected)
+    else if (gWeatherMoveAnim & B_WEATHER_RAIN && !utilityUmbrellaAffected && !hasMegaSol)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_RAIN;
-    else if (gWeatherMoveAnim & B_WEATHER_SANDSTORM)
+    else if (gWeatherMoveAnim & B_WEATHER_SANDSTORM && !hasMegaSol)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SANDSTORM;
-    else if (gWeatherMoveAnim & B_WEATHER_HAIL)
+    else if (gWeatherMoveAnim & B_WEATHER_HAIL && !hasMegaSol)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_HAIL;
-    else if (gWeatherMoveAnim & B_WEATHER_SNOW)
+    else if (gWeatherMoveAnim & B_WEATHER_SNOW && !hasMegaSol)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SNOW;
 
     DestroyAnimVisualTask(taskId);

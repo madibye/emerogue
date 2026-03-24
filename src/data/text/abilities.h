@@ -303,6 +303,8 @@ static const u8 sTeraformZeroDescription[] = _("Removes weather and terrain.");
 static const u8 sPoisonPuppeteerDescription[] = _("Confuses poisoned foes.");
 static const u8 sEnlightenmentDescription[] = _("Half sp. damage, double Dark.");
 static const u8 sVoodooCurseDescription[] = _("Curses on contact.");
+static const u8 sMegaSolDescription[] = _("Moves behave as if sunny.");
+static const u8 sDragonizeDescription[] = _("Normal moves become Dragon.");
 
 static const u8 sForecastPriorityDescription[] = _("Weather moves go first.");
 
@@ -622,6 +624,8 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_POISON_PUPPETEER] = _("Poison Puppeteer"),
     [ABILITY_ENLIGHTENMENT] = _("Enlightenment"),
     [ABILITY_VOODOO_CURSE] = _("Voodoo Curse"),
+    [ABILITY_MEGA_SOL] = _("Mega Sol"),
+    [ABILITY_DRAGONIZE] = _("Dragonize"),
     
     [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
 };
@@ -1261,6 +1265,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_POISON_PUPPETEER] = sPoisonPuppeteerDescription,
     [ABILITY_ENLIGHTENMENT] = sEnlightenmentDescription,
     [ABILITY_VOODOO_CURSE] = sVoodooCurseDescription,
+    [ABILITY_MEGA_SOL] = sMegaSolDescription,
+    [ABILITY_DRAGONIZE] = sDragonizeDescription,
     
     [ABILITY_FORECAST_PRIORITY] = sForecastPriorityDescription,
 };

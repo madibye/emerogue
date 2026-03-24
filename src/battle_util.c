@@ -118,7 +118,7 @@ static const u16 sSkillSwapBannedAbilities[] =
     ABILITY_GULP_MISSILE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
-	ABILITY_PROTOSYNTHESIS,
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_QUARK_DRIVE,
 };
 
@@ -147,7 +147,7 @@ static const u16 sRolePlayBannedAbilities[] =
     ABILITY_GULP_MISSILE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
-	ABILITY_PROTOSYNTHESIS,
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_QUARK_DRIVE,
 
     ABILITY_FORECAST_PRIORITY,
@@ -207,9 +207,8 @@ static const u16 sGastroAcidBannedAbilities[] =
     ABILITY_ZEN_MODE,
     ABILITY_ZERO_TO_HERO,
     ABILITY_TERA_SHIFT,
-	ABILITY_PROTOSYNTHESIS,
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_QUARK_DRIVE,
-
 };
 
 static const u16 sEntrainmentBannedAttackerAbilities[] =
@@ -5258,9 +5257,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect = 1;
             }
             else if(((IsBattlerAlive(battler) && (gLastUsedAbility == ABILITY_DAZZLING || gLastUsedAbility == ABILITY_QUEENLY_MAJESTY || gLastUsedAbility == ABILITY_ARMOR_TAIL))||(IsBattlerAlive(partnerBattler) 
-			&& (partnerAbility == ABILITY_DAZZLING || partnerAbility == ABILITY_QUEENLY_MAJESTY || partnerAbility == ABILITY_ARMOR_TAIL)))
-			&& (GetChosenMovePriority(gBattlerAttacker) > 0)
-			&& (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)))
+                && (partnerAbility == ABILITY_DAZZLING || partnerAbility == ABILITY_QUEENLY_MAJESTY || partnerAbility == ABILITY_ARMOR_TAIL)))
+                && (GetChosenMovePriority(gBattlerAttacker) > 0)
+                && (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)))
 			{
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                     gHitMarker |= HITMARKER_NO_PPDEDUCT;
@@ -6364,8 +6363,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_PROTOSYNTHESIS:
-            if (!gDisableStructs[battler].weatherAbilityDone && (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler]))) // Check if booster is NOT used so that it won't activate again when booster is up           
-			{
+            if (!gDisableStructs[battler].weatherAbilityDone && (IsBattlerWeatherAffected(battler, B_WEATHER_SUN) && !(gBattleStruct->boosterEnergyActivates & gBitTable[battler]))) // Check if booster is NOT used so that it won't activate again when booster is up
+            {
                 gDisableStructs[battler].weatherAbilityDone = TRUE;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, GetHighestStatId(battler));
                 gBattlerAbility = gBattleScripting.battler = battler;
@@ -11142,7 +11141,7 @@ bool32 CanBattlerGetOrLoseItem(u32 battler, u16 itemId)
     else if (holdEffect == HOLD_EFFECT_BOOSTER_ENERGY
          && (gSpeciesInfo[gBattleMons[gBattlerAttacker].species].isParadoxForm || gSpeciesInfo[gBattleMons[gBattlerTarget].species].isParadoxForm))
         return FALSE;
-	// Cannot lose item when behind sub
+    // Cannot lose item when behind sub
     else if(gBattleMons[battler].status2 & STATUS2_SUBSTITUTE)
         return FALSE;
     else if (holdEffect == HOLD_EFFECT_BOOSTER_ENERGY

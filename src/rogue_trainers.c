@@ -17,6 +17,7 @@
 #include "rogue.h"
 #include "rogue_adventurepaths.h"
 #include "rogue_controller.h"
+#include "rogue_debug.h"
 #include "rogue_multiplayer.h"
 #include "rogue_pokedex.h"
 #include "rogue_query.h"
@@ -1112,6 +1113,8 @@ void Rogue_ChooseBossTrainersForNewAdventure()
     u16 trainerNum;
     u16 historyBuffer[ROGUE_MAX_BOSS_COUNT];
 
+    START_TIMER(ROGUE_RUN_CHOOSE_TRAINERS);
+
     memset(&gRogueRun.bossTrainerNums[0], TRAINER_NONE, sizeof(u16) * ARRAY_COUNT(gRogueRun.bossTrainerNums));
     memset(&historyBuffer[0], INVALID_HISTORY_ENTRY, sizeof(u16) * ARRAY_COUNT(historyBuffer));
 
@@ -1157,6 +1160,8 @@ void Rogue_ChooseBossTrainersForNewAdventure()
         gRogueRun.bossTrainerNums[difficulty] = trainerNum;
         DebugPrintf("    [%d] = %d", difficulty, trainerNum);
     }
+
+    STOP_TIMER(ROGUE_RUN_CHOOSE_TRAINERS);
 }
 
 #define RIVAL_STARTER_INDEX 1
@@ -1206,7 +1211,10 @@ static u8 SelectRivalWeakestMon(u16* speciesBuffer, u8 partySize)
 
 void Rogue_ChooseRivalTrainerForNewAdventure()
 {
-    u16 trainerNum = Rogue_ChooseRivalTrainerId();
+    u16 trainerNum;
+
+    START_TIMER(ROGUE_RUN_CHOOSE_RIVAL);
+    trainerNum = Rogue_ChooseRivalTrainerId();
     DebugPrintf("Picking rival = %d", trainerNum);
 
     gRogueRun.rivalTrainerNum = trainerNum;
@@ -1260,6 +1268,7 @@ void Rogue_ChooseRivalTrainerForNewAdventure()
         }
     }
 #endif
+    STOP_TIMER(ROGUE_RUN_CHOOSE_RIVAL);
 }
 
 void Rogue_ChooseTeamBossTrainerForNewAdventure()

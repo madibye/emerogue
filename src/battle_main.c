@@ -4827,6 +4827,10 @@ s8 GetMovePriority(u32 battler, u16 move)
 	if (IsDynamaxed(battler))
 		priority = 0;
 
+	// if battler is dynamaxed, set move prio to 0
+	if (IsDynamaxed(battler))
+		priority = 0;
+
     // Max Guard check
     if (gBattleStruct->dynamax.usingMaxMove[battler] && gBattleMoves[move].split == SPLIT_STATUS)
         return gBattleMoves[MOVE_MAX_GUARD].priority;
@@ -5017,6 +5021,8 @@ static void SetActionsAndBattlersTurnOrder(void)
                 {
                     gActionsByTurnOrder[turnOrderId] = gChosenActionByBattler[battler];
                     gBattlerByTurnOrder[turnOrderId] = battler;
+                    gBattleStruct->quickClawRandom[battler] = RandomPercentage(RNG_QUICK_CLAW, GetBattlerHoldEffectParam(battler));
+                    gBattleStruct->quickDrawRandom[battler] = RandomPercentage(RNG_QUICK_DRAW, 30);
                     turnOrderId++;
                 }
             }

@@ -1408,6 +1408,11 @@
 	.macro setzeffect
 	callnative BS_SetZEffect
 	.endm
+	
+	.macro handleSpectralThief spectralThiefSteal:req
+	callnative BS_TrySpectralThief
+	.4byte \spectralThiefSteal
+	.endm
 
 	.macro handleSpectralThief spectralThiefSteal:req
 	callnative BS_TrySpectralThief

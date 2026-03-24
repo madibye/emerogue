@@ -1294,12 +1294,18 @@ bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType)
 
 bool32 ShouldTeraShellDistortTypeMatchups(u32 move, u32 battlerDef)
 {
+    u32 moveType;
+    u32 abilityTarget = GetBattlerAbility(battlerDef);
+
+    GET_MOVE_TYPE(move, moveType);
+
     if (!(gBattleStruct->distortedTypeMatchups & gBitTable[battlerDef])
      && GetBattlerAbility(battlerDef) == ABILITY_TERA_SHELL
      /*&& gBattleMons[battlerDef].species == SPECIES_TERAPAGOS_TERASTAL*/
      && !IS_MOVE_STATUS(move)
      && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-     && gBattleMons[battlerDef].hp == gBattleMons[battlerDef].maxHP)
+     && gBattleMons[battlerDef].hp == gBattleMons[battlerDef].maxHP
+     && CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, battlerDef, abilityTarget, FALSE) > UQ_4_12(0.5))
         return TRUE;
 
     return FALSE;
@@ -2149,7 +2155,8 @@ static void Cmd_adjustdamage(void)
         gBattleStruct->enduredDamage |= gBitTable[gBattlerTarget];
         goto END;
     }
-    if (GetBattlerAbility(gBattlerTarget) == ABILITY_ICE_FACE && IS_MOVE_PHYSICAL(gCurrentMove) && gBattleMons[gBattlerTarget].species == SPECIES_EISCUE)
+    if (GetBattlerAbility(gBattlerTarget) == ABILITY_ICE_FACE && IS_MOVE_PHYSICAL(gCurrentMove) && gBattleMons[gBattlerTarget].species == SPECIES_EISCUE
+        && !(gBattleMons[gBattlerTarget].status2 & STATUS2_TRANSFORMED))
     {
         // Damage deals typeless 0 HP.
         gMoveResultFlags &= ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
@@ -5985,7 +5992,7 @@ static void Cmd_moveend(void)
             && !(gBattleMoves[gCurrentMove].effect == EFFECT_PRESENT && gBattleStruct->presentBasePower == 0)) // Silly edge case
             {
                 gMultiHitCounter--;
-
+ 
                 gBattleScripting.multihitString[4]++;
                 if (gMultiHitCounter == 0 || !gBattleMons[gBattlerTarget].hp)
                 {
@@ -12595,11 +12602,11 @@ static void Cmd_setsubstitute(void)
 
         gBattleMons[gBattlerAttacker].status2 |= STATUS2_SUBSTITUTE;
         gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_WRAPPED;
-		// implement AlexOn1ine's Shed Tail fix 
         if (factor == 2)
 			gDisableStructs[gBattlerAttacker].substituteHP = gBattleMoveDamage / 2;
 		else
-			gDisableStructs[gBattlerAttacker].substituteHP = gBattleMoveDamage;        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SET_SUBSTITUTE;
+			gDisableStructs[gBattlerAttacker].substituteHP = gBattleMoveDamage;
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SET_SUBSTITUTE;
         gHitMarker |= HITMARKER_IGNORE_SUBSTITUTE;
     }
 
@@ -16141,38 +16148,17 @@ void BS_TrySymbiosis(void)
 }
 
 static bool32 BattlerHasPositiveStatChanges(u32 battler)
-
-
-
 {
-
-
     u32 i = 0;
 
-
     for (i = STAT_ATK; i < NUM_BATTLE_STATS; i++)
-
-
     {
-
-
         if (gBattleMons[battler].statStages[i] > DEFAULT_STAT_STAGE)
-
-
             return TRUE;
-
-
     }
 
-
     return FALSE;
-
-
 }
-
-
-
-
 
 void BS_TrySpectralThief(void)
 {
@@ -16222,8 +16208,6 @@ void BS_TrySpectralThief(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
-
-
 
 void BS_SetZEffect(void)
 {

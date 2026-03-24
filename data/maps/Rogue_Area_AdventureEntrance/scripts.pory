@@ -434,6 +434,10 @@ script Rogue_StartAdventureInternal
             waitmovement(0)
         }
 
+        
+        special(RogueDebug_PrintTimers)
+        delay(0)
+
         setflag(FLAG_ROGUE_LEFT_ON_RUN)
         setrespawn(HEAL_LOCATION_ROGUE_HUB)
         warp(MAP_ROGUE_ADVENTURE_PATHS, 0)
@@ -736,7 +740,7 @@ script Rogue_Area_AdventureEntrance_MeetPokabbie
     call(Rogue_Area_AdventureEntrance_PokabbieEnterMovement)
     waitmovement(0)
 
-    msgbox(format("POKABBIE: Phew…\nAll done!\pI've got a few upgrades for you!\pFirstly, your Pokédex can now change it's mode to different Regions.\pHere, take a look."))
+    msgbox(format("POKABBIE: Phew…\nAll done!\pI've got a few upgrades for you!\pFirstly, your Pokédex can now change its mode to different Regions.\pHere, take a look."))
 
     waitse
     special(Special_ViewRoguePokedex)

@@ -1,16 +1,23 @@
 #include "global.h"
+#include "constants/battle.h"
 #include "constants/battle_anim.h"
+#include "constants/songs.h"
 
 #include "battle_anim.h"
+#include "battle_main.h"
+#include "battle_message.h"
 #include "malloc.h"
+#include "main.h"
 #include "random.h"
+#include "sound.h"
+#include "string_util.h"
 #include "sprite.h"
 #include "trig.h"
 
 #include "rogue_battlehud.h"
 #include "rogue_settings.h"
 
-#ifndef ROGUE_EXPANSIONS
+#ifndef ROGUE_EXPANSION
 #define B_WEATHER_SNOW                      B_WEATHER_HAIL
 #endif
 
@@ -28,6 +35,7 @@
 #define HUD_TAG_SPRITE_SUN                  0x1208
 #define HUD_TAG_SPRITE_SNOW                 0x1209
 #define HUD_TAG_SPRITE_SANDSTORM            0x120A
+#define HUD_TAG_SPRITE_DEX_PROMPT           0x120B
 
 #define MAX_OVERLAY_SPRITES 32
 
@@ -42,6 +50,7 @@
 // Sprites & Palettes
 //
 
+static const u8 sSpriteGfx_DexPrompt[] = INCBIN_U8("graphics/rogue_battlehud/sprites/dex_prompt.4bpp");
 static const u8 sSpriteGfx_BlueLightWall[] = INCBIN_U8("graphics/rogue_battlehud/sprites/blue_light_wall.4bpp");
 static const u8 sSpriteGfx_GreenLightWall[] = INCBIN_U8("graphics/rogue_battlehud/sprites/green_light_wall.4bpp");
 static const u8 sSpriteGfx_Whirlwind[] = INCBIN_U8("graphics/rogue_battlehud/sprites/whirlwind.4bpp");
@@ -61,6 +70,7 @@ static const u16 sSpritePal_1[] = INCBIN_U16("graphics/rogue_battlehud/palettes/
 
 static const struct SpriteSheet sSpriteSheet_Overlay[] =
 {
+    { sSpriteGfx_DexPrompt, sizeof(sSpriteGfx_DexPrompt), HUD_TAG_SPRITE_DEX_PROMPT },
     { sSpriteGfx_BlueLightWall, sizeof(sSpriteGfx_BlueLightWall), HUD_TAG_SPRITE_BLUE_LIGHT_WALL },
     { sSpriteGfx_GreenLightWall, sizeof(sSpriteGfx_GreenLightWall), HUD_TAG_SPRITE_GREEN_LIGHT_WALL },
     { sSpriteGfx_Whirlwind, sizeof(sSpriteGfx_Whirlwind), HUD_TAG_SPRITE_WHIRLWIND },
@@ -82,6 +92,17 @@ static const struct SpritePalette sSpritePalette_Overlay[] =
     { sSpritePal_0, HUD_TAG_PALETTE_0 },
     { sSpritePal_1, HUD_TAG_PALETTE_1 },
     {},
+};
+
+static const struct SpriteTemplate sDexPromptSpriteTemplate =
+{
+    .tileTag = HUD_TAG_SPRITE_DEX_PROMPT,
+    .paletteTag = HUD_TAG_PALETTE_0,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
 };
 
 // Hazards
@@ -237,22 +258,21 @@ static const struct SpriteTemplate sSandstormSpriteTemplate =
     .callback = AnimSandstorm,
 };
 
-static const union AnimCmd sAnim_Snowflake0[] =
+static const union AnimCmd sAnim_Snowflake[] =
 {
-    ANIMCMD_FRAME(0, 16),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd sAnim_Snowflake1[] =
-{
-    ANIMCMD_FRAME(1, 16),
+    ANIMCMD_FRAME(0, 2),
+    ANIMCMD_FRAME(8, 2),
+    ANIMCMD_FRAME(16, 2),
+    ANIMCMD_FRAME(24, 6),
+    ANIMCMD_FRAME(32, 2),
+    ANIMCMD_FRAME(40, 2),
+    ANIMCMD_FRAME(48, 2),
     ANIMCMD_END,
 };
 
 static const union AnimCmd *const sAnims_Snowflake[] =
 {
-    sAnim_Snowflake0,
-    sAnim_Snowflake1,
+    sAnim_Snowflake,
 };
 
 static const struct SpriteTemplate sSnowSpriteTemplate =
@@ -293,6 +313,8 @@ struct RogueBattleOverlay
 {
     u8 sprites[MAX_OVERLAY_SPRITES];
     u8 spriteCount;
+    u8 dexPromptSprite;
+    bool8 statViewActive : 1;
 };
 
 EWRAM_DATA struct RogueBattleOverlay* gRogueBattleOverlay = NULL;
@@ -311,6 +333,146 @@ void RogueBH_CreateBattleOverlay()
         LoadSpritePalettes(sSpritePalette_Overlay);
 
         gRogueBattleOverlay = Alloc(sizeof(struct RogueBattleOverlay));
+        gRogueBattleOverlay->statViewActive = FALSE;
+        gRogueBattleOverlay->dexPromptSprite = SPRITE_NONE;
+
+#ifdef ROGUE_DEBUG
+        if(RogueDebug_GetConfigToggle(DEBUG_TOGGLE_FULL_BATTLE_HUD))
+        {
+            switch (Random2() % 4)
+            {
+            case 0:
+                weather = B_WEATHER_RAIN_PERMANENT;
+                break;
+            case 1:
+                weather = B_WEATHER_SANDSTORM_PERMANENT;
+                break;
+            case 2:
+                weather = B_WEATHER_SUN_PERMANENT;
+                break;
+            case 3:
+                weather = B_WEATHER_SNOW;
+                break;
+
+            }
+        }
+#endif
+
+        // Field
+        {
+            u8 i;
+
+            if(weather & B_WEATHER_RAIN)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Rain);
+
+                for(i = 0; i < 4; ++i)
+                    gRogueBattleOverlay->sprites[spriteCount++] = CreateSprite(&sRainDropSpriteTemplate, 0, 0, 4);
+            }
+            else if(weather & B_WEATHER_SANDSTORM)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Sandstorm);
+
+                for(i = 0; i < 8; ++i)
+                    gRogueBattleOverlay->sprites[spriteCount++] = CreateSprite(&sSandstormSpriteTemplate, 0, 0, 4);
+            }
+            else if(weather & B_WEATHER_SUN)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Sun);
+
+                for(i = 0; i < 4; ++i)
+                {
+                    u8 sprite = CreateSprite(&sSunlightRaySpriteTemplate, 0, 0, 4);
+                    gSprites[sprite].data[0] = i * 10;
+                    
+                    gRogueBattleOverlay->sprites[spriteCount++] = sprite;
+                }
+            }
+            else if(weather & B_WEATHER_SNOW)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Snow);
+
+                for(i = 0; i < 8; ++i)
+                {
+                    u8 sprite = CreateSprite(&sSnowSpriteTemplate, 0, 0, 4);
+                    gSprites[sprite].data[0] = i * 40;
+                    gSprites[sprite].data[1] = 10 + (Random2() % 40);
+                    
+                    gRogueBattleOverlay->sprites[spriteCount++] = sprite;
+                }
+            }
+        }
+
+        // Side
+
+#ifdef ROGUE_DEBUG
+        if(RogueDebug_GetConfigToggle(DEBUG_TOGGLE_FULL_BATTLE_HUD))
+        {
+            switch (Random2() % 4)
+            {
+            case 0:
+                weather = B_WEATHER_RAIN_PERMANENT;
+                break;
+            case 1:
+                weather = B_WEATHER_SANDSTORM_PERMANENT;
+                break;
+            case 2:
+                weather = B_WEATHER_SUN_PERMANENT;
+                break;
+            case 3:
+                weather = B_WEATHER_SNOW;
+                break;
+
+            }
+        }
+#endif
+
+        // Field
+        {
+            u8 i;
+
+            if(weather & B_WEATHER_RAIN)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Rain);
+
+                for(i = 0; i < 4; ++i)
+                    gRogueBattleOverlay->sprites[spriteCount++] = CreateSprite(&sRainDropSpriteTemplate, 0, 0, 4);
+            }
+            else if(weather & B_WEATHER_SANDSTORM)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Sandstorm);
+
+                for(i = 0; i < 8; ++i)
+                    gRogueBattleOverlay->sprites[spriteCount++] = CreateSprite(&sSandstormSpriteTemplate, 0, 0, 4);
+            }
+            else if(weather & B_WEATHER_SUN)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Sun);
+
+                for(i = 0; i < 4; ++i)
+                {
+                    u8 sprite = CreateSprite(&sSunlightRaySpriteTemplate, 0, 0, 4);
+                    gSprites[sprite].data[0] = i * 10;
+                    
+                    gRogueBattleOverlay->sprites[spriteCount++] = sprite;
+                }
+            }
+            else if(weather & B_WEATHER_SNOW)
+            {
+                LoadSpriteSheet(&sSpriteSheet_Overlay_Snow);
+
+                for(i = 0; i < 8; ++i)
+                {
+                    u8 sprite = CreateSprite(&sSnowSpriteTemplate, 0, 0, 4);
+                    gSprites[sprite].data[0] = i * 40;
+                    gSprites[sprite].data[1] = i;
+                    
+                    gRogueBattleOverlay->sprites[spriteCount++] = sprite;
+                }
+            }
+        }
+
+        // Side
 
 #ifdef ROGUE_DEBUG
         if(RogueDebug_GetConfigToggle(DEBUG_TOGGLE_FULL_BATTLE_HUD))
@@ -384,13 +546,13 @@ void RogueBH_CreateBattleOverlay()
         // Player
         {
             spikeCount = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_SPIKES) ? gSideTimers[B_SIDE_PLAYER].spikesAmount : 0;
-            hasReflect = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_REFLECT);
-            hasLightscreen = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_LIGHTSCREEN);
+            hasReflect = !!(gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_REFLECT);
+            hasLightscreen = !!(gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_LIGHTSCREEN);
 #ifdef ROGUE_EXPANSION
             toxicSpikeCount = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_TOXIC_SPIKES) ? gSideTimers[B_SIDE_PLAYER].toxicSpikesAmount : 0; 
-            hasStealthRock = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_STEALTH_ROCK);
-            hasStickyWeb = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_STICKY_WEB);
-            hasTailwind = (gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_TAILWIND);
+            hasStealthRock = !!(gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_STEALTH_ROCK);
+            hasStickyWeb = !!(gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_STICKY_WEB);
+            hasTailwind = !!(gSideStatuses[B_SIDE_PLAYER] & SIDE_STATUS_TAILWIND);
 #else
             toxicSpikeCount = 0; 
             hasStealthRock = FALSE;
@@ -413,7 +575,7 @@ void RogueBH_CreateBattleOverlay()
 
             // Sticky web
             if(hasStickyWeb)
-                gRogueBattleOverlay->sprites[spriteCount++] = CreateSprite(&sSpiderWebSpriteTemplate, 66, 107, SUBPRIORITY_PLAYER_BELOW);
+                gRogueBattleOverlay->sprites[spriteCount++] = CreateSprite(&sSpiderWebSpriteTemplate, 66, 107, SUBPRIORITY_PLAYER_BELOW + 1);
 
 
             // Reflect
@@ -464,13 +626,13 @@ void RogueBH_CreateBattleOverlay()
         // Opponent
         {
             spikeCount = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_SPIKES) ? gSideTimers[B_SIDE_OPPONENT].spikesAmount : 0;
-            hasReflect = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_REFLECT);
-            hasLightscreen = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_LIGHTSCREEN);
+            hasReflect = !!(gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_REFLECT);
+            hasLightscreen = !!(gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_LIGHTSCREEN);
 #ifdef ROGUE_EXPANSION
             toxicSpikeCount = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_TOXIC_SPIKES) ? gSideTimers[B_SIDE_OPPONENT].toxicSpikesAmount : 0; 
-            hasStealthRock = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_STEALTH_ROCK);
-            hasStickyWeb = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_STICKY_WEB);
-            hasTailwind = (gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_TAILWIND);
+            hasStealthRock = !!(gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_STEALTH_ROCK);
+            hasStickyWeb = !!(gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_STICKY_WEB);
+            hasTailwind = !!(gSideStatuses[B_SIDE_OPPONENT] & SIDE_STATUS_TAILWIND);
 #else
             toxicSpikeCount = 0; 
             hasStealthRock = FALSE;
@@ -580,6 +742,207 @@ void RogueBH_RemoveBattleOverlay(bool32 fromResetSprites)
     }
 }
 
+void RogueBH_ToggleStatView()
+{
+    if(gRogueBattleOverlay != NULL)
+    {
+        gRogueBattleOverlay->statViewActive = !gRogueBattleOverlay->statViewActive;
+
+        if(gRogueBattleOverlay->statViewActive)
+        {
+            gMultiUsePlayerCursor = MAX_BATTLERS_COUNT;
+        }
+    }
+}
+
+bool8 RogueBH_IsStatViewActive()
+{
+    return (gRogueBattleOverlay != NULL && gRogueBattleOverlay->statViewActive);
+}
+
+static u8 const sPositionCycleOrder[] =
+{
+    B_POSITION_PLAYER_LEFT,
+    B_POSITION_PLAYER_RIGHT,
+    B_POSITION_OPPONENT_RIGHT,
+    B_POSITION_OPPONENT_LEFT,
+};
+
+static s32 CyclePosition(s32 pos, s32 inc)
+{
+    s32 i;
+
+    for(i = 0; i < ARRAY_COUNT(sPositionCycleOrder); ++i)
+    {
+        if(sPositionCycleOrder[i] == pos)
+        {
+            break;
+        }
+    }
+
+    i = (i + inc) % ARRAY_COUNT(sPositionCycleOrder);
+    if(i < 0)
+        i += ARRAY_COUNT(sPositionCycleOrder);
+
+    return sPositionCycleOrder[i];
+}
+
+#ifndef ROGUE_EXPANSION
+#define SpriteCB_HideAsMoveTarget SpriteCb_HideAsMoveTarget
+#define SpriteCB_ShowAsMoveTarget SpriteCb_ShowAsMoveTarget
+#endif
+
+void RogueBH_HandleStatViewUpdate(u32 battler)
+{
+    u8 prevCursorPos = gMultiUsePlayerCursor;
+
+    if(gRogueBattleOverlay->dexPromptSprite == SPRITE_NONE)
+    {
+        gRogueBattleOverlay->dexPromptSprite = CreateSprite(&sDexPromptSpriteTemplate, 84, 108, SUBPRIORITY_PLAYER_ABOVE);
+    }
+
+
+    if(gMultiUsePlayerCursor == MAX_BATTLERS_COUNT)
+    {
+        gMultiUsePlayerCursor = battler;
+    }
+
+    if (JOY_NEW(SELECT_BUTTON | B_BUTTON))
+    {
+        PlaySE(SE_WIN_OPEN);
+        RogueBH_ToggleStatView();
+
+        if(gRogueBattleOverlay->dexPromptSprite != SPRITE_NONE)
+        {
+            DestroySprite(&gSprites[gRogueBattleOverlay->dexPromptSprite]);
+            gRogueBattleOverlay->dexPromptSprite = SPRITE_NONE;
+        }
+
+        gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
+        return;
+    }
+    else if (JOY_NEW(DPAD_ANY))
+    {
+        PlaySE(SE_SELECT);
+
+        s32 pos = GetBattlerPosition(gMultiUsePlayerCursor);
+
+        do
+        {
+            pos = CyclePosition(pos, JOY_NEW(DPAD_RIGHT | DPAD_UP) ? 1 : -1);
+
+            gMultiUsePlayerCursor = GetBattlerAtPosition(pos);
+        } 
+        while (gBattleMons[gMultiUsePlayerCursor].hp == 0 || gBattleMons[gMultiUsePlayerCursor].species == SPECIES_NONE);
+    }
+
+    if(prevCursorPos != gMultiUsePlayerCursor)
+    {
+        gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_ShowAsMoveTarget;
+
+        if(prevCursorPos < MAX_BATTLERS_COUNT)
+            gSprites[gBattlerSpriteIds[prevCursorPos]].callback = SpriteCB_HideAsMoveTarget;
+
+        RogueBH_PrintStatView();
+    }
+}
+
+static const u8 sText_ClearColumn1[] = _("{CLEAR_TO 48}"); // 54 - 6
+static const u8 sText_ClearColumn2[] = _("{CLEAR_TO 108}");
+static const u8 sText_ClearColumn3[] = _("{CLEAR_TO 162}");
+
+static const u8 sText_StatPrefix[] = _("{FONT_NORMAL}");
+static const u8 sText_StatUp[] = _("{STAT_UP}");
+static const u8 sText_StatDown[] = _("{STAT_DOWN}");
+static const u8 sText_StatNone[] = _("{STAT_NONE}");
+
+static const u8 sText_Atk[] = _("{FONT_NARROW}Atk");
+static const u8 sText_SpAtk[] = _("{FONT_NARROW}SpAtk");
+static const u8 sText_Def[] = _("{FONT_NARROW}Def");
+static const u8 sText_SpDef[] = _("{FONT_NARROW}SpDef");
+static const u8 sText_Speed[] = _("{FONT_NARROW}Spe");
+static const u8 sText_Accuracy[] = _("{FONT_NARROW}Acc");
+static const u8 sText_Evasion[] = _("{FONT_NARROW}Eva");
+
+static u8* AppendBoostString(u8* ptr, s32 stages)
+{
+    s32 i;
+    ptr = StringAppend(ptr, sText_StatPrefix);
+
+    stages = DEFAULT_STAT_STAGE - stages;
+
+    for(i = 0; i < 6; ++i)
+    {
+        if(stages < 0)
+        {
+            if(i < -stages)
+            {
+                ptr = StringAppend(ptr, sText_StatDown);
+            }
+            else
+            {
+                ptr = StringAppend(ptr, sText_StatNone);
+            }
+        }
+        else
+        {
+            if(i < stages)
+            {
+                ptr = StringAppend(ptr, sText_StatUp);
+            }
+            else
+            {
+                ptr = StringAppend(ptr, sText_StatNone);
+            }
+        }
+    }
+
+    return ptr;
+}
+
+void RogueBH_PrintStatView()
+{
+    if(gRogueBattleOverlay != NULL && gMultiUsePlayerCursor < MAX_BATTLERS_COUNT)
+    {
+        u8* ptr = gStringVar4;
+        struct BattlePokemon* mon = &gBattleMons[gMultiUsePlayerCursor];
+        ptr = StringCopy(ptr, gText_EmptyString3);
+
+        ptr = StringAppend(ptr, sText_Atk);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_ATK]);
+
+        ptr = StringAppend(ptr, sText_ClearColumn1);
+        ptr = StringAppend(ptr, sText_SpAtk);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_SPATK]);
+
+        //
+
+        ptr = StringAppend(ptr, sText_ClearColumn3);
+        ptr = StringAppend(ptr, sText_Accuracy);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_ACC]);
+
+        // new line
+
+        ptr = StringAppend(ptr, gText_NewLine);
+        ptr = StringAppend(ptr, sText_Def);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_DEF]);
+
+        ptr = StringAppend(ptr, sText_ClearColumn1);
+        ptr = StringAppend(ptr, sText_SpDef);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_SPDEF]);
+
+        ptr = StringAppend(ptr, sText_ClearColumn2);
+        ptr = StringAppend(ptr, sText_Speed);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_SPEED]);
+
+        ptr = StringAppend(ptr, sText_ClearColumn3);
+        ptr = StringAppend(ptr, sText_Evasion);
+        ptr = AppendBoostString(ptr, mon->statStages[STAT_EVASION]);
+
+        BattlePutTextOnWindow(gStringVar4, B_WIN_MSG);
+    }
+}
+
 static void SpriteCallbackFlicker(struct Sprite *sprite)
 {
     if(sprite->data[0] > 16)
@@ -673,7 +1036,17 @@ static void AnimSandstorm(struct Sprite *sprite)
     sprite->invisible = FALSE;
     sprite->data[0] = 0;
     sprite->data[1] = (Random2() % 10);
-    sprite->x = 0;
+    if(sprite->data[3] != 1)
+    {
+        // Random initial position
+        sprite->data[3] = 1;
+        sprite->x = Random2() % DISPLAY_WIDTH;
+    }
+    else
+    {
+        // Wrap around the edge
+        sprite->x = 0;
+    }
     sprite->y = Random2() % ((DISPLAY_HEIGHT * 3) / 4);
     sprite->x2 = 0;
     sprite->y2 = 0;
@@ -703,6 +1076,16 @@ static void AnimSandstorm_Step(struct Sprite *sprite)
     }
 }
 
+static void AnimSunlight_Reset(struct Sprite *sprite)
+{
+    // Move offscreen
+    sprite->x = DISPLAY_WIDTH + 64;
+
+    sprite->data[0] = 180;
+    sprite->invisible = TRUE;
+    sprite->callback = AnimSunlight;
+}
+
 static void AnimSunlight(struct Sprite *sprite)
 {
     sprite->invisible = TRUE;
@@ -726,77 +1109,43 @@ static void AnimSunlight_Step(struct Sprite *sprite)
     sprite->data[2] = 140;
     sprite->data[4] = 80;
     sprite->callback = StartAnimLinearTranslation;
-    StoreSpriteCallbackInData6(sprite, AnimSunlight_Step);
-}
-
-#define tPosY         data[0]
-#define tDeltaY       data[1]
-#define tWaveDelta    data[2]
-#define tWaveIndex    data[3]
-#define tSnowflakeId  data[4]
-#define tFallCounter  data[5]
-#define tFallDuration data[6]
-#define tDeltaY2      data[7]
-
-static void InitSnowflakeSpriteMovement(struct Sprite *sprite)
-{
-    u16 rand;
-    s16 x = (((sprite->tSnowflakeId % 16) * 5) & 7) * 30;
-
-    sprite->y = -3 - (gSpriteCoordOffsetY + sprite->centerToCornerVecY);
-    sprite->x = x;
-    sprite->tPosY = sprite->y * 128;
-    sprite->x2 = 0;
-    sprite->y2 = 0;
-    rand = Random();
-    sprite->tDeltaY = (rand & 3) * 5 + 64;
-    sprite->tDeltaY2 = sprite->tDeltaY;
-    StartSpriteAnim(sprite, (rand & 1) ? 0 : 1);
-    sprite->tWaveIndex = 0;
-    sprite->tWaveDelta = ((rand & 3) == 0) ? 2 : 1;
-    sprite->tFallDuration = (rand & 0x1F) + 210;
-    sprite->tFallCounter = 0;
+    StoreSpriteCallbackInData6(sprite, AnimSunlight_Reset);
 }
 
 static void AnimSnowflake(struct Sprite *sprite)
 {
     sprite->invisible = TRUE;
+    --sprite->data[1];
 
-    if(sprite->data[0]-- < 0)
+    if(sprite->data[1] <= 0)
     {
+        SeekSpriteAnim(sprite, 0);
+        StartSpriteAnim(sprite, 0);
+
         sprite->invisible = FALSE;
-        sprite->tSnowflakeId = sprite->data[1];
-        InitSnowflakeSpriteMovement(sprite);
+        sprite->data[0] = 0;
+        sprite->data[1] = 10 + (Random2() % 40);
+        sprite->x = Random2() % DISPLAY_WIDTH;
+        sprite->y = 0;//Random2() % (DISPLAY_HEIGHT / 2);
+        sprite->x2 = 0;
+        sprite->y2 = 0;
+
         sprite->callback = AnimSnowflake_Step;
     }
 }
 
 static void AnimSnowflake_Step(struct Sprite *sprite)
-{
-    s16 x;
+{    
+    if (sprite->y + sprite->y2 >= DISPLAY_HEIGHT)
+    {
+        sprite->invisible = TRUE;
 
-    sprite->tPosY += sprite->tDeltaY;
-    sprite->y = sprite->tPosY >> 7;
-    sprite->tWaveIndex += sprite->tWaveDelta;
-    sprite->tWaveIndex &= 0xFF;
-    sprite->x2 = gSineTable[sprite->tWaveIndex] / 64;
-
-    x = (sprite->x + sprite->centerToCornerVecX + gSpriteCoordOffsetX) & 0x1FF;
-    if (x & 0x100)
-        x |= -0x100;
-
-    if(x < -3)
-        sprite->x = (x + 240 + 2) - (gSpriteCoordOffsetX + sprite->centerToCornerVecX);
-
-    if(x > 242)
-        sprite->x = (x -240 -3) - (gSpriteCoordOffsetX + sprite->centerToCornerVecX);
+        // Reset
+        sprite->callback = AnimSnowflake;
+    }
+    else
+    {
+        sprite->x2++;
+        sprite->y2 += 3;
+    }
 }
-
-#undef tPosY
-#undef tDeltaY
-#undef tWaveDelta
-#undef tWaveIndex
-#undef tSnowflakeId
-#undef tFallCounter
-#undef tFallDuration
-#undef tDeltaY2

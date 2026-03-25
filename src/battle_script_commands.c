@@ -1350,14 +1350,14 @@ static void Cmd_attackcanceler(void)
 
     if (WEATHER_HAS_EFFECT && gBattleMoves[gCurrentMove].power)
     {
-        if (moveType == TYPE_FIRE && (gBattleWeather & B_WEATHER_RAIN_PRIMAL))
+        if (moveType == TYPE_FIRE && (gBattleWeather & B_WEATHER_RAIN_PRIMAL) && !(attackerAbility == ABILITY_MEGA_SOL))
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PRIMAL_WEATHER_FIZZLED_BY_RAIN;
             BattleScriptPushCursor();
             gBattlescriptCurrInstr = BattleScript_PrimalWeatherBlocksMove;
             return;
         }
-        else if (moveType == TYPE_WATER && (gBattleWeather & B_WEATHER_SUN_PRIMAL))
+        else if (moveType == TYPE_WATER && (gBattleWeather & B_WEATHER_SUN_PRIMAL) && !(attackerAbility == ABILITY_MEGA_SOL))
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PRIMAL_WEATHER_EVAPORATED_IN_SUN;
             BattleScriptPushCursor();
@@ -2264,7 +2264,7 @@ END:
 
     // B_WEATHER_STRONG_WINDS prints a string when it's about to reduce the power
     // of a move that is Super Effective against a Flying-type Pokémon.
-    if (gBattleWeather & B_WEATHER_STRONG_WINDS)
+    if (gBattleWeather & B_WEATHER_STRONG_WINDS && !(gBattleMons[gBattlerAttacker].ability == ABILITY_MEGA_SOL))
     {
         if ((GetBattlerType(gBattlerTarget, 0, FALSE) == TYPE_FLYING
          && GetTypeModifier(moveType, GetBattlerType(gBattlerTarget, 0, FALSE)) >= UQ_4_12(2.0))
@@ -9993,7 +9993,9 @@ static void Cmd_various(void)
     {
         VARIOUS_ARGS();
         if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_AURORA_VEIL
-            || !(WEATHER_HAS_EFFECT && gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+            || !(WEATHER_HAS_EFFECT && gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW))
+            || gBattleMons[gBattlerAttacker].ability == ABILITY_MEGA_SOL
+        )
         {
             gMoveResultFlags |= MOVE_RESULT_MISSED;
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;

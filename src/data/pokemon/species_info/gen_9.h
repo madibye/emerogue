@@ -2424,8 +2424,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         //.backAnimId = BACK_ANIM_NONE,
         .palette = gMonPalette_ScovillainMega,
         .shinyPalette = gMonShinyPalette_ScovillainMega,
-        //.iconSprite = gMonIcon_QuestionMark,
-        //.iconPalIndex = 0,
+        .iconSprite = gMonIcon_ScovillainMega,
+        .iconPalIndex = 0,
         // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         // FOOTPRINT(Scovillain)
         // SHADOW(-1, 0, SHADOW_SIZE_M)

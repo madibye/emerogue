@@ -7552,8 +7552,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.backAnimId = BACK_ANIM_NONE,
         .palette = gMonPalette_GolurkMega,
         .shinyPalette = gMonShinyPalette_GolurkMega,
-        //.iconSprite = gMonIcon_QuestionMark,
-        //.iconPalIndex = 0,
+        .iconSprite = gMonIcon_GolurkMega,
+        .iconPalIndex = 0,
         // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         // FOOTPRINT(Golurk)
         // SHADOW(-1, 0, SHADOW_SIZE_M)

@@ -6431,17 +6431,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             "all directions using sound waves. Any who\n"
             "hear the vibrations get so confused, they\n"
             "forget who they are."),
-        //.frontPic = gMonBackPic_CircledQuestionMark,
-        //.frontPicSize = MON_COORDS_SIZE(40, 40),
-        //.frontPicYOffset = 12,
-        //// .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontPic = gMonFrontPic_ChimechoMega,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_ChimechoMega,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        //.backPic = gMonBackPic_CircledQuestionMark,
-        //.backPicSize = MON_COORDS_SIZE(40, 40),
-        //.backPicYOffset = 12,
-        //.backAnimId = BACK_ANIM_NONE,
-        //.palette = gMonPalette_CircledQuestionMark,
-        //.shinyPalette = gMonShinyPalette_CircledQuestionMark,z
+        .backPic = gMonBackPic_ChimechoMega,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        //.backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
+        .palette = gMonPalette_ChimechoMega,
+        .shinyPalette = gMonShinyPalette_ChimechoMega,
+        .iconSprite = gMonIcon_ChimechoMega,
+        .iconPalIndex = 0,
         // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         // FOOTPRINT(Chimecho)
         // SHADOW(-1, 0, SHADOW_SIZE_M)
@@ -6585,8 +6587,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         //.backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_AbsolMegaZ,
         .shinyPalette = gMonShinyPalette_AbsolMegaZ,
-        //.iconSprite = gMonIcon_QuestionMark,
-        //.iconPalIndex = 0,
+        .iconSprite = gMonIcon_AbsolMegaZ,
+        .iconPalIndex = 0,
         // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         // FOOTPRINT(Absol)
         // SHADOW(-1, 0, SHADOW_SIZE_M)

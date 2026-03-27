@@ -660,8 +660,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         //.backAnimId = BACK_ANIM_NONE,
         .palette = gMonPalette_StaraptorMega,
         .shinyPalette = gMonShinyPalette_StaraptorMega,
-        //.iconSprite = gMonIcon_QuestionMark,
-        //.iconPalIndex = 0,
+        .iconSprite = gMonIcon_StaraptorMega,
+        .iconPalIndex = 0,
         // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         // FOOTPRINT(Staraptor)
         // SHADOW(-1, 0, SHADOW_SIZE_M)
@@ -2850,8 +2850,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         //.backAnimId = BACK_ANIM_NONE,
         .palette = gMonPalette_GarchompMegaZ,
         .shinyPalette = gMonShinyPalette_GarchompMegaZ,
-        //.iconSprite = gMonIcon_QuestionMark,
-        //.iconPalIndex = 0,
+        .iconSprite = gMonIcon_GarchompMegaZ,
         // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         // FOOTPRINT(Garchomp)
         // SHADOW(-1, 0, SHADOW_SIZE_M)

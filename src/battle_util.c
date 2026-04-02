@@ -5796,6 +5796,20 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 effect++;
             }
             break;
+        case ABILITY_SPICY_SPRAY:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && gBattleMons[gBattlerAttacker].hp != 0
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && TARGET_TURN_DAMAGED
+             && CanBeBurned(gBattlerAttacker))
+            {
+                gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_BURN;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_AbilityStatusEffect;
+                gHitMarker |= HITMARKER_STATUS_ABILITY_EFFECT;
+                effect++;
+            }
+            break;
         case ABILITY_CUTE_CHARM:
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && gBattleMons[gBattlerAttacker].hp != 0
@@ -8616,8 +8630,8 @@ bool32 IsBattlerProtected(u32 battler, u32 move)
             return FALSE;
     }
 
-    // Z-Moves and Max Moves bypass protection (except Max Guard).
-    if ((IsMaxMove(move) || gBattleStruct->zmove.active)
+    // Z-Moves and Max Moves and Piercing Drill bypass protection (except Max Guard).
+    if ((IsMaxMove(move) || gBattleStruct->zmove.active || ((GetBattlerAbility(gBattlerAttacker) == ABILITY_PIERCING_DRILL) && gBattleMoves[move].makesContact))
          && (!gProtectStructs[battler].maxGuarded
              || gBattleMoves[move].argument == MAX_EFFECT_BYPASS_PROTECT))
         return FALSE;
@@ -8628,7 +8642,7 @@ bool32 IsBattlerProtected(u32 battler, u32 move)
 
     // Protective Pads doesn't stop Unseen Fist from bypassing Protect effects, so IsMoveMakingContact() isn't used here.
     // This means extra logic is needed to handle Shell Side Arm.
-    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST
+    if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST)
         && (gBattleMoves[move].makesContact || (gBattleMoves[move].effect == EFFECT_SHELL_SIDE_ARM && gBattleStruct->swapDamageCategory))
         && !gProtectStructs[battler].maxGuarded) // Max Guard cannot be bypassed by Unseen Fist
         return FALSE;
@@ -10052,9 +10066,9 @@ static inline uq4_12_t GetGlaiveRushModifier(u32 battlerDef)
     return UQ_4_12(1.0);
 }
 
-static inline uq4_12_t GetZMaxMoveAgainstProtectionModifier(u32 battlerDef, u32 move)
+static inline uq4_12_t GetPiercingMoveAgainstProtectionModifier(u32 battlerAtk, u32 battlerDef, u32 move)
 {
-    if ((gBattleStruct->zmove.active || IsMaxMove(move)) && IS_BATTLER_PROTECTED(battlerDef))
+    if ((gBattleStruct->zmove.active || IsMaxMove(move) || ((gBattleMons[battlerAtk].ability == ABILITY_PIERCING_DRILL) && gBattleMoves[move].makesContact)) && IS_BATTLER_PROTECTED(battlerDef))
         return UQ_4_12(0.25);
     return UQ_4_12(1.0);
 }
@@ -10311,7 +10325,7 @@ static inline s32 DoMoveDamageCalcVars(u32 move, u32 battlerAtk, u32 battlerDef,
     }
     DAMAGE_APPLY_MODIFIER(typeEffectivenessModifier);
     DAMAGE_APPLY_MODIFIER(GetBurnOrFrostBiteModifier(battlerAtk, move, abilityAtk));
-    DAMAGE_APPLY_MODIFIER(GetZMaxMoveAgainstProtectionModifier(battlerDef, move));
+    DAMAGE_APPLY_MODIFIER(GetPiercingMoveAgainstProtectionModifier(battlerAtk, battlerDef, move));
     DAMAGE_APPLY_MODIFIER(GetOtherModifiers(move, moveType, battlerAtk, battlerDef, isCrit, typeEffectivenessModifier, updateFlags, abilityAtk, abilityDef, holdEffectAtk, holdEffectDef));
 
     if (dmg == 0)

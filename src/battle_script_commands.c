@@ -1476,7 +1476,7 @@ static void Cmd_attackcanceler(void)
     }
 
     // Z-moves and Max Moves bypass protection, but deal reduced damage (factored in AccumulateOtherModifiers)
-    if ((gBattleStruct->zmove.active || IsMaxMove(gCurrentMove))
+    if ((gBattleStruct->zmove.active || IsMaxMove(gCurrentMove) || ((GetBattlerAbility(gBattlerAttacker) == ABILITY_PIERCING_DRILL) && gBattleMoves[gCurrentMove].makesContact))
          && IS_BATTLER_PROTECTED(gBattlerTarget))
     {
         BattleScriptPush(cmd->nextInstr);

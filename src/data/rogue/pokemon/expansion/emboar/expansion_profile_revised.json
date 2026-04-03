@@ -23,6 +23,20 @@
         "SpAttack": 70,
         "SpDefense": 80
       }
+    },
+    "SPECIES_EMBOAR_MEGA": {
+      "Types": [
+        "TYPE_FIRE",
+        "TYPE_GROUND"
+      ],
+      "BaseStats": {
+        "HP": 115,
+        "Attack": 150,
+        "Defense": 90,
+        "Speed": 75,
+        "SpAttack": 80,
+        "SpDefense": 125
+      }
     }
   },
   "LevelUpMoves": [

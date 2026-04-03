@@ -8,7 +8,12 @@
         "Speed": 60,
         "SpAttack": 80,
         "SpDefense": 90
-      }
+      },
+      "Abilities": [
+        "ABILITY_BLAZE",
+        "ABILITY_RECKLESS",
+        "ABILITY_INTIMIDATE"
+      ]
     }
   }
 }

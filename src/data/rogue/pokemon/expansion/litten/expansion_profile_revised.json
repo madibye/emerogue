@@ -1,0 +1,11 @@
+{
+  "PerSpecies": {
+    "SPECIES_LITTEN": {
+      "Abilities": [
+        "ABILITY_BLAZE",
+        "ABILITY_RECKLESS",
+        "ABILITY_INTIMIDATE"
+      ]
+    }
+  }
+}

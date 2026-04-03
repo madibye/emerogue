@@ -1,0 +1,11 @@
+{
+  "PerSpecies": {
+    "SPECIES_QUAXLY": {
+      "Abilities": [
+        "ABILITY_TORRENT",
+        "ABILITY_MOXIE",
+        "ABILITY_DANCER"
+      ]
+    }
+  }
+}

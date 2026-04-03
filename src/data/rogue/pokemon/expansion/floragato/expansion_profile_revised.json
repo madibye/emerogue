@@ -1,0 +1,11 @@
+{
+  "PerSpecies": {
+    "SPECIES_FLORAGATO": {
+      "Abilities": [
+        "ABILITY_OVERGROW",
+        "ABILITY_MAGIC_GUARD",
+        "ABILITY_PROTEAN"
+      ]
+    }
+  }
+}

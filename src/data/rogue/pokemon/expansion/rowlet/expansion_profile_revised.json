@@ -1,0 +1,11 @@
+{
+  "PerSpecies": {
+    "SPECIES_ROWLET": {
+      "Abilities": [
+        "ABILITY_OVERGROW",
+        "ABILITY_SNIPER",
+        "ABILITY_LONG_REACH"
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "PerSpecies": {
+    "SPECIES_BRIONNE": {
+      "Abilities": [
+        "ABILITY_TORRENT",
+        "ABILITY_SIRENS_SONG",
+        "ABILITY_LIQUID_VOICE"
+      ]
+    }
+  }
+}

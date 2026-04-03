@@ -1,6 +1,11 @@
 {
   "PerSpecies": {
     "SPECIES_DECIDUEYE_HISUIAN": {
+      "Abilities": [
+        "ABILITY_OVERGROW",
+        "ABILITY_SNIPER",
+        "ABILITY_SCRAPPY"
+      ],
       "BaseStats": {
         "HP": 88,
         "Attack": 112,

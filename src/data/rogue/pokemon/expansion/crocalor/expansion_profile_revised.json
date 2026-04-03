@@ -1,0 +1,11 @@
+{
+  "PerSpecies": {
+    "SPECIES_CROCALOR": {
+      "Abilities": [
+        "ABILITY_BLAZE",
+        "ABILITY_ROUGH_SKIN",
+        "ABILITY_UNAWARE"
+      ]
+    }
+  }
+}

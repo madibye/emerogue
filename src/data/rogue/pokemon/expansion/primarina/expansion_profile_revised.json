@@ -1,6 +1,11 @@
 {
   "PerSpecies": {
     "SPECIES_PRIMARINA": {
+      "Abilities": [
+        "ABILITY_TORRENT",
+        "ABILITY_SIRENS_SONG",
+        "ABILITY_LIQUID_VOICE"
+      ],
       "BaseStats": {
         "HP": 80,
         "Attack": 74,

@@ -634,6 +634,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_SPICY_SPRAY] = _("Spicy Spray"),
     [ABILITY_THERMAL_BOOST] = _("Thermal Boost"),
     [ABILITY_EVIL_EYE] = _("Evil Eye"),
+    [ABILITY_SIRENS_SONG] = _("Siren's Song"),
     [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
 };
 #else   // 12 characters
@@ -952,8 +953,14 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_POISON_PUPPETEER] = _("PoisnPuppter"),
     [ABILITY_ENLIGHTENMENT] = _("Enlightnment"),
     [ABILITY_VOODOO_CURSE] = _("Voodoo Curse"),
-    
-    [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
+    [ABILITY_MEGA_SOL] = _("Mega Sol"),
+    [ABILITY_DRAGONIZE] = _("Dragonize"),
+    [ABILITY_PIERCING_DRILL] = _("PiercngDrill"),
+    [ABILITY_SPICY_SPRAY] = _("Spicy Spray"),
+    [ABILITY_THERMAL_BOOST] = _("ThermalBoost"),
+    [ABILITY_EVIL_EYE] = _("Evil Eye"),
+    [ABILITY_SIRENS_SONG] = _("Siren'sSong"),
+    [ABILITY_FORECAST_PRIORITY] = _("InstaForecst"),
 };
 #endif
 
@@ -1278,6 +1285,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SPICY_SPRAY] = sSpicySprayDescription,
     [ABILITY_THERMAL_BOOST] = sThermalBoostDescription,
     [ABILITY_EVIL_EYE] = sEvilEyeDescription,
+    [ABILITY_SIRENS_SONG] = sPunkRockDescription,
     
     [ABILITY_FORECAST_PRIORITY] = sForecastPriorityDescription,
 };

@@ -307,6 +307,8 @@ static const u8 sMegaSolDescription[] = _("Moves behave as if sunny.");
 static const u8 sDragonizeDescription[] = _("Normal moves become Dragon.");
 static const u8 sPiercingDrillDescription[] = _("Contact pierces protection.");
 static const u8 sSpicySprayDescription[] = _("Burn attacking foes.");
+static const u8 sThermalBoostDescription[] = _("Powers up Fire moves.");
+static const u8 sEvilEyeDescription[] = _("Damages sleeping Pokémon.");
 
 static const u8 sForecastPriorityDescription[] = _("Weather moves go first.");
 
@@ -630,7 +632,8 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_DRAGONIZE] = _("Dragonize"),
     [ABILITY_PIERCING_DRILL] = _("Piercing Drill"),
     [ABILITY_SPICY_SPRAY] = _("Spicy Spray"),
-    
+    [ABILITY_THERMAL_BOOST] = _("Thermal Boost"),
+    [ABILITY_EVIL_EYE] = _("Evil Eye"),
     [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
 };
 #else   // 12 characters
@@ -1273,6 +1276,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_DRAGONIZE] = sDragonizeDescription,
     [ABILITY_PIERCING_DRILL] = sPiercingDrillDescription,
     [ABILITY_SPICY_SPRAY] = sSpicySprayDescription,
+    [ABILITY_THERMAL_BOOST] = sThermalBoostDescription,
+    [ABILITY_EVIL_EYE] = sEvilEyeDescription,
     
     [ABILITY_FORECAST_PRIORITY] = sForecastPriorityDescription,
 };

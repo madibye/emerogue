@@ -11206,6 +11206,11 @@ static void Cmd_manipulatedamage(void)
         if (gBattleMoveDamage == 0)
             gBattleMoveDamage = 1;
         break;
+    case DMG_1_4_TARGET_HP:
+        gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerTarget) / 4;
+        if (gBattleMoveDamage == 0)
+            gBattleMoveDamage = 1;
+        break;
     case DMG_FULL_ATTACKER_HP:
         gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker);
         break;
@@ -11214,9 +11219,6 @@ static void Cmd_manipulatedamage(void)
         break;
     case DMG_BIG_ROOT:
         gBattleMoveDamage = GetDrainedBigRootHp(gBattlerAttacker, gBattleMoveDamage);
-        break;
-    case DMG_1_2_ATTACKER_HP:
-        gBattleMoveDamage = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
         break;
     case DMG_RECOIL_FROM_IMMUNE:
         gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerTarget) / 2;

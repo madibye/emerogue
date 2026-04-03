@@ -9297,6 +9297,42 @@ BattleScript_BadDreams_HidePopUp:
 	tryfaintmon BS_TARGET
 	goto BattleScript_BadDreamsIncrement
 
+BattleScript_EvilEyeActivates::
+	setbyte gBattlerTarget, 0
+BattleScript_EvilEyeLoop:
+	jumpiftargetally BattleScript_EvilEyeIncrement
+	jumpifability BS_TARGET, ABILITY_MAGIC_GUARD, BattleScript_EvilEyeIncrement
+	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_EvilEye_Dmg
+	jumpifstatus BS_TARGET, STATUS1_SLEEP, BattleScript_EvilEye_Dmg
+	goto BattleScript_EvilEyeIncrement
+BattleScript_EvilEye_Dmg:
+	jumpifbyteequal sFIXED_ABILITY_POPUP, sZero, BattleScript_EvilEye_ShowPopUp
+BattleScript_EvilEye_DmgAfterPopUp:
+	printstring STRINGID_EVILEYEDMG
+	waitmessage B_WAIT_TIME_LONG
+	dmg_1_4_targethp
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	jumpifhasnohp BS_TARGET, BattleScript_EvilEye_HidePopUp
+BattleScript_EvilEyeIncrement:
+	addbyte gBattlerTarget, 1
+	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_EvilEyeLoop
+	jumpifbyteequal sFIXED_ABILITY_POPUP, sZero, BattleScript_EvilEyeEnd
+	destroyabilitypopup
+	pause 15
+BattleScript_EvilEyeEnd:
+	end3
+BattleScript_EvilEye_ShowPopUp:
+	copybyte gBattlerAbility, gBattlerAttacker
+	call BattleScript_AbilityPopUp
+	setbyte sFIXED_ABILITY_POPUP, TRUE
+	goto BattleScript_EvilEye_DmgAfterPopUp
+BattleScript_EvilEye_HidePopUp:
+	destroyabilitypopup
+	tryfaintmon BS_TARGET
+	goto BattleScript_EvilEyeIncrement
+
 BattleScript_TookAttack::
 	attackstring
 	pause B_WAIT_TIME_SHORT

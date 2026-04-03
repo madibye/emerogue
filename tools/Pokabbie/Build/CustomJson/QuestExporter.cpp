@@ -139,6 +139,7 @@ struct QuestInfo
 	json groupObj;
 	json questObj;
 	int importIndex;
+	int sortIndex;
 	std::string questId;
 	std::string preprocessorCondition;
 	std::string displayGroup;
@@ -593,6 +594,10 @@ void ExportQuestData_C(std::ofstream& fileStream, std::string const& dataPath, j
 	std::sort(questData.questInfo.begin(), questData.questInfo.end(),
 		[&](QuestInfo const& a, QuestInfo const& b) -> bool
 		{
+			if (a.sortIndex != b.sortIndex) {
+				return a.sortIndex < b.sortIndex;
+			}
+			
 			auto const& groupA = questData.displayGroups[a.displayGroup];
 			auto const& groupB = questData.displayGroups[b.displayGroup];
 
@@ -1051,6 +1056,11 @@ static void GatherQuests(std::string const& dataPath, json const& rawJsonData, Q
 			// Quest ID
 			quest.questId = FormatQuestId(GetQuestName(quest));
 			quest.importIndex = counter++;
+			quest.sortIndex = 0;
+			if (quest.questObj.contains("sort_index"))
+			{
+				quest.sortIndex = quest.questObj["sort_index"].get<int>();
+			}
 
 			// Display Group Name
 			if (quest.questObj.contains("display_group"))

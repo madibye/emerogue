@@ -30,6 +30,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BULBASAUR"
                 },
+                "sort_index": 1,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -52,6 +53,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CHARMANDER"
                 },
+                "sort_index": 4,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -75,6 +77,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SQUIRTLE"
                 },
+                "sort_index": 7,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -97,6 +100,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CATERPIE"
                 },
+                "sort_index": 10,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -118,6 +122,7 @@
                 {
                     "MON_SPECIES": "SPECIES_WEEDLE"
                 },
+                "sort_index": 13,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -129,6 +134,7 @@
                 {
                     "MON_SPECIES": "SPECIES_PIDGEY"
                 },
+                "sort_index": 16,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -140,6 +146,7 @@
                 {
                     "MON_SPECIES": "SPECIES_PICHU"
                 },
+                "sort_index": 25,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -165,6 +172,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MEOWTH"
                 },
+                "sort_index": 52,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -186,6 +194,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ABRA"
                 },
+                "sort_index": 63,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -197,6 +206,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MACHOP"
                 },
+                "sort_index": 66,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -218,6 +228,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SLOWPOKE"
                 },
+                "sort_index": 79,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -229,6 +240,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GASTLY"
                 },
+                "sort_index": 92,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -251,6 +263,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ONIX"
                 },
+                "sort_index": 95,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -262,6 +275,7 @@
                 {
                     "MON_SPECIES": "SPECIES_KRABBY"
                 },
+                "sort_index": 98,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -283,6 +297,7 @@
                 {
                     "MON_SPECIES": "SPECIES_KANGASKHAN"
                 },
+                "sort_index": 115,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -294,6 +309,7 @@
                 {
                     "MON_SPECIES": "SPECIES_PINSIR"
                 },
+                "sort_index": 127,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -305,6 +321,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SCYTHER"
                 },
+                "sort_index": 123,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -316,6 +333,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MAGIKARP"
                 },
+                "sort_index": 129,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -327,6 +345,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LAPRAS"
                 },
+                "sort_index": 131,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -348,6 +367,7 @@
                 {
                     "MON_SPECIES": "SPECIES_EEVEE"
                 },
+                "sort_index": 133,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -370,6 +390,7 @@
                 {
                     "MON_SPECIES": "SPECIES_AERODACTYL"
                 },
+                "sort_index": 142,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -381,6 +402,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SNORLAX"
                 },
+                "sort_index": 143,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -403,6 +425,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MEWTWO"
                 },
+                "sort_index": 150,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -416,6 +439,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MEW"
                 },
+                "sort_index": 151,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -428,6 +452,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MAREEP"
                 },
+                "sort_index": 179,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -439,6 +464,7 @@
                 {
                     "MON_SPECIES": "SPECIES_HERACROSS"
                 },
+                "sort_index": 214,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -450,6 +476,7 @@
                 {
                     "MON_SPECIES": "SPECIES_HOUNDOUR"
                 },
+                "sort_index": 228,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -461,6 +488,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LARVITAR"
                 },
+                "sort_index": 246,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -473,6 +501,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TREECKO"
                 },
+                "sort_index": 252,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -484,6 +513,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TORCHIC"
                 },
+                "sort_index": 255,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -495,6 +525,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MUDKIP"
                 },
+                "sort_index": 258,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -506,6 +537,7 @@
                 {
                     "MON_SPECIES": "SPECIES_RALTS"
                 },
+                "sort_index": 280,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -518,6 +550,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SABLEYE"
                 },
+                "sort_index": 302,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -529,6 +562,8 @@
                 {
                     "MON_SPECIES": "SPECIES_MAWILE"
                 },
+
+                "sort_index": 303,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -540,6 +575,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ARON"
                 },
+                "sort_index": 304,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -551,6 +587,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MEDITITE"
                 },
+                "sort_index": 307,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -562,6 +599,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ELECTRIKE"
                 },
+                "sort_index": 309,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -573,6 +611,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CARVANHA"
                 },
+                "sort_index": 318,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -584,6 +623,7 @@
                 {
                     "MON_SPECIES": "SPECIES_NUMEL"
                 },
+                "sort_index": 322,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -595,6 +635,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SWABLU"
                 },
+                "sort_index": 333,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -606,6 +647,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SHUPPET"
                 },
+                "sort_index": 353,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -617,6 +659,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ABSOL"
                 },
+                "sort_index": 359,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -629,6 +672,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SNORUNT"
                 },
+                "sort_index": 361,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -641,6 +685,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BAGON"
                 },
+                "sort_index": 371,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -652,6 +697,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BELDUM"
                 },
+                "sort_index": 374,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -661,6 +707,7 @@
             {
                 "name": "Lati Mastery",
                 "description": "Enter the Hall of Fame with Latias or Latios in your party.",
+                "sort_index": 379,
                 "triggers":
                 [
                     {
@@ -682,6 +729,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LATIAS"
                 },
+                "sort_index": 380,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -694,6 +742,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LATIOS"
                 },
+                "sort_index": 381,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -705,6 +754,7 @@
                 {
                     "MON_SPECIES": "SPECIES_KYOGRE"
                 },
+                "sort_index": 382,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -716,6 +766,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GROUDON"
                 },
+                "sort_index": 383,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -727,6 +778,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DEOXYS"
                 },
+                "sort_index": 386,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -740,6 +792,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BUNEARY"
                 },
+                "sort_index": 427,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -752,6 +805,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GIBLE"
                 },
+                "sort_index": 443,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -765,6 +819,7 @@
                 {
                     "MON_SPECIES": "SPECIES_RIOLU"
                 },
+                "sort_index": 447,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -778,6 +833,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SNOVER"
                 },
+                "sort_index": 459,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -790,6 +846,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ROTOM"
                 },
+                "sort_index": 479,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -802,6 +859,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DIALGA"
                 },
+                "sort_index": 483,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -815,6 +873,7 @@
                 {
                     "MON_SPECIES": "SPECIES_PALKIA"
                 },
+                "sort_index": 484,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -828,6 +887,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GIRATINA"
                 },
+                "sort_index": 487,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -841,6 +901,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SHAYMIN"
                 },
+                "sort_index": 492,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -853,6 +914,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ARCEUS"
                 },
+                "sort_index": 493,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -881,6 +943,7 @@
                 {
                     "MON_SPECIES": "SPECIES_AUDINO"
                 },
+                "sort_index": 531,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -893,6 +956,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TRUBBISH"
                 },
+                "sort_index": 568,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -922,6 +986,7 @@
                         "fail": "FAIL"
                     }
                 ],
+                "sort_index": 641,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -934,6 +999,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GENESECT"
                 },
+                "sort_index": 649,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -950,6 +1016,7 @@
                 {
                     "MON_SPECIES": "SPECIES_FROAKIE"
                 },
+                "sort_index": 656,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -963,6 +1030,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ZYGARDE"
                 },
+                "sort_index": 718,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -976,6 +1044,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DIANCIE"
                 },
+                "sort_index": 719,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -988,6 +1057,7 @@
                 {
                     "MON_SPECIES": "SPECIES_HOOPA"
                 },
+                "sort_index": 720,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1001,6 +1071,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ROWLET"
                 },
+                "sort_index": 722,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1013,6 +1084,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LITTEN"
                 },
+                "sort_index": 725,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1025,6 +1097,7 @@
                 {
                     "MON_SPECIES": "SPECIES_POPPLIO"
                 },
+                "sort_index": 728,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1037,6 +1110,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ROCKRUFF"
                 },
+                "sort_index": 744,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1050,6 +1124,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MIMIKYU"
                 },
+                "sort_index": 778,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1062,6 +1137,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SILVALLY"
                 },
+                "sort_index": 773,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1090,6 +1166,7 @@
                 {
                     "MON_SPECIES": "SPECIES_JANGMO_O"
                 },
+                "sort_index": 782,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1100,6 +1177,7 @@
                 "#if": "defined(ROGUE_EXPANSION)",
                 "name": "Tapu Mastery",
                 "description": "Enter the Hall of Fame with Tapu Koko, Tapu Lele, Tapu Bulu or Tapu Fini in your party.",
+                "sort_index": 785,
                 "triggers":
                 [
                     {
@@ -1122,6 +1200,7 @@
                 {
                     "MON_SPECIES": "SPECIES_COSMOG"
                 },
+                "sort_index": 789,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1135,6 +1214,7 @@
                 {
                     "MON_SPECIES": "SPECIES_NECROZMA"
                 },
+                "sort_index": 800,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1147,6 +1227,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MAGEARNA"
                 },
+                "sort_index": 801,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1160,6 +1241,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MARSHADOW"
                 },
+                "sort_index": 802,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1172,6 +1254,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MELTAN"
                 },
+                "sort_index": 809,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1194,6 +1277,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GROOKEY"
                 },
+                "sort_index": 810,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1215,6 +1299,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SCORBUNNY"
                 },
+                "sort_index": 813,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1236,6 +1321,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SOBBLE"
                 },
+                "sort_index": 816,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1257,6 +1343,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ROOKIDEE"
                 },
+                "sort_index": 821,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1278,6 +1365,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BLIPBUG"
                 },
+                "sort_index": 824,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1299,6 +1387,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CHEWTLE"
                 },
+                "sort_index": 833,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1320,6 +1409,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ROLYCOLY"
                 },
+                "sort_index": 837,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1341,6 +1431,7 @@
                 {
                     "MON_SPECIES": "SPECIES_APPLIN"
                 },
+                "sort_index": 840,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1362,6 +1453,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SILICOBRA"
                 },
+                "sort_index": 843,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1383,6 +1475,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TOXEL"
                 },
+                "sort_index": 848,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1404,6 +1497,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SIZZLIPEDE"
                 },
+                "sort_index": 850,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1425,6 +1519,7 @@
                 {
                     "MON_SPECIES": "SPECIES_HATENNA"
                 },
+                "sort_index": 856,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1446,6 +1541,7 @@
                 {
                     "MON_SPECIES": "SPECIES_IMPIDIMP"
                 },
+                "sort_index": 859,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1467,6 +1563,7 @@
                 {
                     "MON_SPECIES": "SPECIES_MILCERY"
                 },
+                "sort_index": 868,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1488,6 +1585,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CUFANT"
                 },
+                "sort_index": 878,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1509,6 +1607,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DURALUDON"
                 },
+                "sort_index": 884,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1530,6 +1629,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ZACIAN"
                 },
+                "sort_index": 888,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1542,6 +1642,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ZAMAZENTA"
                 },
+                "sort_index": 889,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1554,6 +1655,7 @@
                 {
                     "MON_SPECIES": "SPECIES_KUBFU"
                 },
+                "sort_index": 891,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1576,6 +1678,7 @@
                 {
                     "MON_SPECIES": "SPECIES_OGERPON"
                 },
+                "sort_index": 1017,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1591,6 +1694,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TERAPAGOS"
                 },
+                "sort_index": 1024,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1603,6 +1707,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CLEFFA"
                 },
+                "sort_index": 35,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1614,6 +1719,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BELLSPROUT"
                 },
+                "sort_index": 69,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1625,6 +1731,7 @@
                 {
                     "MON_SPECIES": "SPECIES_STARYU"
                 },
+                "sort_index": 120,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1636,6 +1743,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DRATINI"
                 },
+                "sort_index": 147,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1647,6 +1755,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CHIKORITA"
                 },
+                "sort_index": 152,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1658,6 +1767,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TOTODILE"
                 },
+                "sort_index": 158,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1669,6 +1779,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SKARMORY"
                 },
+                "sort_index": 227,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1681,6 +1792,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CHINGLING"
                 },
+                "sort_index": 358,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1693,6 +1805,7 @@
                 {
                     "MON_SPECIES": "SPECIES_STARLY"
                 },
+                "sort_index": 396,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1705,6 +1818,7 @@
                 {
                     "MON_SPECIES": "SPECIES_HEATRAN"
                 },
+                "sort_index": 485,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1717,6 +1831,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DARKRAI"
                 },
+                "sort_index": 491,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1729,6 +1844,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TEPIG"
                 },
+                "sort_index": 498,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1741,6 +1857,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DRILBUR"
                 },
+                "sort_index": 529,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1753,6 +1870,7 @@
                 {
                     "MON_SPECIES": "SPECIES_VENIPEDE"
                 },
+                "sort_index": 543,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1765,6 +1883,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SCRAGGY"
                 },
+                "sort_index": 559,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1777,6 +1896,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TYNAMO"
                 },
+                "sort_index": 602,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1789,6 +1909,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LITWICK"
                 },
+                "sort_index": 607,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1801,6 +1922,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GOLETT"
                 },
+                "sort_index": 622,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1813,6 +1935,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CHESPIN"
                 },
+                "sort_index": 650,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1825,6 +1948,7 @@
                 {
                     "MON_SPECIES": "SPECIES_FENNEKIN"
                 },
+                "sort_index": 653,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1837,6 +1961,7 @@
                 {
                     "MON_SPECIES": "SPECIES_LITLEO"
                 },
+                "sort_index": 667,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1849,6 +1974,7 @@
                 {
                     "MON_SPECIES": "SPECIES_FLABEBE"
                 },
+                "sort_index": 669,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1862,6 +1988,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ESPURR"
                 },
+                "sort_index": 677,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1874,6 +2001,7 @@
                 {
                     "MON_SPECIES": "SPECIES_INKAY"
                 },
+                "sort_index": 686,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1886,6 +2014,7 @@
                 {
                     "MON_SPECIES": "SPECIES_BINACLE"
                 },
+                "sort_index": 688,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1898,6 +2027,7 @@
                 {
                     "MON_SPECIES": "SPECIES_SKRELP"
                 },
+                "sort_index": 690,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1910,6 +2040,7 @@
                 {
                     "MON_SPECIES": "SPECIES_HAWLUCHA"
                 },
+                "sort_index": 701,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1922,6 +2053,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CRABRAWLER"
                 },
+                "sort_index": 739,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1934,6 +2066,7 @@
                 {
                     "MON_SPECIES": "SPECIES_WIMPOD"
                 },
+                "sort_index": 767,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1946,6 +2079,7 @@
                 {
                     "MON_SPECIES": "SPECIES_DRAMPA"
                 },
+                "sort_index": 780,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1958,6 +2092,7 @@
                 {
                     "MON_SPECIES": "SPECIES_ZERAORA"
                 },
+                "sort_index": 807,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1970,6 +2105,7 @@
                 {
                     "MON_SPECIES": "SPECIES_FALINKS"
                 },
+                "sort_index": 870,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1982,6 +2118,7 @@
                 {
                     "MON_SPECIES": "SPECIES_CAPSAKID"
                 },
+                "sort_index": 951,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -1994,6 +2131,7 @@
                 {
                     "MON_SPECIES": "SPECIES_GLIMMET"
                 },
+                "sort_index": 969,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -2006,6 +2144,7 @@
                 {
                     "MON_SPECIES": "SPECIES_TATSUGIRI"
                 },
+                "sort_index": 978,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },
@@ -2018,6 +2157,7 @@
                 {
                     "MON_SPECIES": "SPECIES_FRIGIBAX"
                 },
+                "sort_index": 996,
                 "rewards":
                 [
                     { "money": "QUEST_REWARD_SMALL_MONEY" },

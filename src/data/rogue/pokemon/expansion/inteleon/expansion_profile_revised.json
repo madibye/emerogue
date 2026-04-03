@@ -10,6 +10,22 @@
     "MOVE_NASTY_PLOT",
     "MOVE_FRUSTRATION"
   ],
+  "PerSpecies": {
+    "SPECIES_INTELEON": {
+      "Abilities": [
+        "ABILITY_TORRENT",
+        "ABILITY_SHED_SKIN",
+        "ABILITY_SNIPER"
+      ]
+    },
+    "SPECIES_INTELEON_GIGANTAMAX": {
+      "Abilities": [
+        "ABILITY_TORRENT",
+        "ABILITY_SHED_SKIN",
+        "ABILITY_SNIPER"
+      ]
+    }
+  },
   "CompetitiveSets": [
     {
       "Moves": [

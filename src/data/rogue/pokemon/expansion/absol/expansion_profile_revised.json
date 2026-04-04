@@ -12,6 +12,26 @@
         "SpAttack": 85,
         "SpDefense": 60
       }
+    },
+    "SPECIES_ABSOL_MEGA": {
+      "BaseStats": {
+        "HP": 65,
+        "Attack": 150,
+        "Defense": 60,
+        "Speed": 125,
+        "SpAttack": 125,
+        "SpDefense": 60
+      }
+    },
+    "SPECIES_ABSOL_MEGA_Z": {
+      "BaseStats": {
+        "HP": 65,
+        "Attack": 154,
+        "Defense": 65,
+        "Speed": 151,
+        "SpAttack": 85,
+        "SpDefense": 65
+      }
     }
   },
   "TutorMoves": [

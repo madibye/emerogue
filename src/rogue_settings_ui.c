@@ -351,6 +351,28 @@ static u8 const* const sText_DifficultyExpAllDesc[] =
 };
 
 
+static const u8 sText_DifficultyRevisionModeDescNever[] = _(
+    "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
+    "{PKMN} will use their vanilla stats and\n"
+    "movepools."
+);
+static const u8 sText_DifficultyRevisionModeDescAlwaysOn[] = _(
+    "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
+    "{PKMN} will use rebalanced stats and\n"
+    "movepools, even outside of adventures."
+);
+static const u8 sText_DifficultyRevisionModeDescInRun[] = _(
+    "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
+    "{PKMN} will use rebalanced stats and\n"
+    "movepools when in adventures."
+);
+static u8 const* const sText_DifficultyRevisionModeDesc[] = 
+{
+    sText_DifficultyRevisionModeDescNever,
+    sText_DifficultyRevisionModeDescInRun,
+    sText_DifficultyRevisionModeDescAlwaysOn,
+};
+
 static const u8 sText_DifficultyOverworldMonsDescOff[] = _(
     "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
     "Wild {PKMN} will spawn randomly as you move.\n"
@@ -826,7 +848,7 @@ static const struct MenuEntry sOptionMenuItems[] =
     [MENUITEM_MENU_SLIDER_REVISION_MODE] = 
     {
         .itemName = sMenuName_RevisionMode,
-        .MULTI_DESC(sMenuNameDesc_BattleFormat),
+        .MULTI_DESC(sText_DifficultyRevisionModeDesc),
         .processInput = RevisionMode_ProcessInput,
         .drawChoices = RevisionMode_DrawChoices
     },

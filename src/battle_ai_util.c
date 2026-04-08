@@ -71,6 +71,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_DAMP] = 2,
     [ABILITY_DANCER] = 5,
     [ABILITY_DARK_AURA] = 6,
+    [ABILITY_DARK_CURRENT] = 7,
     [ABILITY_DAZZLING] = 5,
     [ABILITY_DEFEATIST] = -1,
     [ABILITY_DEFIANT] = 5,

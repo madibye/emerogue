@@ -4,6 +4,15 @@
     "TutorMoves": "MERGE",
     "CompetitiveSets": "MERGE"
   },
+  "PerSpecies": {
+    "SPECIES_EELEKTROSS_MEGA": {
+      "Abilities": [
+        "ABILITY_DARK_CURRENT",
+        "ABILITY_DARK_CURRENT",
+        "ABILITY_DARK_CURRENT"
+      ]
+    }
+  },
   "LevelUpMoves": [
     {
       "Move": "MOVE_OUTRAGE",

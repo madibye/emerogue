@@ -297,7 +297,7 @@ static const u8 sEmbodyAspectWellspringDescription[] = _("Raises Sp. Def.");
 static const u8 sEmbodyAspectCornerstoneDescription[] = _("Raises Defense.");
 static const u8 sToxicChainDescription[] = _("Moves can poison.");
 static const u8 sSupersweetSyrupDescription[] = _("Lowers the foe's Speed.");
-static const u8 sTeraShiftDescription[] = _("Terasteralizes upon entry.");
+static const u8 sTeraShiftDescription[] = _("Terastallizes upon entry.");
 static const u8 sTeraShellDescription[] = _("Resistant to types at full HP.");
 static const u8 sTeraformZeroDescription[] = _("Removes weather and terrain.");
 static const u8 sPoisonPuppeteerDescription[] = _("Confuses poisoned foes.");
@@ -308,7 +308,7 @@ static const u8 sDragonizeDescription[] = _("Normal moves become Dragon.");
 static const u8 sPiercingDrillDescription[] = _("Contact pierces protection.");
 static const u8 sSpicySprayDescription[] = _("Burn attacking foes.");
 static const u8 sThermalBoostDescription[] = _("Powers up Fire moves.");
-static const u8 sEvilEyeDescription[] = _("Damages sleeping Pokémon.");
+static const u8 sDarkCurrentDescription[] = _("Psy & Ghost weak to Elec.");
 
 static const u8 sForecastPriorityDescription[] = _("Weather moves go first.");
 
@@ -635,6 +635,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_THERMAL_BOOST] = _("Thermal Boost"),
     [ABILITY_EVIL_EYE] = _("Evil Eye"),
     [ABILITY_SIRENS_SONG] = _("Siren's Song"),
+    [ABILITY_DARK_CURRENT]= _("Dark Current"),
     [ABILITY_FORECAST_PRIORITY] = _("Instant Forecast"),
 };
 #else   // 12 characters
@@ -960,6 +961,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_THERMAL_BOOST] = _("ThermalBoost"),
     [ABILITY_EVIL_EYE] = _("Evil Eye"),
     [ABILITY_SIRENS_SONG] = _("Siren'sSong"),
+    [ABILITY_DARK_CURRENT]= _("DarkCurrent"),
     [ABILITY_FORECAST_PRIORITY] = _("InstaForecst"),
 };
 #endif
@@ -1284,8 +1286,9 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_PIERCING_DRILL] = sPiercingDrillDescription,
     [ABILITY_SPICY_SPRAY] = sSpicySprayDescription,
     [ABILITY_THERMAL_BOOST] = sThermalBoostDescription,
-    [ABILITY_EVIL_EYE] = sEvilEyeDescription,
+    [ABILITY_EVIL_EYE] = sBadDreamsDescription,
     [ABILITY_SIRENS_SONG] = sPunkRockDescription,
+    [ABILITY_DARK_CURRENT] = sDarkCurrentDescription,
     
     [ABILITY_FORECAST_PRIORITY] = sForecastPriorityDescription,
 };

@@ -3260,7 +3260,8 @@ void Rogue_OnNewGame(void)
     StringCopy(gSaveBlock2Ptr->playerName, gText_TrainerName_Default);
     StringCopy(gSaveBlock2Ptr->pokemonHubName, gText_ExpandedPlaceholder_PokemonHub);
     memset(&gRogueRun.completedBadges[0], TYPE_NONE, sizeof(gRogueRun.completedBadges));
-
+    memset(&gRogueRun.lastShopVisitDifficulty[0], 0, sizeof(gRogueRun.lastShopVisitDifficulty));
+    
     SetMoney(&gSaveBlock1Ptr->money, 0);
     memset(&gRogueLocal, 0, sizeof(gRogueLocal));
 
@@ -3371,6 +3372,12 @@ void Rogue_NotifySaveVersionUpdated(u16 fromNumber, u16 toNumber)
 
     FlagClear(FLAG_ROGUE_ADVENTURE_REPLAY_ACTIVE);
 
+    if(RogueSave_GetVersionIdFor(fromNumber) < SAVE_VER_ID_2_1_0)
+    {
+        // Reset mode, as we removed rainbow mode
+        Rogue_SetConfigRange(CONFIG_RANGE_GAME_MODE_NUM, ROGUE_GAME_MODE_STANDARD);
+    }
+    
     // TODO - Hook up warnings here??
     // if(IsPreReleaseCompatVersion(gSaveBlock1Ptr->rogueCompatVersion))
     //    FlagSet(FLAG_ROGUE_PRE_RELEASE_COMPAT_WARNING);
@@ -4365,6 +4372,7 @@ static void BeginRogueRun(void)
     // CheckBagHasItem(ITEM_DYNAMAX_BAND, 1)
 #endif
     gRogueRun.revisedModeEnabled = GetRevisionModeActive_Slow(TRUE);
+    Rogue_GenerateModeRules(&gRogueRun.gameRules);
 
     FlagSet(FLAG_ROGUE_RUN_ACTIVE);
     FlagClear(FLAG_ROGUE_IS_VICTORY_LAP);
@@ -4405,7 +4413,7 @@ static void BeginRogueRun(void)
     }
 
     Rogue_SetCurrentDifficulty(GetStartDifficulty());
-    gRogueRun.currentLevelOffset = Rogue_GetModeRules()->initialLevelOffset;
+    gRogueRun.currentLevelOffset = gRogueRun.gameRules.initialLevelOffset;
     gRogueRun.adventureRoomId = ADVPATH_INVALID_ROOM_ID;
 
     if (gRogueRun.currentLevelOffset == 0)
@@ -4416,6 +4424,14 @@ static void BeginRogueRun(void)
 
     // Apply some base seed for anything which needs to be randomly setup
     SeedRogueRng(gRogueRun.baseSeed * 23151 + 29867);
+    
+    {
+        u32 i;
+        for(i = 0; i < ROGUE_SUBSEED_COUNT; ++i)
+        {
+            gRogueRun.subSeeds[i] = RogueRandom();
+        }
+    }
 
     memset(&gRogueRun.completedBadges[0], TYPE_NONE, sizeof(gRogueRun.completedBadges));
 
@@ -4701,7 +4717,7 @@ static void ChooseLegendarysForNewAdventure()
             spawnMinor = TRUE;
     }
 
-    if (Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
     {
         // Gauntlet always generates a minor legendary only
         spawnRoamer = FALSE;
@@ -4724,19 +4740,19 @@ static void ChooseLegendarysForNewAdventure()
 
     if (spawnBox)
     {
-        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] = (Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_ELITE_START_DIFFICULTY - 1 + RogueRandomRange(3, 0);
+        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_ELITE_START_DIFFICULTY - 1 + RogueRandomRange(3, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_BOX] = SelectLegendarySpecies(ADVPATH_LEGEND_BOX);
     }
 
     if (spawnRoamer)
     {
-        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_ROAMER] = (Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : 1 + RogueRandomRange(5, 0);
+        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_ROAMER] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : 1 + RogueRandomRange(5, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_ROAMER] = SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER);
     }
 
     if (spawnMinor)
     {
-        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] = (Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : 4 + RogueRandomRange(4, 0);
+        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : 4 + RogueRandomRange(4, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_MINOR] = SelectLegendarySpecies(ADVPATH_LEGEND_MINOR);
     }
 
@@ -4834,7 +4850,7 @@ static void ChooseTeamEncountersForNewAdventure()
     Rogue_ChooseTeamBossTrainerForNewAdventure();
 
     // Don't place any of these encounters
-    if (Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
         return;
 
     // Setup maps (There's only 1 per each currently)
@@ -5414,7 +5430,7 @@ void Rogue_OnWarpIntoMap(void)
 
 static void TryRandomanSpawn(u8 chance)
 {
-    if (Rogue_GetModeRules()->forceRandomanAlwaysActive || IsCurseActive(EFFECT_RANDOMAN_ALWAYS_SPAWN) || RogueRandomChance(chance, OVERWORLD_FLAG))
+    if(gRogueRun.gameRules.forceRandomanAlwaysActive || IsCurseActive(EFFECT_RANDOMAN_ALWAYS_SPAWN) || RogueRandomChance(chance, OVERWORLD_FLAG))
     {
         // Enable random trader
         FlagClear(FLAG_ROGUE_RANDOM_TRADE_DISABLED);
@@ -6787,9 +6803,9 @@ void Rogue_Battle_EndTrainerBattle(u16 trainerNum)
                 // Adjust this after the boss reset
                 if (gRogueRun.currentLevelOffset)
                 {
-                    u8 levelOffsetDelta = Rogue_GetModeRules()->levelOffsetInterval;
-
-                    if (levelOffsetDelta == 0)
+                    u8 levelOffsetDelta = gRogueRun.gameRules.levelOffsetInterval;
+                    
+                    if(levelOffsetDelta == 0)
                     {
                         // Apply default
                         levelOffsetDelta = 4;
@@ -6899,9 +6915,9 @@ void Rogue_Battle_EndWildBattle(void)
 
         if (gRogueRun.currentLevelOffset && !DidPlayerRun(gBattleOutcome))
         {
-            u8 levelOffsetDelta = Rogue_GetModeRules()->levelOffsetInterval;
-
-            if (levelOffsetDelta == 0)
+            u8 levelOffsetDelta = gRogueRun.gameRules.levelOffsetInterval;
+            
+            if(levelOffsetDelta == 0)
             {
                 // Apply default
                 levelOffsetDelta = 4;
@@ -8573,16 +8589,62 @@ void Rogue_GetCatchingContestResults(u16 *caughtSpecies, bool8 *didWin, u16 *win
     }
 }
 
-void Rogue_OpenMartQuery(u16 itemCategory, u16 *minSalePrice)
+static void applyMartSeed(u16 itemCategory)
+{
+    if(!Rogue_IsRunActive())
+        return;
+
+    switch (itemCategory)
+    {
+    case ROGUE_SHOP_GENERAL:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_GENERAL]);
+        break;
+    case ROGUE_SHOP_BALLS:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_BALLS]);
+        break;
+    case ROGUE_SHOP_TMS:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_TMS]);
+        break;
+    case ROGUE_SHOP_BATTLE_ENHANCERS:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_BATTLE_ENHANCERS]);
+        break;
+    case ROGUE_SHOP_HELD_ITEMS:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_HELD_ITEMS]);
+        break;
+    case ROGUE_SHOP_RARE_HELD_ITEMS:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_RARE_HELD_ITEMS]);
+        break;
+    case ROGUE_SHOP_BERRIES:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_BERRIES]);
+        break;
+    case ROGUE_SHOP_TREATS:
+        SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_TREATS]);
+        break;
+    
+    default:
+        // Use whatever the active seed is
+        break;
+    }
+}
+
+void Rogue_OpenMartQuery(u16 difficulty, u16 itemCategory, u16* minSalePrice)
 {
     bool8 applyRandomChance = FALSE;
     bool8 applyPriceRange = TRUE;
     u16 randomChanceMinimum = 0;
     u16 maxPriceRange = 65000;
-    u16 difficulty = Rogue_GetModeRules()->forceFullShopInventory ? ROGUE_FINAL_CHAMP_DIFFICULTY : Rogue_GetCurrentDifficulty();
     u16 originalItemCategory = itemCategory;
+    u16 randomSeed;
+
+    if(gRogueRun.gameRules.forceFullShopInventory)
+    {
+        difficulty = ROGUE_FINAL_CHAMP_DIFFICULTY;
+    }
 
     gRogueLocal.rngSeedToRestore = gRngRogueValue;
+
+    applyMartSeed(itemCategory);
+    randomSeed = RogueRandom();
 
     if (itemCategory == ROGUE_SHOP_COURIER)
     {
@@ -8615,7 +8677,6 @@ void Rogue_OpenMartQuery(u16 itemCategory, u16 *minSalePrice)
         difficulty = ROGUE_FINAL_CHAMP_DIFFICULTY;
     }
 
-    RogueItemQuery_Begin();
     RogueItemQuery_IsItemActive();
 
     RogueItemQuery_IsStoredInPocket(QUERY_FUNC_EXCLUDE, POCKET_KEY_ITEMS);
@@ -8801,7 +8862,7 @@ void Rogue_OpenMartQuery(u16 itemCategory, u16 *minSalePrice)
         break;
     }
 
-    if (Rogue_GetModeRules()->forceFullShopInventory)
+    if(gRogueRun.gameRules.forceFullShopInventory)
     {
         applyRandomChance = FALSE;
     }
@@ -8910,7 +8971,7 @@ void Rogue_OpenMartQuery(u16 itemCategory, u16 *minSalePrice)
 
             if (applyRandomChance)
             {
-                u8 chance = 100;
+                u32 chance = 100;
 
                 if (difficulty < ROGUE_ELITE_START_DIFFICULTY)
                 {
@@ -8923,8 +8984,10 @@ void Rogue_OpenMartQuery(u16 itemCategory, u16 *minSalePrice)
 
                 chance = max(randomChanceMinimum, chance);
 
-                if (chance < 100)
-                    RogueMiscQuery_FilterByChance(RogueRandom(), QUERY_FUNC_INCLUDE, chance, 1);
+                if(chance < 100)
+                {
+                    RogueMiscQuery_FilterByChance(randomSeed, QUERY_FUNC_INCLUDE, chance, 1);
+                }
             }
         }
     }
@@ -8932,7 +8995,6 @@ void Rogue_OpenMartQuery(u16 itemCategory, u16 *minSalePrice)
 
 void Rogue_CloseMartQuery()
 {
-    RogueItemQuery_End();
     gRngRogueValue = gRogueLocal.rngSeedToRestore;
 }
 
@@ -9621,7 +9683,7 @@ static bool8 RogueRandomChanceTrainer()
     u8 difficultyModifier = Rogue_GetEncounterDifficultyModifier();
     s32 chance = 4 * (difficultyLevel + 1);
 
-    if (Rogue_GetModeRules()->disableRouteTrainers)
+    if(gRogueRun.gameRules.disableRouteTrainers)
     {
         return FALSE;
     }
@@ -9818,7 +9880,7 @@ static void RandomiseEnabledItems(void)
     s32 i;
     u8 difficultyLevel = Rogue_GetCurrentDifficulty();
 
-    if (Rogue_GetModeRules()->forceEndGameRouteItems)
+    if(gRogueRun.gameRules.forceEndGameRouteItems)
     {
         difficultyLevel = ROGUE_MAX_BOSS_COUNT - 1;
     }

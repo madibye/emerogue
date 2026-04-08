@@ -292,7 +292,7 @@ u8 Rogue_GetTrainerWeather(u16 trainerNum)
 
     if(Rogue_IsKeyTrainer(trainerNum) && trainer != NULL)
     {
-        switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+        switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
         {
         case DIFFICULTY_LEVEL_EASY:
             weatherType = WEATHER_NONE;
@@ -324,7 +324,7 @@ u8 Rogue_GetTrainerWeather(u16 trainerNum)
 
 static u8 CalculateLvlFor(u8 difficulty)
 {
-    if(Rogue_GetModeRules()->disablePerBadgeLvlCaps)
+    if(gRogueRun.gameRules.disablePerBadgeLvlCaps)
     {
         return MAX_LEVEL;
     }
@@ -546,7 +546,7 @@ bool8 Rogue_IsValidTrainerShinySpecies(u16 trainerNum, u16 species)
 
 bool8 Rogue_ShouldTrainerSmartSwitch(u16 trainerNum)
 {
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         if(Rogue_IsKeyTrainer(trainerNum))
@@ -606,7 +606,7 @@ bool8 Rogue_ShouldTrainerSmartSwitch(u16 trainerNum)
 
 bool8 Rogue_ShouldTrainerBeDoubleAware(u16 trainerNum)
 {
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         return FALSE;
@@ -632,7 +632,7 @@ bool8 Rogue_ShouldTrainerBeDoubleAware(u16 trainerNum)
 
 bool8 Rogue_ShouldTrainerTrySetup(u16 trainerNum)
 {
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         if(Rogue_IsKeyTrainer(trainerNum))
@@ -659,7 +659,7 @@ bool8 Rogue_ShouldTrainerTrySetup(u16 trainerNum)
 
 bool8 Rogue_ShouldTrainerBeSmart(u16 trainerNum)
 {
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         if(Rogue_IsKeyTrainer(trainerNum))
@@ -692,7 +692,7 @@ enum
 
 static bool8 ShouldBattleGimicBestSlot(u16 trainerNum, u8 gimic)
 {
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         // no special behaviour
@@ -841,7 +841,7 @@ static bool8 ShouldAllowUltraBeasts(struct TrainerPartyScratch* scratch)
 static bool8 ShouldAllowParadoxMons(struct TrainerPartyScratch* scratch)
 {
 #ifdef ROGUE_EXPANSION
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         if(Rogue_GetCurrentDifficulty() >= ROGUE_ELITE_START_DIFFICULTY - 1)
@@ -897,7 +897,7 @@ static void GetGlobalFilter(u8 difficulty, struct TrainerFliter* filter)
     filter->classFlagsExclude = CLASS_FLAG_NONE;
 
     // Rogue trainers aren't at all supported in rainbow
-    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_ROGUE) && Rogue_GetModeRules()->trainerOrder != TRAINER_ORDER_RAINBOW)
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_ROGUE) && gRogueRun.gameRules.trainerOrder != TRAINER_ORDER_RAINBOW)
     {
         // We won't use the champ unless the quest is active
         if(Rogue_UseFinalQuestEffects() || difficulty < ROGUE_CHAMP_START_DIFFICULTY)
@@ -933,7 +933,7 @@ static void GetGlobalFilter(u8 difficulty, struct TrainerFliter* filter)
         filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_PALDEA;
 #endif
 
-    if(Rogue_GetModeRules()->trainerOrder == TRAINER_ORDER_RAINBOW)
+    if(gRogueRun.gameRules.trainerOrder == TRAINER_ORDER_RAINBOW)
         filter->trainerFlagsExclude |= TRAINER_FLAG_MISC_RAINBOW_EXCLUDE;
     else
         filter->trainerFlagsExclude |= TRAINER_FLAG_MISC_RAINBOW_ONLY;
@@ -995,7 +995,7 @@ static u16 Rogue_ChooseTrainerId(struct TrainerFliter* filter, u8 difficulty, u1
             }
             else
             {
-                if(Rogue_GetModeRules()->trainerOrder != TRAINER_ORDER_RAINBOW)
+                if(gRogueRun.gameRules.trainerOrder != TRAINER_ORDER_RAINBOW)
                 {
                     // Usually, this isn't intentional, so assert here
                     // Can happen in Rainbow for gens with typeless champs
@@ -1025,7 +1025,7 @@ static u16 Rogue_ChooseBossTrainerId(u16 difficulty, u16* historyBuffer, u16 his
     GetDefaultFilter(&filter);
     filter.trainerFlagsInclude |= TRAINER_FLAG_CLASS_BOSS;
 
-    switch (Rogue_GetModeRules()->trainerOrder)
+    switch (gRogueRun.gameRules.trainerOrder)
     {
     case TRAINER_ORDER_DEFAULT:
         {
@@ -1143,7 +1143,7 @@ void Rogue_ChooseBossTrainersForNewAdventure()
         {
             // Clear the history buffer, as we track based on types
             // In rainbow mode, the type can only appear once though
-            if(Rogue_GetModeRules()->trainerOrder != TRAINER_ORDER_RAINBOW)
+            if(gRogueRun.gameRules.trainerOrder != TRAINER_ORDER_RAINBOW)
             {
                 switch(difficulty)
                 {
@@ -1225,7 +1225,7 @@ void Rogue_ChooseRivalTrainerForNewAdventure()
     // Set this up to assume 4 encounters for now to ensure they are evenly spaced
     AGB_ASSERT(ROGUE_RIVAL_MAX_ROUTE_ENCOUNTERS == 4);
 
-    if(Rogue_GetModeRules()->disableRivalEncounters)
+    if(gRogueRun.gameRules.disableRivalEncounters)
     {
         u8 i;
 
@@ -1593,7 +1593,7 @@ static void ConfigurePartyScratchSettings(u16 trainerNum, struct TrainerPartyScr
 {
     u8 difficulty = Rogue_GetCurrentDifficulty();
 
-    if(Rogue_GetModeRules()->forceEndGameTrainers)
+    if(gRogueRun.gameRules.forceEndGameTrainers)
     {
         difficulty = ROGUE_FINAL_CHAMP_DIFFICULTY;
     }
@@ -1605,7 +1605,7 @@ static void ConfigurePartyScratchSettings(u16 trainerNum, struct TrainerPartyScr
     }
 
     // Configure evos, strong presets and legend settings
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
     case DIFFICULTY_LEVEL_AVERAGE:
@@ -1680,7 +1680,7 @@ static u8 CalculateMonFixedIV(u16 trainerNum)
 {
     u8 fixedIV = 0;
 
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
     case DIFFICULTY_LEVEL_AVERAGE:
@@ -1769,12 +1769,12 @@ static u8 ShouldTrainerOptimizeCoverage(u16 trainerNum)
 {
     u8 difficulty = Rogue_GetCurrentDifficulty();
 
-    if(Rogue_GetModeRules()->forceEndGameTrainers)
+    if(gRogueRun.gameRules.forceEndGameTrainers)
     {
         difficulty = ROGUE_FINAL_CHAMP_DIFFICULTY;
     }
 
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         // Rival is the only one who is allowed to spread out their coverage
@@ -1835,18 +1835,18 @@ static u8 CalculatePartyMonCount(u16 trainerNum, u8 monCapacity, u8 monLevel)
     if(monLevel == 1)
         return 1;
 
-    if(Rogue_GetModeRules()->forceEndGameTrainers || Rogue_IsBattleSimTrainer(trainerNum))
+    if(gRogueRun.gameRules.forceEndGameTrainers || Rogue_IsBattleSimTrainer(trainerNum))
     {
         return 6;
     }
 
     if(Rogue_IsKeyTrainer(trainerNum))
     {
-        if(Rogue_GetModeRules()->forceEndGameTrainers)
+        if(gRogueRun.gameRules.forceEndGameTrainers)
             monCount = 6;
         else
         {
-            switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+            switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
             {
             case DIFFICULTY_LEVEL_EASY:
             case DIFFICULTY_LEVEL_AVERAGE:
@@ -1881,7 +1881,7 @@ static u8 CalculatePartyMonCount(u16 trainerNum, u8 monCapacity, u8 monLevel)
         }
 
         // Clamp team boss to 5 mons on easy and avg
-        if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) < DIFFICULTY_LEVEL_HARD)
+        if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL) < DIFFICULTY_LEVEL_HARD)
         {
             if(Rogue_IsTeamBossTrainer(trainerNum))
                 monCount = min(5, monCount);
@@ -1937,7 +1937,7 @@ static bool8 ShouldTrainerUseValidNatures(u16 trainerNum)
 {
     u8 difficulty = Rogue_GetCurrentDifficulty();
 
-    if(Rogue_GetModeRules()->forceEndGameTrainers)
+    if(gRogueRun.gameRules.forceEndGameTrainers)
     {
         difficulty = ROGUE_FINAL_CHAMP_DIFFICULTY;
     }
@@ -1945,7 +1945,7 @@ static bool8 ShouldTrainerUseValidNatures(u16 trainerNum)
     if(!Rogue_IsKeyTrainer(trainerNum))
         return FALSE;
 
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         return FALSE;
@@ -1971,12 +1971,12 @@ static bool8 ShouldTrainerUseValidTeraTypes(u16 trainerNum)
 {
     u8 difficulty = Rogue_GetCurrentDifficulty();
 
-    if(Rogue_GetModeRules()->forceEndGameTrainers)
+    if(gRogueRun.gameRules.forceEndGameTrainers)
     {
         difficulty = ROGUE_FINAL_CHAMP_DIFFICULTY;
     }
 
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         return FALSE;
@@ -2147,7 +2147,7 @@ static u8 CreateTrainerPartyInternal(u16 trainerNum, struct Pokemon* party, u8 m
                 scratch.allowWeakLegends = TRUE;
             }
 
-            if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) == DIFFICULTY_LEVEL_BRUTAL)
+            if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL) == DIFFICULTY_LEVEL_BRUTAL)
                 indexToRestoreSettings = monCount - 2;
             else
                 indexToRestoreSettings = PARTY_SIZE - 1; // only final slot
@@ -2560,7 +2560,7 @@ static void SetupQueryScriptVars(struct QueryScriptContext* context, struct Trai
     u8 maxBoxLegends = 255;
     u8 maxNonBoxLegends = 255;
 
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         if(Rogue_IsKeyTrainer(scratch->trainerNum))
@@ -3143,12 +3143,12 @@ static bool8 UseCompetitiveMoveset(struct TrainerPartyScratch* scratch, u8 monId
         return TRUE;
     }
 
-    if(Rogue_GetModeRules()->forceEndGameTrainers)
+    if(gRogueRun.gameRules.forceEndGameTrainers)
     {
         return Rogue_IsKeyTrainer(scratch->trainerNum);
     }
 
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     // Easy is going to attempt to use comp sets BUT we're going to modify the sets before appling them to make them fairer
     case DIFFICULTY_LEVEL_EASY:
@@ -3235,7 +3235,7 @@ static bool8 HasDamagingMove(struct RoguePokemonCompetitiveSet const* preset)
 
 static bool8 ShouldBoostBattleGimickItems(struct TrainerPartyScratch* scratch)
 {
-    if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) == DIFFICULTY_LEVEL_BRUTAL)
+    if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL) == DIFFICULTY_LEVEL_BRUTAL)
         return TRUE;
     else if(Rogue_IsKeyTrainer(scratch->trainerNum))
         return TRUE;
@@ -3606,7 +3606,7 @@ static void ModifyTrainerMonPreset(u16 trainerNum, struct Pokemon* mon, struct R
 #endif
 
     // For battle sim, we're not going to adjust anything
-    if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) == DIFFICULTY_LEVEL_EASY && !Rogue_IsBattleSimTrainer(trainerNum))
+    if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL) == DIFFICULTY_LEVEL_EASY && !Rogue_IsBattleSimTrainer(trainerNum))
     {
         u8 i, j;
         u8 dmgMoveCount = 0;
@@ -3935,7 +3935,7 @@ static void ReorderPartyMons(u16 trainerNum, struct Pokemon *party, u8 monCount)
 
     if(Rogue_IsKeyTrainer(trainerNum))
     {
-        if(!(Rogue_GetModeRules()->forceEndGameTrainers) && Rogue_GetConfigRange(CONFIG_RANGE_TRAINER) < DIFFICULTY_LEVEL_HARD && Rogue_GetCurrentDifficulty() < 8)
+        if(!(gRogueRun.gameRules.forceEndGameTrainers) && Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL) < DIFFICULTY_LEVEL_HARD && Rogue_GetCurrentDifficulty() < 8)
         {
             // Prior to E4 we don't want to force forward the best lead mon
             // We just want to push final mons to the back

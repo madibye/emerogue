@@ -135,7 +135,7 @@ static u8 SelectObjectMovementTypeForRoom(struct RogueAdvPathRoom* room);
 
 static u8 GetPathGenerationDifficulty()
 {
-    if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
     {
         if(Rogue_GetCurrentDifficulty() == 0)
         {
@@ -628,7 +628,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
     // The order of these is important to decide the placement
 
     // For gauntlet, place full rest stop at end always
-    if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
     {
         for(i = 0; i < gRogueAdvPath.roomCount; ++i)
         {
@@ -664,7 +664,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         if(GetPathGenerationDifficulty() == 0)
             chance = 0;
 
-        if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
             chance = 0;
 
         for(i = 0; i < gRogueAdvPath.roomCount; ++i)
@@ -683,7 +683,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
 
     // Populate special encounters into a single list
     //
-    if(Rogue_GetModeRules()->adventureGenerator != ADV_GENERATOR_GAUNTLET) // In gauntlet we place these manually
+    if(gRogueRun.gameRules.adventureGenerator != ADV_GENERATOR_GAUNTLET) // In gauntlet we place these manually
     {
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_RESTSTOP;
         ++minReplaceCount;
@@ -712,7 +712,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
     }
 
     // Honey tree
-    if(Rogue_GetModeRules()->adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() >= 1 && RogueRandomChance(60, 0))
+    if(gRogueRun.gameRules.adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() >= 1 && RogueRandomChance(60, 0))
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_HONEY_TREE;
 
     // Catching contest
@@ -721,16 +721,16 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
 
     // Mysterious Sign
     /*
-    if(Rogue_GetModeRules()->adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() < ROGUE_ELITE_START_DIFFICULTY && RogueRandomChance(40, 0))
+    if(gRogueRun.gameRules.adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() < ROGUE_ELITE_START_DIFFICULTY && RogueRandomChance(40, 0))
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_SIGN;
     */
 
     // Shrine (Gauntlet will always offer this encounter)
-    if((Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET) || GetPathGenerationDifficulty() == gRogueRun.shrineSpawnDifficulty)
+    if((gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) || GetPathGenerationDifficulty() == gRogueRun.shrineSpawnDifficulty)
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_SHRINE;
 
     // Battle sim
-    if(Rogue_GetModeRules()->adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() >= 1 && RogueRandomChance(33, 0))
+    if(gRogueRun.gameRules.adventureGenerator != ADV_GENERATOR_GAUNTLET && GetPathGenerationDifficulty() >= 1 && RogueRandomChance(33, 0))
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_BATTLE_SIM;
 
     {
@@ -738,7 +738,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         bool8 allowLab = (GetPathGenerationDifficulty() % 3 != 1);
         bool8 allowGameShow = RogueRandomChance(50, 0);
 
-        if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
         {
             allowDarkDeal = TRUE;
             allowLab = FALSE;
@@ -802,7 +802,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         replaceCount = max(replaceCount, minReplaceCount);
         replaceCount = max(replaceCount, freeRoomCount);
 
-        if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
         {
             replaceCount = min(replaceCount, validEncounterCount);
         }
@@ -947,7 +947,7 @@ static void GenerateRoomInstance(u8 roomId, u8 roomType)
                 weights[ADVPATH_SUBROOM_RESTSTOP_FULL] = 0;
 
             // For champ we will always spawn full rest stops, for balance
-            if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET || GetPathGenerationDifficulty() >= ROGUE_CHAMP_START_DIFFICULTY)
+            if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET || GetPathGenerationDifficulty() >= ROGUE_CHAMP_START_DIFFICULTY)
             {
                 gRogueAdvPath.rooms[roomId].roomParams.roomIdx = ADVPATH_SUBROOM_RESTSTOP_FULL;
             }
@@ -1105,7 +1105,7 @@ bool8 RogueAdv_GenerateAdventurePathsIfRequired()
         pathSettings.generator = &generator;
         pathSettings.totalLength = 3 + 2; // +2 to account for final encounter and initial split
 
-        if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
         {
             if(Rogue_GetCurrentDifficulty() == 0)
                 pathSettings.totalLength = 5 + 2;
@@ -1142,7 +1142,7 @@ bool8 RogueAdv_GenerateAdventurePathsIfRequired()
             
             for(i = 1; i < MAX_CONNECTION_GENERATOR_COLUMNS; ++i)
             {
-                if(Rogue_GetModeRules()->adventureGenerator == ADV_GENERATOR_GAUNTLET)
+                if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET)
                 {
                     // Mixed but not too wide
                     generator.connectionsSettingsPerColumn[i].minCount = 1;

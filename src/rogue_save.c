@@ -307,6 +307,10 @@ void RogueSave_FormatForReading()
 
 u16 RogueSave_GetVersionIdFor(u16 saveVersion)
 {
+    if(saveVersion + 1 <= SAVE_VER_ID_LATEST)
+    {
+        return saveVersion + 1;
+    }
     switch (saveVersion)
     {
     case 0:
@@ -332,6 +336,12 @@ u16 RogueSave_GetVersionIdFor(u16 saveVersion)
 		
 	case 7:
 		return SAVE_VER_ID_2_0_5MADI;
+		
+	case 8:
+		return SAVE_VER_ID_2_1_0;
+		
+	case 9:
+		return SAVE_VER_ID_2_1_0MADI;
     
     default:
         AGB_ASSERT(FALSE);

@@ -494,7 +494,7 @@ float Rogue_CalculateRewardMultiplier()
     float multiplier = 10; // Base multiplier
 
     // Trainer multiplier
-    u8 trainerDifficulty = Rogue_GetConfigRange(CONFIG_RANGE_TRAINER);
+    u8 trainerDifficulty = Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL);
 
     switch(trainerDifficulty)
     {

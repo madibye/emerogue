@@ -320,7 +320,7 @@ u16 RogueSave_GetVersionIdFor(u16 saveVersion)
         return SAVE_VER_ID_2_0_PRERELEASE;
 
     case 2:
-        return SAVE_VER_ID_2_0;
+        return SAVE_VER_ID_2_0_0;
 
     case 3:
         return SAVE_VER_ID_2_0_1;

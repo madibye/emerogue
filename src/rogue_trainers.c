@@ -813,7 +813,7 @@ s32 Rogue_GetSwitchAISpeedDivisor(u16 trainerNum, u8 slot)
 static bool8 ShouldAllowUltraBeasts(struct TrainerPartyScratch* scratch)
 {
 #ifdef ROGUE_EXPANSION
-    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER))
+    switch (Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL))
     {
     case DIFFICULTY_LEVEL_EASY:
         if(Rogue_GetCurrentDifficulty() >= ROGUE_ELITE_START_DIFFICULTY - 1)

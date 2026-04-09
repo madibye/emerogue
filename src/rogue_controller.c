@@ -3260,7 +3260,7 @@ void Rogue_OnNewGame(void)
     StringCopy(gSaveBlock2Ptr->playerName, gText_TrainerName_Default);
     StringCopy(gSaveBlock2Ptr->pokemonHubName, gText_ExpandedPlaceholder_PokemonHub);
     memset(&gRogueRun.completedBadges[0], TYPE_NONE, sizeof(gRogueRun.completedBadges));
-    memset(&gRogueRun.lastShopVisitDifficulty[0], 0, sizeof(gRogueRun.lastShopVisitDifficulty));
+    memset(&gRogueRun.lastShopVisitDifficulty[0], 255, sizeof(gRogueRun.lastShopVisitDifficulty));
     
     SetMoney(&gSaveBlock1Ptr->money, 0);
     memset(&gRogueLocal, 0, sizeof(gRogueLocal));
@@ -3863,11 +3863,7 @@ u16 Rogue_PostRunRewardLvls()
     u16 lvlCount = 2;
     u16 targettedMons = CalculateRewardLvlMonCount();
 
-    if (targettedMons == 0)
-    {
-        lvlCount = 0;
-    }
-    else if (targettedMons > 1)
+    if(targettedMons > 1)
     {
         // Only give 1 lvl per mon
         lvlCount = 1;
@@ -3895,6 +3891,17 @@ u16 Rogue_PostRunRewardLvls()
 
                 // Increase friendship from these levels
                 AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_GROW_LEVEL);
+            }
+
+            // Increase tutor move lvl
+            if(Rogue_GetCurrentDifficulty() >= ROGUE_MAX_BOSS_COUNT)
+            {
+                u8 lvl = GetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL);
+                if(lvl < TUTOR_MOVE_LVL_COUNT_HUB)
+                {
+                    lvl++;
+                    SetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL, &lvl);
+                }
             }
         }
 
@@ -3939,6 +3946,8 @@ u16 Rogue_PostRunRewardLvls()
 
                     // don't give friendship for daycare mons
                 }
+
+                // don't increase tutor move level for daycare mons
 
                 CopyMon(boxMon, &tempMon->box, sizeof(struct BoxPokemon));
             }
@@ -4621,7 +4630,7 @@ static void EndRogueRun(void)
         // Give ball guy a random ball
         ChooseRandomPokeballReward();
     }
-    else if (Rogue_GetCurrentDifficulty() != ROGUE_MAX_BOSS_COUNT)
+    else if(Rogue_GetCurrentDifficulty() < ROGUE_MAX_BOSS_COUNT)
     {
         // Increment stats
         IncrementGameStat(GAME_STAT_RUN_LOSSES);
@@ -6756,6 +6765,37 @@ void Rogue_Battle_EndTrainerBattle(u16 trainerNum)
 
                 gRogueRun.currentLevelOffset = nextLevel - prevLevel;
                 gRogueRun.wildEncounters.roamerActiveThisPath = TRUE;
+
+                // Increase tutor move lvl
+                {
+                    u16 i;
+
+                    for(i = 0; i < gPlayerPartyCount; ++i)
+                    {
+                        u8 lvl = GetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL);
+                        if(lvl < TUTOR_MOVE_LVL_COUNT_RUN)
+                        {
+                            lvl++;
+                            SetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL, &lvl);
+                        }
+                    }
+                }
+
+                // Increase tutor move lvl
+                if(Rogue_GetCurrentDifficulty() >= ROGUE_MAX_BOSS_COUNT)
+                {
+                    u16 i;
+
+                    for(i = 0; i < gPlayerPartyCount; ++i)
+                    {
+                        u8 lvl = GetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL);
+                        if(lvl < TUTOR_MOVE_LVL_COUNT_RUN)
+                        {
+                            lvl++;
+                            SetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL, &lvl);
+                        }
+                    }
+                }
 
                 if (Rogue_GetCurrentDifficulty() >= ROGUE_MAX_BOSS_COUNT)
                 {

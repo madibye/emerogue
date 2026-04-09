@@ -9038,71 +9038,10 @@ void Rogue_CloseMartQuery()
     gRngRogueValue = gRogueLocal.rngSeedToRestore;
 }
 
-static void ApplyTutorMoveCapacity(u8 *count, u16 *moves, u16 capacity)
-{
-    u16 i;
-    u16 randIdx;
-    RAND_TYPE startSeed = gRngRogueValue;
-
-    while (*count > capacity)
-    {
-
-        if (Rogue_IsRunActive())
-            randIdx = RogueRandom() % *count;
-        else
-            randIdx = 0; // Always take from the front, as that's where the "good moves" are
-
-        --*count;
-
-        for (i = randIdx; i < *count; ++i)
-        {
-            moves[i] = moves[i + 1];
-        }
-    }
-
-    gRngRogueValue = startSeed;
-}
-
-void Rogue_ModifyTutorMoves(struct Pokemon *mon, u8 tutorType, u8 *count, u8 *hiddenCount, u16 *moves)
+void Rogue_ModifyTutorMoves(struct Pokemon *mon, u8 tutorType, u8 *count, u16 *moves)
 {
     if (tutorType != 0) // TEACH_STATE_RELEARN
     {
-        u16 difficulty;
-        u16 capacity = 0; // MAX is 0
-        u8 startCount = *count;
-
-        if (Rogue_IsRunActive())
-        {
-            difficulty = Rogue_GetCurrentDifficulty();
-
-            // if(FlagGet(FLAG_ROGUE_GAUNTLET_MODE))
-            //     difficulty = 13;
-
-            if (difficulty < 8)
-                capacity = 3 + difficulty * 1;
-        }
-        else
-        {
-            // TODO - Reimplement moves maybe?
-
-            // capacity = 5;
-            //
-            // if(IsQuestCollected(QUEST_NoFainting2) && IsQuestCollected(QUEST_NoFainting3))
-            //    capacity = 0;
-            // else if(IsQuestCollected(QUEST_NoFainting2) || IsQuestCollected(QUEST_NoFainting3))
-            //    capacity += 5;
-        }
-
-        // TEMP
-        capacity = 0;
-
-        if (capacity != 0)
-        {
-            ApplyTutorMoveCapacity(count, moves, capacity);
-        }
-
-        *hiddenCount = startCount - *count;
-
         // Remove moves we already know (We want to do this after capacity so the randomisation is consistent)
         {
             u16 readIdx;

@@ -125,7 +125,8 @@
   ],
   "TutorMoves": [
     "MOVE_MYSTICAL_FIRE",
-    "MOVE_ROCK_CLIMB"
+    "MOVE_ROCK_CLIMB",
+    "MOVE_BURN_UP"
   ],
   "CompetitiveSets": [
     {

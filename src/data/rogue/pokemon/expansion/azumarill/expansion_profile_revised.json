@@ -16,7 +16,9 @@
     }
   },
   "TutorMoves": [
-    "MOVE_DRAIN_PUNCH"
+    "MOVE_DRAIN_PUNCH",
+    "MOVE_FUTURE_SIGHT",
+    "MOVE_IRON_TAIL"
   ],
   "CompetitiveSets": [
     {

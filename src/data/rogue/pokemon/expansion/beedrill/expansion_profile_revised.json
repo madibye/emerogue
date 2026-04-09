@@ -105,6 +105,10 @@
   ],
   "TutorMoves": [
     "MOVE_SKITTER_SMACK",
-    "MOVE_DUAL_WINGBEAT"
+    "MOVE_DUAL_WINGBEAT",
+    "MOVE_BUG_BUZZ",
+    "MOVE_CROSS_POISON",
+    "MOVE_LUNGE",
+    "MOVE_POLLEN_PUFF"
   ]
 }

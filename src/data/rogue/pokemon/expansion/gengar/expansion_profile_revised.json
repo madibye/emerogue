@@ -1,6 +1,7 @@
 {
   "BuildSettings": {
     "LevelUpMoves": "REPLACE",
+    "TutorMoves": "MERGE",
     "CompetitiveSets": "REPLACE"
   },
   "PerSpecies": {
@@ -96,6 +97,10 @@
       "Move": "MOVE_NIGHTMARE",
       "Level": 61
     }
+  ],
+  "TutorMoves": [
+    "MOVE_CORROSIVE_GAS",
+    "MOVE_SELF_DESTRUCT"
   ],
   "CompetitiveSets": [
     {

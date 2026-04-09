@@ -5,7 +5,11 @@
   },
   "TutorMoves": [
     "MOVE_FRUSTRATION",
-    "MOVE_RETURN"
+    "MOVE_RETURN",
+    "MOVE_ICE_PUNCH",
+    "MOVE_IRON_TAIL",
+    "MOVE_SAFEGUARD",
+    "MOVE_TRI_ATTACK"
   ],
   "CompetitiveSets": [
     {

@@ -2,6 +2,15 @@
   "BuildSettings": {
     "TutorMoves": "MERGE"
   },
+  "TutorMoves": [
+    "MOVE_RETURN",
+    "MOVE_FRUSTRATION",
+    "MOVE_FUTURE_SIGHT",
+    "MOVE_TOXIC_SPIKES",
+    "MOVE_SAFEGUARD",
+    "MOVE_TRI_ATTACK",
+    "MOVE_IRON_TAIL"
+  ],
   "PerSpecies": {
     "SPECIES_SLOWBRO_GALARIAN": {
       "BaseStats": {
@@ -13,9 +22,5 @@
         "SpDefense": 70
       }
     }
-  },
-  "TutorMoves": [
-    "MOVE_RETURN",
-    "MOVE_FRUSTRATION"
-  ]
+  }
 }

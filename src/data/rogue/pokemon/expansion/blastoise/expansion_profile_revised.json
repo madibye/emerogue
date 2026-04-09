@@ -47,6 +47,12 @@
   },
   "TutorMoves": [
     "MOVE_TOXIC",
+    "MOVE_IRON_HEAD",
+    "MOVE_IRON_TAIL",
+    "MOVE_BULLDOZE",
+    "MOVE_OUTRAGE",
+    "MOVE_TERRAIN_PULSE",
+    "MOVE_WATERFALL",
     "MOVE_SCALD"
   ],
   "CompetitiveSets": [

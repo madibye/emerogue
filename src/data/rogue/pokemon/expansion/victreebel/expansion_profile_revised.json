@@ -1,7 +1,11 @@
 {
   "BuildSettings": {
+    "TutorMoves": "MERGE",
     "CompetitiveSets": "MERGE"
   },
+  "TutorMoves": [
+    "MOVE_TOXIC_SPIKES"
+  ],
   "CompetitiveSets": [
     {
       "Moves": [

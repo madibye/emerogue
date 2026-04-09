@@ -3,9 +3,9 @@
     "TutorMoves": "MERGE"
   },
   "TutorMoves": [
-    "MOVE_AURA_SPHERE",
+    "MOVE_SCORCHING_SANDS",
     "MOVE_IRON_TAIL",
-    "MOVE_SAFEGUARD",
-    "MOVE_TRI_ATTACK"
+    "MOVE_PAYBACK",
+    "MOVE_SWAGGER"
   ]
 }

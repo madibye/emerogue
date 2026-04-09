@@ -1,5 +1,6 @@
 {
   "BuildSettings": {
+    "TutorMoves": "MERGE",
     "CompetitiveSets": "REPLACE"
   },
   "PerSpecies": {
@@ -44,6 +45,12 @@
       }
     }
   },
+  "TutorMoves": [
+    "MOVE_SLUDGE_WAVE",
+    "MOVE_LIGHT_SCREEN",
+    "MOVE_OUTRAGE",
+    "MOVE_TERRAIN_PULSE"
+  ],
   "CompetitiveSets": [
     {
       "Moves": [

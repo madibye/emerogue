@@ -88,7 +88,8 @@
   ],
   "TutorMoves": [
     "MOVE_GRASS_KNOT",
-    "MOVE_TOXIC"
+    "MOVE_TOXIC",
+    "MOVE_IRON_TAIL"
   ],
   "CompetitiveSets": [
     {

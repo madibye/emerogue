@@ -1,4 +1,7 @@
 {
+  "BuildSettings": {
+    "TutorMoves": "MERGE"
+  },
   "PerSpecies": {
     "SPECIES_TYRANITAR": {
       "Abilities": [
@@ -7,5 +10,10 @@
         "ABILITY_UNNERVE"
       ]
     }
-  }
+  },
+  "TutorMoves": [
+    "MOVE_IRON_TAIL",
+    "MOVE_SUPERPOWER",
+    "MOVE_SWAGGER"
+  ]
 }

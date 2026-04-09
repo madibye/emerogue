@@ -1,4 +1,7 @@
 {
+  "BuildSettings": {
+    "TutorMoves": "MERGE"
+  },
   "PerSpecies": {
     "SPECIES_TYPHLOSION_HISUIAN": {
       "Abilities": [
@@ -15,5 +18,9 @@
         "SpDefense": 80
       }
     }
-  }
+  },
+  "TutorMoves": [
+    "MOVE_MYSTICAL_FIRE",
+    "MOVE_BURN_UP"
+  ]
 }

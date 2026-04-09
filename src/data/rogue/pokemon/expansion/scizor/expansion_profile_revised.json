@@ -3,8 +3,8 @@
     "TutorMoves": "MERGE"
   },
   "TutorMoves": [
-    "MOVE_HONE_CLAWS",
-    "MOVE_BURN_UP",
-    "MOVE_IRON_TAIL"
+    "MOVE_PSYCHO_CUT",
+    "MOVE_ROOST",
+    "MOVE_SUPERPOWER"
   ]
 }

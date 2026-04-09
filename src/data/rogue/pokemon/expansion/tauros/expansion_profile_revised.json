@@ -91,7 +91,10 @@
     }
   ],
   "TutorMoves": [
-    "MOVE_STRENGTH"
+    "MOVE_STRENGTH",
+    "MOVE_IRON_TAIL",
+    "MOVE_MEGAHORN",
+    "MOVE_WHIRLPOOL"
   ],
   "CompetitiveSets": [
     {

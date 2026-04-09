@@ -102,7 +102,8 @@
     "MOVE_GRASS_KNOT",
     "MOVE_WILD_CHARGE",
     "MOVE_BLAZE_KICK",
-    "MOVE_ROCK_SLIDE"
+    "MOVE_ROCK_SLIDE",
+    "MOVE_SUPERPOWER"
   ],
   "CompetitiveSets": [
     {

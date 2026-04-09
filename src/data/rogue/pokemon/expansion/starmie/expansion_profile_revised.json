@@ -1,0 +1,16 @@
+{
+  "BuildSettings": {
+    "TutorMoves": "MERGE"
+  },
+  "TutorMoves": [
+    "MOVE_ANCIENT_POWER",
+    "MOVE_AQUA_JET",
+    "MOVE_BULK_UP",
+    "MOVE_CHARGE_BEAM",
+    "MOVE_ICE_SPINNER",
+    "MOVE_LIQUIDATION",
+    "MOVE_SAFEGUARD",
+    "MOVE_SELF_DESTRUCT",
+    "MOVE_ZEN_HEADBUTT"
+  ]
+}

@@ -83,7 +83,12 @@
     }
   ],
   "TutorMoves": [
-    "MOVE_ROCK_CLIMB"
+    "MOVE_ROCK_CLIMB",
+    "MOVE_ATTRACT",
+    "MOVE_SELF_DESTRUCT",
+    "MOVE_HYDRO_PUMP",
+    "MOVE_SUPERPOWER",
+    "MOVE_TERRAIN_PULSE"
   ],
   "CompetitiveSets": [
     {

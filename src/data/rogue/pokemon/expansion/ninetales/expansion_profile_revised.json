@@ -56,7 +56,12 @@
   ],
   "TutorMoves": [
     "MOVE_PSYCHIC",
-    "MOVE_MOONBLAST"
+    "MOVE_MOONBLAST",
+    "MOVE_ATTRACT",
+    "MOVE_IRON_TAIL",
+    "MOVE_MYSTICAL_FIRE",
+    "MOVE_PAYBACK",
+    "MOVE_TAIL_SLAP"
   ],
   "CompetitiveSets": [
     {

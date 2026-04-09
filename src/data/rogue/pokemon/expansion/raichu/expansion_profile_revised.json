@@ -40,7 +40,11 @@
     "MOVE_FLOATY_FALL",
     "MOVE_PSYCHIC",
     "MOVE_FLY",
-    "MOVE_ZIPPY_ZAP"
+    "MOVE_ZIPPY_ZAP",
+    "MOVE_DAZZLING_GLEAM",
+    "MOVE_DRAIN_PUNCH",
+    "MOVE_RISING_VOLTAGE",
+    "MOVE_ZAP_CANNON"
   ],
   "CompetitiveSets": [
     {

@@ -89,6 +89,7 @@
     "MOVE_QUASH",
     "MOVE_MYSTICAL_FIRE",
     "MOVE_ZAP_CANNON",
-    "MOVE_GROWTH"
+    "MOVE_GROWTH",
+    "MOVE_SAFEGUARD"
   ]
 }

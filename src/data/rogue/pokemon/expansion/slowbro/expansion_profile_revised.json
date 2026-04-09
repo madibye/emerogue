@@ -1,7 +1,13 @@
 {
   "BuildSettings": {
-    "CompetitiveSets": "MERGE"
+    "CompetitiveSets": "MERGE",
+    "TutorMoves": "MERGE"
   },
+  "TutorMoves": [
+    "MOVE_SAFEGUARD",
+    "MOVE_TRI_ATTACK",
+    "MOVE_IRON_TAIL"
+  ],
   "CompetitiveSets": [
     {
       "Moves": [

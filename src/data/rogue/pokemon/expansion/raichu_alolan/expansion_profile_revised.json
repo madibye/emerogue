@@ -31,7 +31,11 @@
     "MOVE_ZIPPY_ZAP",
     "MOVE_DEFENSE_CURL",
     "MOVE_SNORE",
-    "MOVE_MEGA_PUNCH"
+    "MOVE_MEGA_PUNCH",
+    "MOVE_DAZZLING_GLEAM",
+    "MOVE_RISING_VOLTAGE",
+    "MOVE_VOLT_TACKLE",
+    "MOVE_ZAP_CANNON"
   ],
   "CompetitiveSets": [
     {

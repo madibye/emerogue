@@ -87,7 +87,9 @@
     }
   ],
   "TutorMoves": [
-    "MOVE_GRASS_KNOT"
+    "MOVE_GRASS_KNOT",
+    "MOVE_CHARGE_BEAM",
+    "MOVE_RISING_VOLTAGE"
   ],
   "CompetitiveSets": [
     {

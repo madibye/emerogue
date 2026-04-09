@@ -132,7 +132,11 @@
   "TutorMoves": [
     "MOVE_ROCK_CLIMB",
     "MOVE_DAZZLING_GLEAM",
-    "MOVE_PLAY_ROUGH"
+    "MOVE_PLAY_ROUGH",
+    "MOVE_EARTH_POWER",
+    "MOVE_LEAF_BLADE",
+    "MOVE_POLLEN_PUFF",
+    "MOVE_IRON_TAIL"
   ],
   "CompetitiveSets": [
     {

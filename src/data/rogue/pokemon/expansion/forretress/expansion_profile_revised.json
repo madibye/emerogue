@@ -1,0 +1,8 @@
+{
+  "BuildSettings": {
+    "TutorMoves": "REPLACE"
+  },
+  "TutorMoves": [
+    "MOVE_STEEL_ROLLER"
+  ]
+}

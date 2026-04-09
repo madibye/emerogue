@@ -56,7 +56,12 @@
     }
   },
   "TutorMoves": [
-    "MOVE_DUAL_WINGBEAT"
+    "MOVE_DUAL_WINGBEAT",
+    "MOVE_BLAZE_KICK",
+    "MOVE_BEAT_UP",
+    "MOVE_ROOST",
+    "MOVE_SCALE_SHOT",
+    "MOVE_FISSURE"
   ],
   "CompetitiveSets": [
     {

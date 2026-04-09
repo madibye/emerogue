@@ -76,7 +76,10 @@
   ],
   "TutorMoves": [
     "MOVE_FRUSTRATION",
-    "MOVE_ROCK_CLIMB"
+    "MOVE_ROCK_CLIMB",
+    "MOVE_AERIAL_ACE",
+    "MOVE_HARD_PRESS",
+    "MOVE_LUNGE"
   ],
   "CompetitiveSets": [
     {

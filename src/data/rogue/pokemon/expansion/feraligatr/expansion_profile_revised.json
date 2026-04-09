@@ -131,7 +131,9 @@
   ],
   "TutorMoves": [
     "MOVE_DRAGON_RUSH",
-    "MOVE_ROCK_CLIMB"
+    "MOVE_ROCK_CLIMB",
+    "MOVE_DRAGON_PULSE",
+    "MOVE_IRON_TAIL"
   ],
   "CompetitiveSets": [
     {

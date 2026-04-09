@@ -125,7 +125,11 @@
   "TutorMoves": [
     "MOVE_TWINEEDLE",
     "MOVE_PURSUIT",
-    "MOVE_PSYBEAM"
+    "MOVE_PSYBEAM",
+    "MOVE_FIRST_IMPRESSION",
+    "MOVE_PSYCHIC_FANGS",
+    "MOVE_BODY_SLAM",
+    "MOVE_STOMPING_TANTRUM"
   ],
   "CompetitiveSets": [
     {

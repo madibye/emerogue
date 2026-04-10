@@ -1,0 +1,9 @@
+{
+    "BuildSettings": {
+        "TutorMoves": "MERGE"
+    },
+    "TutorMoves": [
+        "MOVE_SELF_DESTRUCT",
+        "MOVE_SUPERPOWER"
+    ]
+}

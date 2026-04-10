@@ -134,7 +134,10 @@
   ],
   "TutorMoves": [
     "MOVE_ACROBATICS",
-    "MOVE_PSYCHO_CUT"
+    "MOVE_PSYCHO_CUT",
+    "MOVE_AGILITY",
+    "MOVE_BLAZE_KICK",
+    "MOVE_COACHING"
   ],
   "CompetitiveSets": [
     {

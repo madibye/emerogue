@@ -100,7 +100,10 @@
     }
   ],
   "TutorMoves": [
-    "MOVE_ROCK_CLIMB"
+    "MOVE_ROCK_CLIMB",
+    "MOVE_ATTRACT",
+    "MOVE_BLAZE_KICK",
+    "MOVE_IRON_TAIL"
   ],
   "CompetitiveSets": [
     {

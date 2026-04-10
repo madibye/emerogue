@@ -1,4 +1,7 @@
 {
+  "BuildSettings": {
+    "TutorMoves": "MERGE"
+  },
   "PerSpecies": {
     "SPECIES_SABLEYE": {
       "Abilities": [
@@ -25,5 +28,11 @@
         "SpDefense": 120
       }
     }
-  }
+  },
+  "TutorMoves": [
+    "MOVE_NIGHT_SLASH",
+    "MOVE_SAFEGUARD",
+    "MOVE_PAYBACK",
+    "MOVE_SWAGGER"
+  ]
 }

@@ -6270,6 +6270,7 @@ const struct BattleMove gBattleMoves_Revised[MOVES_COUNT_DYNAMAX] =
         .split = SPLIT_PHYSICAL,
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
+        .slicingMove = TRUE,
     },
 
     [MOVE_FRENZY_PLANT] =
@@ -7749,6 +7750,7 @@ const struct BattleMove gBattleMoves_Revised[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
         .highCritRatio = TRUE,
+        .slicingMove = TRUE,
     },
 
     [MOVE_THUNDER_FANG] =
@@ -11260,7 +11262,7 @@ const struct BattleMove gBattleMoves_Revised[MOVES_COUNT_DYNAMAX] =
     [MOVE_FIRST_IMPRESSION] =
     {
         .effect = EFFECT_FAKE_OUT,
-        .power = 90,
+        .power = 100,
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 10,
@@ -12775,7 +12777,7 @@ const struct BattleMove gBattleMoves_Revised[MOVES_COUNT_DYNAMAX] =
     {
         .effect = EFFECT_TRAP,
         .power = 35,
-        .type = TYPE_GRASS,
+        .type = TYPE_STEEL,
         .accuracy = 100,
         .pp = 15,
         .secondaryEffectChance = 100,

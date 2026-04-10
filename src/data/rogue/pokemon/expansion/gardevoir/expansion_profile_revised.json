@@ -133,7 +133,9 @@
     }
   ],
   "TutorMoves": [
-    "MOVE_ICE_BEAM"
+    "MOVE_ICE_BEAM",
+    "MOVE_SAFEGUARD",
+    "MOVE_SWAGGER"
   ],
   "CompetitiveSets": [
     {

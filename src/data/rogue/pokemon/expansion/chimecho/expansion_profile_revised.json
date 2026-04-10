@@ -26,6 +26,9 @@
   },
   "TutorMoves": [
     "MOVE_POWER_GEM",
-    "MOVE_WEATHER_BALL"
+    "MOVE_WEATHER_BALL",
+    "MOVE_BOOMBURST",
+    "MOVE_FLASH_CANNON",
+    "MOVE_SELF_DESTRUCT"
   ]
 }

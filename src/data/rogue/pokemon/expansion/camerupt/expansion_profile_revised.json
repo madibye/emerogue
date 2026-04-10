@@ -124,7 +124,9 @@
   "TutorMoves": [
     "MOVE_POWER_GEM",
     "MOVE_GROWTH",
-    "MOVE_ROCK_CLIMB"
+    "MOVE_ROCK_CLIMB",
+    "MOVE_BURNING_JEALOUSY",
+    "MOVE_SELF_DESTRUCT"
   ],
   "CompetitiveSets": [
     {

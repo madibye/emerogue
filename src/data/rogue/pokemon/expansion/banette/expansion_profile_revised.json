@@ -140,7 +140,10 @@
   ],
   "TutorMoves": [
     "MOVE_RETURN",
-    "MOVE_CUT"
+    "MOVE_CUT",
+    "MOVE_ZEN_HEADBUTT",
+    "MOVE_PAYBACK",
+    "MOVE_SWAGGER"
   ],
   "CompetitiveSets": [
     {

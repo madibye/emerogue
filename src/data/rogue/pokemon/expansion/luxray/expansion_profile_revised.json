@@ -100,7 +100,10 @@
   ],
   "TutorMoves": [
     "MOVE_DARK_PULSE",
-    "MOVE_NASTY_PLOT"
+    "MOVE_NASTY_PLOT",
+    "MOVE_IRON_TAIL",
+    "MOVE_RISING_VOLTAGE",
+    "MOVE_SUPERPOWER"
   ],
   "CompetitiveSets": [
     {

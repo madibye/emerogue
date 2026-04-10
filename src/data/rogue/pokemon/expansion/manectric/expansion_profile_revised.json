@@ -4,7 +4,9 @@
     "CompetitiveSets": "MERGE"
   },
   "TutorMoves": [
-    "MOVE_ENERGY_BALL"
+    "MOVE_ENERGY_BALL",
+    "MOVE_SUPERCELL_SLAM",
+    "MOVE_TRAILBLAZE"
   ],
   "CompetitiveSets": [
     {

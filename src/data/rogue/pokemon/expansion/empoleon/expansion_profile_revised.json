@@ -109,7 +109,9 @@
     "MOVE_TOXIC",
     "MOVE_CALM_MIND",
     "MOVE_ROCK_CLIMB",
-    "MOVE_SCALD"
+    "MOVE_SCALD",
+    "MOVE_ATTRACT",
+    "MOVE_DIG"
   ],
   "CompetitiveSets": [
     {

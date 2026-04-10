@@ -117,7 +117,8 @@
   ],
   "TutorMoves": [
     "MOVE_ROCK_CLIMB",
-    "MOVE_GRAV_APPLE"
+    "MOVE_GRAV_APPLE",
+    "MOVE_ATTRACT"
   ],
   "CompetitiveSets": [
     {

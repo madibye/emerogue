@@ -138,7 +138,11 @@
     "MOVE_ROCK_CLIMB",
     "MOVE_QUICK_ATTACK",
     "MOVE_ROCK_POLISH",
-    "MOVE_SMACK_DOWN"
+    "MOVE_SMACK_DOWN",
+    "MOVE_EXPLOSION",
+    "MOVE_PAYBACK",
+    "MOVE_SELF_DESTRUCT",
+    "MOVE_STEEL_ROLLER"
   ],
   "CompetitiveSets": [
     {

@@ -1286,12 +1286,12 @@ static void MoveRelearnerCursorCallback(s32 itemIndex, bool8 onInit, struct List
 }
 
 static const u8 sUnavaliableDescription_Run[] = _(
-    "Earn Badges with this {PKMN} in\n"
-    "your Party, to unlock\n"
+    "Earn badges with this {PKMN} in\n"
+    "your party to unlock\n"
     "additional moves.");
 
 static const u8 sUnavaliableDescription_Hub[] = _(
-    "Complete Adventures,\n"
+    "Complete adventures,\n"
     "starting with this {PKMN},\n"
     "to unlock additional moves.");
 

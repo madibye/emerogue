@@ -119,6 +119,7 @@ enum {
     MENU_RENAME,
     MENU_RELEARN_MOVE,
     MENU_EVOLVE,
+    MENU_QUICK_HEAL,
     MENU_CYCLE_SUBMENU,
     MENU_POKEDEX,
     MENU_FIELD_MOVES,
@@ -514,6 +515,7 @@ static void CursorCb_Trade2(u8);
 static void CursorCb_Toss(u8);
 static void CursorCb_Release(u8);
 static void CursorCb_ReleaseField(u8);
+static void CursorCb_QuickHeal(u8);
 static void CursorCb_RenameField(u8);
 static void CursorCb_RelearnMoves(u8);
 static void CursorCb_Evolve(u8);
@@ -540,6 +542,7 @@ void TryItemHoldFormChange(struct Pokemon *mon);
 static void ShowMoveSelectWindow(u8 slot);
 static void Task_HandleWhichMoveInput(u8 taskId);
 static bool32 CannotUsePartyBattleItem(u16 itemId, struct Pokemon* mon);
+static void UseMedicineInternal(u8 taskId, TaskFunc task, u32 itemCount);
 
 // static const data
 #include "data/party_menu.h"
@@ -2311,7 +2314,7 @@ u8 GetTutorMoves(struct Pokemon *pokemon, u16 *tutorMoves, u16 tutorMovesCapacit
     u8 tutorMoveLvl = GetMonData(pokemon, MON_DATA_TUTOR_MOVE_LVL);
     u8 tutorMoveLvlCount = Rogue_IsRunActive() ? TUTOR_MOVE_LVL_COUNT_RUN : TUTOR_MOVE_LVL_COUNT_HUB;
     u32 compatValue = 0;
-    u32 personality = GetMonData(pokemon, MON_DATA_PERSONALITY);
+    u32 uniqueMoveSet = Rogue_IsRunActive() ? GetMonData(pokemon, MON_DATA_PERSONALITY) : GetMonData(pokemon, MON_DATA_OT_ID);
     struct RoguePokemonProfile const* pokemonProfile = Rogue_GetPokemonProfile(species);
 
     for(read = 0; pokemonProfile->tutorMoves[read] != MOVE_NONE; ++read)
@@ -2323,9 +2326,9 @@ u8 GetTutorMoves(struct Pokemon *pokemon, u16 *tutorMoves, u16 tutorMovesCapacit
         }
 
         // Use the PID to detemine tutor move availability 
-        compatValue = (((personality >> ((read / tutorMoveLvlCount) % 32)) & 0x3) + read) % tutorMoveLvlCount;
+        compatValue = (((uniqueMoveSet >> ((read / tutorMoveLvlCount) % 32)) & 0x3) + read) % tutorMoveLvlCount;
 
-        if(compatValue <= tutorMoveLvl)
+        if(tutorMoveLvlCount <= 1 || compatValue <= tutorMoveLvl)
         {
             // If this move has a TM, ignore it
             if(BattleMoveIdToItemId(pokemonProfile->tutorMoves[read]) != ITEM_NONE)
@@ -2337,6 +2340,11 @@ u8 GetTutorMoves(struct Pokemon *pokemon, u16 *tutorMoves, u16 tutorMovesCapacit
 
     if(tutorMoveLvl + 1 < tutorMoveLvlCount)
     {
+        if(write >= tutorMovesCapacity)
+        {
+            AGB_ASSERT(FALSE);
+        }
+
         tutorMoves[write++] = MOVE_UNAVAILABLE;
     }
 
@@ -2987,6 +2995,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         if(!inCatchingContest)
         {
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_POKEDEX);
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_QUICK_HEAL);
         }
 
         if(!inCatchingContest && Rogue_CanRenameMon(&mons[slotId]))
@@ -3779,6 +3788,138 @@ static void Task_ReleaseSelectedMonYesNoInput(u8 taskId)
         PlaySE(SE_SELECT);
         // fallthrough
     case 1:
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+        break;
+    }
+}
+
+static void Task_QuickHealSelectedMonYesNo(u8 taskId);
+static void Task_QuickHealSelectedMonYesNoInput(u8 taskId);
+
+static const u16 sPrioritisedReviveItems[] =
+{
+    ITEM_REVIVE,
+    ITEM_REVIVAL_HERB,
+    ITEM_MAX_REVIVE,
+};
+
+static const u16 sPrioritisedHealingItems[] =
+{
+    ITEM_ORAN_BERRY,
+    ITEM_POTION,
+    ITEM_FRESH_WATER,
+    ITEM_SODA_POP,
+    ITEM_SUPER_POTION,
+    ITEM_LEMONADE,
+    ITEM_MOOMOO_MILK,
+    ITEM_HYPER_POTION,
+    ITEM_SITRUS_BERRY,
+    ITEM_MAX_POTION,
+    ITEM_FULL_RESTORE,
+};
+
+static void CursorCb_QuickHeal(u8 taskId)
+{
+    u16 healingItemId = ITEM_NONE;
+    u32 healingItemCount = 0;
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u32 hp = GetMonData(mon, MON_DATA_HP);
+    u32 maxHp = GetMonData(mon, MON_DATA_MAX_HP);
+
+    if(hp == 0)
+    {
+        u32 i;
+
+        for(i = 0; i < ARRAY_COUNT(sPrioritisedReviveItems); ++i)
+        {
+            if(CheckBagHasItem(sPrioritisedReviveItems[i], 1))
+            {
+                healingItemId = sPrioritisedReviveItems[i];
+                healingItemCount = 1;
+                break;
+            }
+        }
+    }
+    else if(hp < maxHp)
+    {
+        u32 i;
+
+        for(i = 0; i < ARRAY_COUNT(sPrioritisedHealingItems); ++i)
+        {
+            if(CheckBagHasItem(sPrioritisedHealingItems[i], 1))
+            {
+                healingItemId = sPrioritisedHealingItems[i];
+                break;
+            }
+        }
+
+        if(healingItemId != ITEM_NONE)
+        {
+            u32 healAmount = ItemId_GetHoldEffectParam(healingItemId);
+
+            if(healAmount == 255)
+            {
+                healingItemCount = 1;
+            }
+            else
+            {
+                u32 missingHp = maxHp - hp;
+                healingItemCount = 1 + ((missingHp - 1) / healAmount);
+            }
+        }
+    }
+    else
+    {
+        // todo - look for status items
+    }
+
+    if(healingItemId == ITEM_NONE || healingItemCount == 0)
+    {
+        PlaySE(SE_FAILURE);
+        gTasks[taskId].func = Task_TryCreateSelectionWindow;
+    }
+    else
+    {
+        u32 numInBag = GetItemCountInBag(healingItemId);
+        gSpecialVar_ItemId = healingItemId;
+        gSpecialVar_0x8000 = min(healingItemCount, numInBag);
+
+        CopyItemNameHandlePlural(gSpecialVar_ItemId, gStringVar1, gSpecialVar_0x8000);
+        ConvertUIntToDecimalStringN(gStringVar2, numInBag, STR_CONV_MODE_LEFT_ALIGN, BAG_ITEM_CAPACITY_DIGITS);
+        StringExpandPlaceholders(gStringVar4, gText_UseItemToQuickHeal);
+
+        PlaySE(SE_SELECT);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        gTasks[taskId].func = Task_QuickHealSelectedMonYesNo;
+    }
+}
+
+static void Task_QuickHealSelectedMonYesNo(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        PartyMenuDisplayYesNoMenu();
+        gTasks[taskId].func = Task_QuickHealSelectedMonYesNoInput;
+    }
+}
+
+static void Task_QuickHealSelectedMonYesNoInput(u8 taskId)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0:
+        PlaySE(SE_SELECT);
+        UseMedicineInternal(taskId, Task_TryCreateSelectionWindow, gSpecialVar_0x8000);
+        break;
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        // fallthrough
+    case 1:
+        ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
         break;
     }
@@ -5093,7 +5234,7 @@ void ItemUseCB_BattleChooseMove(u8 taskId, TaskFunc task)
     gTasks[taskId].func = Task_HandleWhichMoveInput;
 }
 
-void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
+static void UseMedicineInternal(u8 taskId, TaskFunc task, u32 itemCount)
 {
     u16 hp = 0;
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -5107,14 +5248,24 @@ void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
     }
     else
     {
+        u32 i;
         canHeal = IsHPRecoveryItem(item);
+        cannotUse = TRUE;
+
         if (canHeal == TRUE)
         {
             hp = GetMonData(mon, MON_DATA_HP);
             if (hp == GetMonData(mon, MON_DATA_MAX_HP))
                 canHeal = FALSE;
         }
-        cannotUse = ExecuteTableBasedItemEffectInternal(mon, item, gPartyMenu.slotId, 0);
+
+        for(i = 0; i < itemCount; ++i)
+        {
+            if(i == 0)
+                cannotUse = ExecuteTableBasedItemEffectInternal(mon, item, gPartyMenu.slotId, 0);
+            else
+                ExecuteTableBasedItemEffectInternal(mon, item, gPartyMenu.slotId, 0);
+        }
     }
 
     if (cannotUse != FALSE)
@@ -5136,7 +5287,7 @@ void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
         {
             PlaySE(SE_USE_ITEM);
             if (gPartyMenu.action != PARTY_ACTION_REUSABLE_ITEM)
-                RemoveBagItem(item, 1);
+                RemoveBagItem(item, itemCount);
         }
         else
         {
@@ -5165,6 +5316,11 @@ void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
                 gTasks[taskId].func = task;
         }
     }
+}
+
+void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
+{
+    UseMedicineInternal(taskId, task, 1);
 }
 
 #define tState      data[0]

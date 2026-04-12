@@ -751,7 +751,7 @@
 #define GYM_FIRST_LEVEL_CAP 15
 #define GYM_LEVEL_CAP_JUMP 10
 #define MON_DATA_TEMP_PARTNER_RIBBON        MON_DATA_EFFORT_RIBBON
-#define TUTOR_MOVE_LVL_COUNT_RUN            3
+#define TUTOR_MOVE_LVL_COUNT_RUN            4
 #define TUTOR_MOVE_LVL_COUNT_HUB            2
 
 
@@ -770,7 +770,7 @@
 #define ROGUE_SAFARI_LEGENDS_START_INDEX    45
 #define ROGUE_SAFARI_TOTAL_CUSTOM_MONS      16
 
-#define ROGUE_SAFARI_LEGENDS_POKEBLOCK_COST 20
+#define ROGUE_SAFARI_LEGENDS_POKEBLOCK_COST 10
 
 #define LAB_MON_COUNT               3
 #define DAYCARE_SLOT_COUNT          3
@@ -824,10 +824,10 @@
 #define PIE_SIZE_MEDIUM     1
 #define PIE_SIZE_LARGE      2
 
-#define PIE_CRUST_AMOUNT                3
-#define PIE_SMALL_FILLING_AMOUNT        3
-#define PIE_MEDIUM_FILLING_AMOUNT       6
-#define PIE_LARGE_FILLING_AMOUNT        9
+#define PIE_CRUST_AMOUNT                2
+#define PIE_SMALL_FILLING_AMOUNT        1
+#define PIE_MEDIUM_FILLING_AMOUNT       3
+#define PIE_LARGE_FILLING_AMOUNT        6
 
 #include "rogue_pokedex.h"
 #include "rogue_quests.h"

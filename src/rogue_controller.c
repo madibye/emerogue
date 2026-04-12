@@ -218,6 +218,9 @@ static bool8 HasHoneyTreeEncounterPending(void);
 static void ClearHoneyTreePokeblock(void);
 
 static void SetupTrainerBattleInternal(u16 trainerNum);
+static u32 GetMaxDayCareCharges();
+
+void Rogue_SelectCatchingContestMode();
 
 u16 RogueRandomRange(u16 range, u8 flag)
 {
@@ -4393,6 +4396,7 @@ static void BeginRogueRun(void)
 
     gRogueRun.victoryLapTotalWins = 0;
     Rogue_RefillFlightCharges(FALSE);
+    Rogue_RefillDayCareCharges(FALSE);
 
     Rogue_PreActivateDesiredCampaign();
 
@@ -4488,7 +4492,6 @@ static void BeginRogueRun(void)
     FlagClear(FLAG_ROGUE_TERASTALLIZE_BATTLE);
     FlagClear(FLAG_ROGUE_IN_SNAG_BATTLE);
 
-    FlagSet(FLAG_ROGUE_DAYCARE_PHONE_CHARGED);
     FlagSet(FLAG_ROGUE_TERA_ORB_CHARGED);
 
     Rogue_PostActivateDesiredCampaign();
@@ -5725,10 +5728,11 @@ void Rogue_OnSetWarpData(struct WarpData *warp)
                 break;
             }
 
-            case ADVPATH_ROOM_CATCHING_CONTEST:
-            {
-                break;
-            }
+                case ADVPATH_ROOM_CATCHING_CONTEST:
+                {
+                    Rogue_SelectCatchingContestMode();
+                    break;
+                }
 
             case ADVPATH_ROOM_BATTLE_SIM:
             {
@@ -8516,6 +8520,39 @@ void Rogue_DaycareMultichoiceCallback(struct MenuAction *outList, u8 *outCount, 
     }
 
     *outCount = i;
+}
+
+static u32 GetMaxDayCareCharges()
+{
+    if(RogueHub_HasUpgrade(HUB_UPGRADE_DAY_CARE_PHONE2))
+    {
+        return 3;
+    }
+    if(RogueHub_HasUpgrade(HUB_UPGRADE_DAY_CARE_PHONE1))
+    {
+        return 2;
+    }
+
+    return 1;
+}
+
+void Rogue_RefillDayCareCharges(bool8 createPopup)
+{
+    if(VarGet(VAR_ROGUE_DAYCARE_PHONE_REMAINING_CHARGES) != GetMaxDayCareCharges())
+    {
+        VarSet(VAR_ROGUE_DAYCARE_PHONE_REMAINING_CHARGES, GetMaxDayCareCharges());
+
+        if(createPopup)
+            Rogue_PushPopup_DaycareChargeRefilled(GetMaxDayCareCharges());
+    }
+}
+
+void Rogue_OnDayCareChargeUsed()
+{
+    if(Rogue_IsRunActive())
+    {
+        Rogue_PushPopup_DaycareChargeUsed(VarGet(VAR_ROGUE_DAYCARE_PHONE_REMAINING_CHARGES), GetMaxDayCareCharges());
+    }
 }
 
 void Rogue_BeginCatchingContest(u8 type, u8 stat)

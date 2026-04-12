@@ -80,9 +80,11 @@
 #define HUB_UPGRADE_MARKET_TREAT_SHOP_STOCK             (HUB_UPGRADE_FIRST + 43)
 #define HUB_UPGRADE_MARKET_BANK                         (HUB_UPGRADE_FIRST + 44)
 
+#define HUB_UPGRADE_LAB_POCKET_PC                       (HUB_UPGRADE_FIRST + 45)
+#define HUB_UPGRADE_LAB_POCKET_PC_TRACKER               (HUB_UPGRADE_FIRST + 46)
 // 2.1
-#define HUB_UPGRADE_DAY_CARE_PHONE1                     (HUB_UPGRADE_FIRST + 45)
-#define HUB_UPGRADE_DAY_CARE_PHONE2                     (HUB_UPGRADE_FIRST + 46)
+#define HUB_UPGRADE_DAY_CARE_PHONE1                     (HUB_UPGRADE_FIRST + 47)
+#define HUB_UPGRADE_DAY_CARE_PHONE2                     (HUB_UPGRADE_FIRST + 48)
 
 #define HUB_UPGRADE_COUNT                               (HUB_UPGRADE_DAY_CARE_PHONE2 + 1)
 

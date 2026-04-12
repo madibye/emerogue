@@ -731,5 +731,5 @@ const struct RogueAreaUpgrade gRogueHubUpgrades[HUB_UPGRADE_COUNT] =
         .descText = gHubUpgradeDesc_Lab_PocketPCTracker,
         .requiredUpgrades = { HUB_UPGRADE_LAB_POCKET_PC, HUB_UPGRADE_LAB_UNIQUE_MON_LAB },
     },
-
+    
 };

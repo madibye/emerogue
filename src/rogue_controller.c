@@ -4181,16 +4181,6 @@ static void BeginRogueRun_ModifyParty(void)
                 exp = Rogue_ModifyExperienceTables(gRogueSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL)].growthRate, STARTER_MON_LEVEL);
                 SetMonData(&gPlayerParty[i], MON_DATA_EXP, &exp);
 
-                if (starterSpecies != SPECIES_NONE)
-                {
-                    // This mon was just added so it can appear in the safari
-                }
-                else
-                {
-                    // Partner's can't reappear in safari
-                    gPlayerParty[i].rogueExtraData.isSafariIllegal = TRUE;
-                }
-
                 // Adjust item
                 temp = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
                 if (!CanBringInHeldItem(temp))
@@ -8498,12 +8488,6 @@ void Rogue_SwapMonInDaycare(struct Pokemon *partyMon, u8 daycareSlot)
 
     ZeroMonData(partyMon);
     BoxMonToMon(&temp, partyMon);
-
-    if (Rogue_IsRunActive())
-    {
-        partyMon->rogueExtraData.isSafariIllegal = gRogueSaveBlock->daycarePokemon[daycareSlot].isSafariIllegal;
-        gRogueSaveBlock->daycarePokemon[daycareSlot].isSafariIllegal = wasSafariIllegal;
-    }
 
     species = GetMonData(partyMon, MON_DATA_SPECIES);
 

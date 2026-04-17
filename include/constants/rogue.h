@@ -251,8 +251,9 @@
 #define ADVPATH_ROOM_CATCHING_CONTEST   12
 #define ADVPATH_ROOM_SIGN               13
 #define ADVPATH_ROOM_BATTLE_SIM         14
+#define ADVPATH_ROOM_BATTLE_TOWER       15
 
-#define ADVPATH_ROOM_BOSS               15
+#define ADVPATH_ROOM_BOSS               16
 
 #define ADVPATH_ROOM_COUNT              16
 
@@ -608,7 +609,8 @@
 //
 #define ROGUE_GAME_MODE_STANDARD                0
 #define ROGUE_GAME_MODE_GAUNTLET                1
-#define ROGUE_GAME_MODE_COUNT                   2
+#define ROGUE_GAME_MODE_EXPERIMENTAL            2
+#define ROGUE_GAME_MODE_COUNT                   3
 
 // Order
 #define TRAINER_ORDER_DEFAULT                   0
@@ -619,6 +621,7 @@
 // Generators
 #define ADV_GENERATOR_STANDARD                  0
 #define ADV_GENERATOR_GAUNTLET                  1
+#define ADV_GENERATOR_EXPERIMENTAL              2
 
 
 // Rogue Campaigns OLD
@@ -751,6 +754,7 @@
 #define GYM_FIRST_LEVEL_CAP 15
 #define GYM_LEVEL_CAP_JUMP 10
 #define MON_DATA_TEMP_PARTNER_RIBBON        MON_DATA_EFFORT_RIBBON
+#define MON_DATA_TEMP_SAFARI_ILLEGAL_RIBBON MON_DATA_MARINE_RIBBON
 #define TUTOR_MOVE_LVL_COUNT_RUN            4
 #define TUTOR_MOVE_LVL_COUNT_HUB            2
 

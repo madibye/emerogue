@@ -945,7 +945,7 @@ void VBlankCB_BagMenuRun(void)
 #define tListTaskId        data[0]
 #define tListPosition      data[1]
 #define tQuantity          data[2]
-#define tNeverRead         data[3]
+#define tDefaultMaxItemCount data[3]
 #define tItemCount         data[8]
 #define tMsgWindowId       data[10]
 #define tPocketSwitchDir   data[11]
@@ -1037,8 +1037,8 @@ static bool8 SetupBagMenu(void)
     case 14:
         taskId = CreateBagInputHandlerTask(gBagPosition.location);
         gTasks[taskId].tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, gBagPosition.scrollPosition[gBagPosition.pocket], gBagPosition.cursorPosition[gBagPosition.pocket]);
-        gTasks[taskId].tNeverRead = 0;
         gTasks[taskId].tItemCount = 0;
+        gTasks[taskId].tDefaultMaxItemCount = FALSE;
         gMain.state++;
         break;
     case 15:
@@ -2393,7 +2393,16 @@ static void ItemMenu_Toss(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     RemoveContextWindow();
-    tItemCount = 1;
+
+    if(tDefaultMaxItemCount)
+    {
+        tItemCount = tQuantity;
+    }
+    else
+    {
+        tItemCount = 1;
+    }
+
     if (tQuantity == 1)
     {
         AskTossItems(taskId);
@@ -2409,7 +2418,7 @@ static void ItemMenu_Toss(u8 taskId)
         StringExpandPlaceholders(gStringVar4, gText_TossHowManyVar1s);
         FillWindowPixelBuffer(WIN_DESCRIPTION, PIXEL_FILL(0));
         BagMenu_Print(WIN_DESCRIPTION, FONT_NORMAL, gStringVar4, 3, 1, 0, 0, 0, COLORID_NORMAL);
-        AddItemQuantityWindow(ITEMWIN_QUANTITY);
+        PrintItemQuantity(BagMenu_AddWindow(ITEMWIN_QUANTITY), tItemCount);
         gTasks[taskId].func = Task_ChooseHowManyToToss;
     }
 }
@@ -2448,6 +2457,8 @@ static void Task_ChooseHowManyToToss(u8 taskId)
     if (AdjustQuantityAccordingToDPadInput(&tItemCount, tQuantity) == TRUE)
     {
         PrintItemQuantity(gBagMenu->windowIds[ITEMWIN_QUANTITY], tItemCount);
+
+        tDefaultMaxItemCount = (tItemCount == tQuantity);
     }
     else if (JOY_NEW(A_BUTTON))
     {
@@ -2922,7 +2933,15 @@ static void Task_ItemContext_Sell(u8 taskId)
     }
     else
     {
-        tItemCount = 1;
+        if(tDefaultMaxItemCount)
+        {
+            tItemCount = tQuantity;
+        }
+        else
+        {
+            tItemCount = 1;
+        }
+
         if (tQuantity == 1)
         {
             DisplayCurrentMoneyWindow();
@@ -2981,7 +3000,7 @@ static void InitSellHowManyInput(u8 taskId)
     s16 *data = gTasks[taskId].data;
     u8 windowId = BagMenu_AddWindow(ITEMWIN_QUANTITY_WIDE);
 
-    PrintItemSoldAmount(windowId, 1, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount);
+    PrintItemSoldAmount(windowId, 1, (ItemId_GetPrice(gSpecialVar_ItemId) / 2) * tItemCount);
     DisplayCurrentMoneyWindow();
     gTasks[taskId].func = Task_ChooseHowManyToSell;
 }
@@ -2993,6 +3012,8 @@ static void Task_ChooseHowManyToSell(u8 taskId)
     if (AdjustQuantityAccordingToDPadInput(&tItemCount, tQuantity) == TRUE)
     {
         PrintItemSoldAmount(gBagMenu->windowIds[ITEMWIN_QUANTITY_WIDE], tItemCount, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount);
+
+        tDefaultMaxItemCount = (tItemCount == tQuantity);
     }
     else if (JOY_NEW(A_BUTTON))
     {
@@ -3049,7 +3070,7 @@ static void SellItem(u8 taskId)
 
 static void WaitAfterItemSell(u8 taskId)
 {
-    if (JOY_NEW(A_BUTTON | B_BUTTON))
+    if (JOY_NEW(A_BUTTON | B_BUTTON) || Rogue_IsRunActive())
     {
         PlaySE(SE_SELECT);
         RemoveMoneyWindow();

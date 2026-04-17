@@ -830,6 +830,11 @@ u16 Rogue_ModifyPlayBGM(u16 songNum)
             u32 mapFlags = gRogueRouteTable.routes[gRogueRun.currentRouteIndex].mapFlags;
             songNum = ModifyBattleSongByMap(songNum, mapFlags);
         }
+        else if(gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BATTLE_TOWER)
+        {
+            if(songNum == MUS_VS_TRAINER)
+                songNum = MUS_DP_VS_TRAINER;
+        }
     }
     else
     {
@@ -1238,8 +1243,10 @@ void Rogue_ModifyCaughtMon(struct Pokemon *mon)
 
         if (IsCurseActive(EFFECT_SNAG_TRAINER_MON) && FlagGet(FLAG_ROGUE_IN_SNAG_BATTLE))
         {
-            mon->rogueExtraData.isSafariIllegal = TRUE;
+            bool8 ribbonSet = TRUE;
+
             SetMonData(mon, MON_DATA_OT_NAME, Rogue_GetTrainerName(gTrainerBattleOpponent_A));
+            SetMonData(mon, MON_DATA_TEMP_SAFARI_ILLEGAL_RIBBON, &ribbonSet);
         }
 
         // Make sure we log if we end up replacing a fainted mon
@@ -1656,6 +1663,15 @@ static u32 CalculateBattleWinnings(u16 trainerNum)
             moneyReward = 6 * lastMonLevel * 2 * gTrainerMoneyTable[i].value;
         else
             moneyReward = 6 * lastMonLevel * gTrainerMoneyTable[i].value;
+
+        if(Rogue_IsRunActive())
+        {
+            if(gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BATTLE_TOWER)
+            {
+                // 66% boost
+                moneyReward = (moneyReward * 5) / 3;
+            }
+        }
     }
 
     return moneyReward;
@@ -3263,7 +3279,7 @@ void Rogue_OnNewGame(void)
     StringCopy(gSaveBlock2Ptr->playerName, gText_TrainerName_Default);
     StringCopy(gSaveBlock2Ptr->pokemonHubName, gText_ExpandedPlaceholder_PokemonHub);
     memset(&gRogueRun.completedBadges[0], TYPE_NONE, sizeof(gRogueRun.completedBadges));
-    memset(&gRogueRun.lastShopVisitDifficulty[0], 255, sizeof(gRogueRun.lastShopVisitDifficulty));
+    memset(&gRogueRun.lastShopVisitDifficulty[0], ROGUE_MAX_BOSS_COUNT, sizeof(gRogueRun.lastShopVisitDifficulty));
     
     SetMoney(&gSaveBlock1Ptr->money, 0);
     memset(&gRogueLocal, 0, sizeof(gRogueLocal));
@@ -3822,9 +3838,21 @@ static void GiveMonPartnerRibbon(void)
         if (species != SPECIES_NONE)
         {
             SetMonData(&gPlayerParty[i], MON_DATA_TEMP_PARTNER_RIBBON, &ribbonSet);
+            SetMonData(&gPlayerParty[i], MON_DATA_TEMP_SAFARI_ILLEGAL_RIBBON, &ribbonSet);
 
             if (Rogue_GetMaxEvolutionCount(species) != 0 && !HasAnyActiveEvos(species))
                 Rogue_PushPopup_UnableToEvolve(i);
+        }
+    }
+
+    for(i = 0; i < DAYCARE_SLOT_COUNT; ++i)
+    {
+        struct BoxPokemon* mon = Rogue_GetDaycareBoxMon(i);
+
+        species = GetBoxMonData(mon, MON_DATA_SPECIES);
+        if(species != SPECIES_NONE)
+        {
+            SetBoxMonData(mon, MON_DATA_TEMP_SAFARI_ILLEGAL_RIBBON, &ribbonSet);
         }
     }
 }
@@ -4202,8 +4230,6 @@ static void BeginRogueRun_ModifyParty(void)
                     SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &temp);
                 }
             }
-
-            gRogueSaveBlock->daycarePokemon[i].isSafariIllegal = TRUE;
         }
     }
 }
@@ -4601,6 +4627,17 @@ static void EndRogueRun(void)
                 RogueSafari_PushMon(&gPlayerParty[i]);
             }
         }
+
+        for(i = 0; i < DAYCARE_SLOT_COUNT; ++i)
+        {
+            struct BoxPokemon* boxMon = Rogue_GetDaycareBoxMon(i);
+            u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
+            if(species != SPECIES_NONE)
+            {
+                u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
+                RogueSafari_PushBoxMon(boxMon);
+            }
+        }
     }
 
     RogueSave_LoadHubStates();
@@ -4633,7 +4670,8 @@ static void EndRogueRun(void)
         // Give ball guy a random ball
         ChooseRandomPokeballReward();
     }
-    else if(Rogue_GetCurrentDifficulty() < ROGUE_MAX_BOSS_COUNT)
+    
+    if(Rogue_GetCurrentDifficulty() < ROGUE_MAX_BOSS_COUNT)
     {
         // Increment stats
         IncrementGameStat(GAME_STAT_RUN_LOSSES);
@@ -5733,10 +5771,19 @@ void Rogue_OnSetWarpData(struct WarpData *warp)
                     break;
                 }
 
-            case ADVPATH_ROOM_BATTLE_SIM:
-            {
-                break;
-            }
+                case ADVPATH_ROOM_BATTLE_SIM:
+                {
+                    break;
+                }
+
+                case ADVPATH_ROOM_BATTLE_TOWER:
+                {
+                    VarSet(VAR_ROGUE_SPECIAL_ENCOUNTER_DATA, RogueRandom());
+
+                    ResetTrainerBattles();
+                    RandomiseEnabledTrainers();
+                    break;
+                }
 
             case ADVPATH_ROOM_GAMESHOW:
             {
@@ -5813,7 +5860,7 @@ static bool8 IsHubMapGroup()
 
 static bool8 ShouldAdjustRouteObjectEvents()
 {
-    return gRogueAdvPath.currentRoomType == ADVPATH_ROOM_ROUTE || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_TEAM_HIDEOUT || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BOSS;
+    return gRogueAdvPath.currentRoomType == ADVPATH_ROOM_ROUTE || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_TEAM_HIDEOUT || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BOSS || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BATTLE_TOWER;
 }
 
 void Rogue_ModifyObjectEvents(struct MapHeader *mapHeader, bool8 loadingFromSave, struct ObjectEventTemplate *objectEvents, u8 *objectEventCount, u8 objectEventCapacity)
@@ -6033,10 +6080,10 @@ void Rogue_ModifyObjectEvents(struct MapHeader *mapHeader, bool8 loadingFromSave
 static void PushFaintedMonToLab(struct Pokemon *srcMon)
 {
     u16 temp;
-    struct Pokemon *destMon;
-    u16 i = Random() % (LAB_MON_COUNT + 1);
-
-    if (Rogue_IsCatchingContestActive())
+    struct Pokemon* destMon;
+    u16 i = Random() % LAB_MON_COUNT;
+    
+    if(Rogue_IsCatchingContestActive())
     {
         // Don't send temp catching contest mons to the lab
         return;
@@ -6087,10 +6134,12 @@ bool8 Rogue_GiveLabEncounterMon(u16 index)
     {
         if (gPlayerPartyCount < PARTY_SIZE && index < LAB_MON_COUNT)
         {
+            bool8 ribbonSet = TRUE;
+
             CopyMon(&gPlayerParty[gPlayerPartyCount], &gEnemyParty[index], sizeof(gPlayerParty[gPlayerPartyCount]));
 
             // Already in safari from? (Maybe should track index and then wipe here, as we could have higher priority)
-            gPlayerParty[gPlayerPartyCount].rogueExtraData.isSafariIllegal = TRUE;
+            SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_TEMP_SAFARI_ILLEGAL_RIBBON, &ribbonSet);
 
             gPlayerPartyCount = CalculatePlayerPartyCount();
             ResetFaintedLabMonAtSlot(index);
@@ -8438,8 +8487,8 @@ u8 Rogue_GetCurrentDaycareSlotCount()
 void Rogue_SwapMonInDaycare(struct Pokemon *partyMon, u8 daycareSlot)
 {
     u16 species;
-    u8 wasSafariIllegal = (GetMonData(partyMon, MON_DATA_SPECIES) == SPECIES_NONE) ? FALSE : partyMon->rogueExtraData.isSafariIllegal;
-    struct BoxPokemon *daycareMon = (struct BoxPokemon *)&gRogueSaveBlock->daycarePokemon[daycareSlot].boxMonFacade;
+    u8 wasSafariIllegal = (GetMonData(partyMon, MON_DATA_SPECIES) == SPECIES_NONE) ? FALSE : !!GetMonData(partyMon, MON_DATA_TEMP_SAFARI_ILLEGAL_RIBBON);
+    struct BoxPokemon* daycareMon = (struct BoxPokemon*)&gRogueSaveBlock->daycarePokemon[daycareSlot].boxMonFacade;
     struct BoxPokemon temp = *daycareMon;
 
     AGB_ASSERT(daycareSlot < DAYCARE_SLOT_COUNT);
@@ -9523,24 +9572,47 @@ static void RandomiseEnabledTrainers()
 {
     u16 i;
     u16 activeTrainers = 0;
-    u16 trainerBuffer[ROGUE_TRAINER_COUNT];
+    u16 trainerBuffer[ROGUE_MAX_ACTIVE_TRAINER_COUNT];
 
     if (gRogueAdvPath.currentRoomType == ADVPATH_ROOM_TEAM_HIDEOUT)
         Rogue_ChooseTeamHideoutTrainers(trainerBuffer, ARRAY_COUNT(trainerBuffer));
-    else if (gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BOSS)
+    else if(gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BOSS || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BATTLE_TOWER)
         Rogue_ChooseSpectatorTrainers(trainerBuffer, ARRAY_COUNT(trainerBuffer));
     else
         Rogue_ChooseRouteTrainers(trainerBuffer, ARRAY_COUNT(trainerBuffer));
 
-    for (i = 0; i < ROGUE_MAX_ACTIVE_TRAINER_COUNT; ++i)
+
+    if(gRogueAdvPath.currentRoomType == ADVPATH_ROOM_BATTLE_TOWER)
     {
-        if (RogueRandomChanceTrainer())
+        u16 enabledCount = 1 + RogueRandomRange(3, 0);
+
+        if(RogueRandomChance(15, 0))
+        {
+            enabledCount = 2 + RogueRandomRange(5, 0);
+        }
+
+        for(i = 0; i < ROGUE_MAX_ACTIVE_TRAINER_COUNT; ++i)
+        {
+            Rogue_SetDynamicTrainer(i, TRAINER_NONE);
+        }
+
+        for(i = 0; i < enabledCount; ++i)
         {
             Rogue_SetDynamicTrainer(i, trainerBuffer[i]);
-            ++activeTrainers;
         }
-        else
-            Rogue_SetDynamicTrainer(i, TRAINER_NONE);
+    }
+    else
+    {
+        for(i = 0; i < ROGUE_MAX_ACTIVE_TRAINER_COUNT; ++i)
+        {
+            if(RogueRandomChanceTrainer())
+            {
+                Rogue_SetDynamicTrainer(i, trainerBuffer[i]);
+                ++activeTrainers;
+            }
+            else
+                Rogue_SetDynamicTrainer(i, TRAINER_NONE);
+        }
     }
 
     // May only limited number of trainers active

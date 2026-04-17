@@ -908,6 +908,8 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/Rogue_Route_Sinnoh_IronIsland/scripts.inc"
 
+	.include "data/maps/Rogue_Encounter_BattleTower/scripts.inc"
+
 	.include "data/maps/Rogue_Route_QuickMap0/scripts.inc"
 
 	.include "data/maps/Rogue_Route_QuickMap1/scripts.inc"

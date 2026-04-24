@@ -11,7 +11,12 @@
         "Speed": 70,
         "SpAttack": 55,
         "SpDefense": 65
-      }
+      },
+      "Abilities": [
+        "ABILITY_LEVITATE",
+        "ABILITY_LEVITATE",
+        "ABILITY_MEGA_SOL"
+      ]
     }
   },
   "LevelUpMoves": [

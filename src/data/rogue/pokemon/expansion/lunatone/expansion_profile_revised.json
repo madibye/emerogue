@@ -13,7 +13,12 @@
         "Speed": 70,
         "SpAttack": 115,
         "SpDefense": 85
-      }
+      },
+      "Abilities": [
+        "ABILITY_LEVITATE",
+        "ABILITY_LEVITATE",
+        "ABILITY_SHADOW_SHIELD"
+      ]
     }
   },
   "LevelUpMoves": [

@@ -563,7 +563,8 @@ struct SaveBlock2
              u32 seasonVisuals:1;
              u32 weatherVisuals:1;
              u32 regionMapZoom:1; // whether the map is zoomed in
-             u32 settingsReserved:17; // unused/reserved bits
+             u32 settingsReserved:14; // unused/reserved bits
+             u32 optionsOverworldSpeed:3; // OPTIONS_OW_SPEED_[...]
              u32 optionsFadeSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST]
              u32 optionsDifficultyRewardMode:1; // OPTIONS_DIFFICULTY_REWARD_MODE_[VANILLA/MULTIPLIER]
              u32 optionsRidemonControlMode:1; // OPTIONS_RIDEMON_CONTROL[VANILLA/MOCHA]

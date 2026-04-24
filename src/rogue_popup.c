@@ -40,6 +40,8 @@
 #define POPUP_QUEUE_CAPACITY 16
 
 extern const u32 gItemIcon_RogueStatusMoney[];
+extern const u32 gItemIcon_RogueDefaultSpeed[];
+extern const u32 gItemIcon_RogueFastSpeed[];
 extern const u32 gItemIconPalette_RogueStatusStarCustom[];
 
 enum
@@ -71,6 +73,8 @@ enum
     POPUP_CUSTOM_ICON_POKEDEX,
     POPUP_CUSTOM_ICON_CLOUD,
     POPUP_CUSTOM_ICON_MONEY,
+    POPUP_CUSTOM_ICON_DEFAULT_SPEED,
+    POPUP_CUSTOM_ICON_FAST_SPEED,
     POPUP_CUSTOM_ICON_TYPE_NORMAL,
     POPUP_CUSTOM_ICON_TYPE_FIGHTING,
     POPUP_CUSTOM_ICON_TYPE_FLYING,
@@ -125,6 +129,7 @@ struct PopupRequest
     u16 fanfare;
     bool8 scriptAudioOnly : 1;
     bool8 cantBeSkipped : 1;
+    bool8 allowHiPriSkipping : 1;
 };
 
 struct PopupManager
@@ -166,6 +171,16 @@ static struct CustomIcon const sRoguePopupCustomIcons[POPUP_CUSTOM_ICON_COUNT] =
     [POPUP_CUSTOM_ICON_MONEY] = 
     {
         .icon = gItemIcon_RogueStatusMoney,
+        .palette = gItemIconPalette_RogueStatusStarCustom
+    },
+    [POPUP_CUSTOM_ICON_DEFAULT_SPEED] = 
+    {
+        .icon = gItemIcon_RogueDefaultSpeed,
+        .palette = gItemIconPalette_RogueStatusStarCustom
+    },
+    [POPUP_CUSTOM_ICON_FAST_SPEED] = 
+    {
+        .icon = gItemIcon_RogueFastSpeed,
         .palette = gItemIconPalette_RogueStatusStarCustom
     },
     [POPUP_CUSTOM_ICON_TYPE_NORMAL] = 
@@ -327,6 +342,10 @@ static const u8 sText_Popup_EncounterChainEnd[] = _("{COLOR RED}{SHADOW LIGHT_RE
 
 static const u8 sText_Popup_PokedexUnlock[] = _("{COLOR LIGHT_GREEN}{SHADOW GREEN}Received Pokedex!");
 static const u8 sText_Popup_PokedexUpgrade[] = _("{COLOR LIGHT_GREEN}{SHADOW GREEN}Pokedex Upgraded!");
+
+static const u8 sText_Popup_SpeedupEnabled[] = _("{COLOR LIGHT_GREEN}{SHADOW GREEN}Speedup Enabled");
+static const u8 sText_Popup_SpeedupDisabled[] = _("{COLOR LIGHT_RED}{SHADOW RED}Speedup Disabled");
+static const u8 sText_Popup_SpeedupTip[] = _("{COLOR LIGHT_BLUE}{SHADOW BLUE}{L_BUTTON} to toggle");
 
 static const u8 sText_Popup_PickedUp[] = _("{COLOR LIGHT_GREEN}{SHADOW GREEN}Picked Up {STR_VAR_1}!");
 static const u8 sText_Popup_GatheredHoney[] = _("{COLOR LIGHT_GREEN}{SHADOW GREEN}Gathered {STR_VAR_1}!");
@@ -576,6 +595,18 @@ static struct PopupRequest* GetCurrentPopup()
     return &sRoguePopups.requestQueue[sRoguePopups.lastShownId];
 }
 
+static struct PopupRequest* GetNextPopup()
+{
+    u8 nextIdx = (sRoguePopups.lastShownId + 1) % POPUP_QUEUE_CAPACITY;
+
+    if(nextIdx == sRoguePopups.queuedId)
+    {
+        return NULL;
+    }
+
+    return &sRoguePopups.requestQueue[nextIdx];
+}
+
 static u8 GetQuestPopUpWindowId(void)
 {
     return sRoguePopups.windowId;
@@ -735,6 +766,12 @@ void Rogue_UpdatePopups(bool8 inOverworld, bool8 inputEnabled)
             Rogue_PushPopup_NextPartyNotification();
         }
         
+
+        if(GetCurrentPopup()->allowHiPriSkipping && GetNextPopup() != NULL)
+        {
+            sRoguePopups.hasPopupBeenSkipped = TRUE;
+        }
+
         // If you press a button during a script, it will skip this notification
         if(sRoguePopups.forceEnabled && !GetCurrentPopup()->cantBeSkipped)
         {
@@ -1907,6 +1944,27 @@ void Rogue_PushPopup_UpgradeBagCapacity()
 
     popup->expandTextData[1] = GetBagUnreservedTotalSlots();
     popup->expandTextType[1] = TEXT_EXPAND_UNSIGNED_NUMBER;
+}
+
+void Rogue_PushPopup_ToggleSpeedup(bool8 speedupEnabled)
+{
+    if(gMain.inBattle)
+    {
+        // Can't push in battle, so just play sound
+        PlaySE(speedupEnabled ? SE_POKENAV_ON : SE_POKENAV_OFF);
+    }
+    else
+    {
+        struct PopupRequest* popup = CreateNewPopup();
+
+        popup->templateId = POPUP_COMMON_CUSTOM_ICON_TEXT;
+        popup->iconId = speedupEnabled ? POPUP_CUSTOM_ICON_FAST_SPEED : POPUP_CUSTOM_ICON_DEFAULT_SPEED;
+        popup->soundEffect = speedupEnabled ? SE_POKENAV_ON : SE_POKENAV_OFF;
+        popup->allowHiPriSkipping = TRUE;
+
+        popup->titleText = speedupEnabled ? sText_Popup_SpeedupEnabled : sText_Popup_SpeedupDisabled;
+        popup->subtitleText = sText_Popup_SpeedupTip;
+    }
 }
 
 void Rogue_PushPopup_AssistantConnected()

@@ -45,6 +45,7 @@ enum
     MENUITEM_BATTLESCENE_WILD_BATTLES,
     MENUITEM_BATTLESCENE_TRAINER_BATTLES,
     MENUITEM_BATTLESCENE_KEY_BATTLES,
+    MENUITEM_BATTLESCENE_OW_SPEED,
     MENUITEM_AUTORUN_TOGGLE,
     MENUITEM_NICKNAME_MODE,
     MENUITEM_TIME_OF_DAY,
@@ -106,6 +107,8 @@ static u8 TextSpeed_ProcessInput(u8 menuOffset, u8 selection);
 static void TextSpeed_DrawChoices(u8 menuOffset, u8 selection);
 static u8 BattleScene_ProcessInput(u8 menuOffset, u8 selection);
 static void BattleScene_DrawChoices(u8 menuOffset, u8 selection);
+static u8 OverworldSpeed_ProcessInput(u8 menuOffset, u8 selection);
+static void OverworldSpeed_DrawChoices(u8 menuOffset, u8 selection);
 static u8 InvertedToggle_ProcessInput(u8 menuOffset, u8 selection);
 static void InvertedToggle_DrawChoices(u8 menuOffset, u8 selection);
 static u8 AutoRun_ProcessInput(u8 menuOffset, u8 selection);
@@ -227,6 +230,12 @@ static const struct MenuEntry sOptionMenuItems[] =
         .itemName = gText_BattleSceneKey,
         .processInput = BattleScene_ProcessInput,
         .drawChoices = BattleScene_DrawChoices
+    },
+    [MENUITEM_BATTLESCENE_OW_SPEED] = 
+    {
+        .itemName = gText_OWSpeedKey,
+        .processInput = OverworldSpeed_ProcessInput,
+        .drawChoices = OverworldSpeed_DrawChoices
     },
     [MENUITEM_AUTORUN_TOGGLE] = 
     {
@@ -395,6 +404,7 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
         {
             MENUITEM_TEXTSPEED,
             MENUITEM_FADESPEED,
+            MENUITEM_BATTLESCENE_OW_SPEED,
             MENUITEM_BATTLESCENE_WILD_BATTLES,
             MENUITEM_BATTLESCENE_TRAINER_BATTLES,
             MENUITEM_BATTLESCENE_KEY_BATTLES,
@@ -849,6 +859,40 @@ static void BattleScene_DrawChoices(u8 menuOffset, u8 selection)
         [OPTIONS_BATTLE_SCENE_3X] = sText_BattleScene_3x,
         [OPTIONS_BATTLE_SCENE_4X] = sText_BattleScene_4x,
         [OPTIONS_BATTLE_SCENE_DISABLED] = sText_BattleScene_Disabled,
+    };
+    DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
+}
+
+static u8 OverworldSpeed_ProcessInput(u8 menuOffset, u8 selection)
+{
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection < OPTIONS_OW_SPEED_COUNT - 1)
+            selection++;
+        else
+            selection = 0;
+
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection != 0)
+            selection--;
+        else
+            selection = OPTIONS_OW_SPEED_COUNT - 1;
+
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void OverworldSpeed_DrawChoices(u8 menuOffset, u8 selection)
+{
+    u8 const* options[OPTIONS_OW_SPEED_COUNT] = 
+    {
+        [OPTIONS_OW_SPEED_1X] = sText_BattleScene_1x,
+        [OPTIONS_OW_SPEED_2X] = sText_BattleScene_2x,
+        [OPTIONS_OW_SPEED_3X] = sText_BattleScene_3x,
     };
     DrawChoiceSelection(menuOffset, selection, options, ARRAY_COUNT(options));
 }
@@ -1354,6 +1398,9 @@ static u8 GetMenuItemValue(u8 menuItem)
 
     case MENUITEM_BATTLESCENE_KEY_BATTLES:
         return gSaveBlock2Ptr->optionsBossBattleScene;
+
+    case MENUITEM_BATTLESCENE_OW_SPEED:
+        return gSaveBlock2Ptr->optionsOverworldSpeed;
         
     case MENUITEM_AUTORUN_TOGGLE:
         return gSaveBlock2Ptr->optionsAutoRunToggle;
@@ -1435,6 +1482,10 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
 
     case MENUITEM_BATTLESCENE_KEY_BATTLES:
         gSaveBlock2Ptr->optionsBossBattleScene = value;
+        break;
+
+    case MENUITEM_BATTLESCENE_OW_SPEED:
+        gSaveBlock2Ptr->optionsOverworldSpeed = value;
         break;
 
     case MENUITEM_AUTORUN_TOGGLE:

@@ -199,7 +199,6 @@ enum {
     TAG_ITEM_ICON = 100,
 };
 
-
 enum {
     CAN_LEARN_MOVE,
     CANNOT_LEARN_MOVE,

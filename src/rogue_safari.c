@@ -8,6 +8,7 @@
 #include "string_util.h"
 
 #include "rogue_controller.h"
+#include "rogue_charms.h"
 #include "rogue_followmon.h"
 #include "rogue_gifts.h"
 #include "rogue_pokedex.h"
@@ -30,6 +31,9 @@ static u8 AllocSafariMonSlotFor(struct BoxPokemon* mon);
 static u8 FreeSafariMonSlotCount();
 static u8 AllocCustomMonSafariSlot(u32 customMonId, u8 forSafariIndex);
 
+
+#define DEC_IV(stat, amount) stat = (stat < amount ? 0 : (stat - amount));
+
 static void PushBoxMonInternal(struct BoxPokemon* monToCopy, bool32 isLowPriority)
 {
     u32 customMonId;
@@ -38,6 +42,20 @@ static void PushBoxMonInternal(struct BoxPokemon* monToCopy, bool32 isLowPriorit
 
     ZeroSafariMon(writeMon);
     RogueSafari_CopyToSafariMon(monToCopy, writeMon);
+
+    // Remove the effect of any IV charms, to avoid cheesing
+    {
+        u16 ivInc = GetCharmValue(EFFECT_WILD_IV_RATE);
+        if(ivInc > 0)
+        {
+            DEC_IV(writeMon->hpIV, ivInc);
+            DEC_IV(writeMon->attackIV, ivInc);
+            DEC_IV(writeMon->defenseIV, ivInc);
+            DEC_IV(writeMon->spAttackIV, ivInc);
+            DEC_IV(writeMon->spDefenseIV, ivInc);
+            DEC_IV(writeMon->speedIV, ivInc);
+        }
+    }
 
     customMonId = RogueGift_GetCustomBoxMonId(monToCopy);
     if(customMonId)
@@ -70,6 +88,8 @@ static void PushBoxMonInternal(struct BoxPokemon* monToCopy, bool32 isLowPriorit
         writeMon->priorityCounter += ROGUE_SAFARI_TOTAL_MONS / 2;
     }
 }
+
+#undef DEC_IV
 
 void RogueSafari_PushMon(struct Pokemon* mon)
 {
@@ -315,12 +335,23 @@ static u8 AllocSafariMonSlotFor(struct BoxPokemon* mon)
         // Count down priorities
         for(i = startIndex; i <= endIndex; ++i)
         {
-            if(gRogueSaveBlock->safariMons[i].priorityCounter != 0)
-                --gRogueSaveBlock->safariMons[i].priorityCounter;
-
             // Keep track of lowest priority in case there isn't a free slot
             lowestPriority = min(lowestPriority, gRogueSaveBlock->safariMons[i].priorityCounter);
         }
+
+        // Reduce everything by the lowest priority, so we're basically evicting batches of mons at a time
+        for(i = startIndex; i <= endIndex; ++i)
+        {
+            if(gRogueSaveBlock->safariMons[i].priorityCounter == lowestPriority)
+            {
+                ZeroSafariMon(&gRogueSaveBlock->safariMons[i]);
+            }
+            else
+            {
+                gRogueSaveBlock->safariMons[i].priorityCounter -= lowestPriority;
+            }
+        }
+
 
         offset = Random();
 
@@ -329,8 +360,9 @@ static u8 AllocSafariMonSlotFor(struct BoxPokemon* mon)
         {
             idx = startIndex + (offset + i - startIndex) % (endIndex - startIndex + 1);
 
-            if(gRogueSaveBlock->safariMons[idx].priorityCounter == lowestPriority)
+            if(gRogueSaveBlock->safariMons[idx].species == SPECIES_NONE)
             {
+                // There is a free slot here
                 return idx;
             }
         }

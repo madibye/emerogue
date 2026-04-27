@@ -1593,20 +1593,13 @@ void BerryTreeTimeUpdate(s32 minutes)
 
         if (tree->berry && tree->stage && !tree->stopGrowth)
         {
-            // RogueNote: Don't ever reset tree
-            if (minutes >= GetStageDurationByBerryType(tree->berry) * 71)
+            s32 time = minutes;
+
+            if(i >= BERRY_TREE_DAYCARE_FIRST && i <= BERRY_TREE_DAYCARE_LAST)
             {
-                // RogueNote: Don't ever reset tree
-                //*tree = gBlankBerryTree;
-                continue;
+                // We want to grow daycare berries instantly
+                time = 99999;
             }
-            else
-            {
-                s32 time = minutes;
-                if (BERRY_TREE_DAYCARE_FIRST <= i && i <= BERRY_TREE_DAYCARE_LAST)
-                {
-                    time *= BERRY_TREE_DAYCARE_MPLR; // speed up growth for in-run berries
-                }
 
                 while (time != 0)
                 {
@@ -1626,6 +1619,7 @@ void BerryTreeTimeUpdate(s32 minutes)
         }
     }
 }
+
 void PlantBerryTree(u8 id, u8 berry, u8 stage, bool8 allowGrowth)
 {
     struct BerryTree *tree = GetBerryTreeInfo(id);
@@ -1807,6 +1801,10 @@ void ObjectEventInteractionGetBerryCountString(void)
     u8 treeId = GetObjectEventBerryTreeId(gSelectedObjectEvent);
     u8 berry = GetBerryTypeByBerryTreeId(treeId);
     u8 count = GetBerryCountByBerryTreeId(treeId);
+
+    if(count == 0)
+        count = 1;
+    
     GetBerryCountStringByBerryType(berry, gStringVar1, count);
 }
 

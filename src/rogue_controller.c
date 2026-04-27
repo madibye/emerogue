@@ -408,8 +408,8 @@ bool8 Rogue_FastBattleAnims(void)
     return !Rogue_UseKeyBattleAnims();
 }
 
-bool8 InBattleChoosingMoves();
-bool8 InBattleRunningActions();
+bool8 Rogue_InBattleChoosingMoves();
+bool8 Rogue_InBattleRunningActions();
 
 static u8 GetBattleSceneOption()
 {
@@ -426,7 +426,7 @@ static bool8 TryOverrideSpeedScale(u8 speed)
     // Tap L to toggle slow down
     if(speed > 1 && !gRogueLocal.speedupJustToggled)
     {
-        if(JOY_NEW(L_BUTTON))
+        if(JOY_NEW(L_BUTTON) && !Rogue_IsViewingPokedex())
         {
             gRogueLocal.speedupToggleActive = !gRogueLocal.speedupToggleActive;
             gRogueLocal.speedupJustToggled = TRUE;
@@ -458,17 +458,17 @@ u8 Rogue_GetBattleSpeedScale(bool8 forHealthbar)
         return 1;
 
     // We want to speed up all anims until input selection starts
-    if (InBattleChoosingMoves())
+    if(Rogue_InBattleChoosingMoves())
         gRogueLocal.hasBattleInputStarted = TRUE;
 
     if (gRogueLocal.hasBattleInputStarted)
     {
         // Always run at 1x speed here
-        if(InBattleChoosingMoves())
+        if(Rogue_InBattleChoosingMoves())
             return TryOverrideSpeedScale(1);
 
         // When battle anims are turned off, it's a bit too hard to read text, so force running at normal speed
-        if(!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && InBattleRunningActions())
+        if(!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && Rogue_InBattleRunningActions())
             return TryOverrideSpeedScale(1);
     }
     else
@@ -4887,21 +4887,26 @@ static u16 ChooseTeamEncounterNum()
 #ifdef ROGUE_EXPANSION
     if (Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_SINNOH))
         RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_GALACTIC);
-//
-// if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_UNOVA))
-//    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_UNOVA;
-//
-// if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_KALOS))
-//    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_KALOS;
-//
-// if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_ALOLA))
-//    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_ALOLA;
-//
-// if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_GALAR))
-//    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_GALAR;
-//
-// if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_PALDEA))
-//    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_PALDEA;
+
+    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_UNOVA))
+    //{
+    //    RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_PLASMA);
+    //    RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_NEOPLASMA);
+    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_UNOVA;
+    //}
+
+    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_KALOS))
+    //    RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_FLARE);
+    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_KALOS;
+    //
+    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_ALOLA))
+    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_ALOLA;
+    //
+    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_GALAR))
+    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_GALAR;
+    //
+    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_PALDEA))
+    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_PALDEA;
 #endif
 
     if (!RogueMiscQuery_AnyActiveElements())
@@ -5626,9 +5631,6 @@ void Rogue_OnSetWarpData(struct WarpData *warp)
 
             FlagSet(FLAG_ROGUE_TERA_ORB_CHARGED);
 
-            // Grow berries based on progress in runs (This will grow in run berries and hub berries)
-            BerryTreeTimeUpdate(120);
-
             VarSet(VAR_ROGUE_DESIRED_WEATHER, WEATHER_NONE);
 
             // We're warping into a valid map
@@ -6213,6 +6215,15 @@ void RemoveMonAtSlot(u8 slot, bool8 keepItems, bool8 compactPartySlots)
 
             // Forget about re-equipping the held item
             gRogueRun.partyHeldItems[slot] = ITEM_NONE;
+
+            // Only push mons if run is active
+            if(Rogue_IsRunActive() && !Rogue_IsVictoryLapActive())
+            {
+                RogueSafari_PushMon(&gPlayerParty[slot]);
+            }
+
+            if(Rogue_IsRunActive())
+                IncrementGameStat(GAME_STAT_POKEMON_RELEASED);
 
             PushFaintedMonToLab(&gPlayerParty[slot]);
 
@@ -6860,6 +6871,9 @@ void Rogue_Battle_EndTrainerBattle(u16 trainerNum)
 
                 gRogueRun.currentLevelOffset = nextLevel - prevLevel;
                 gRogueRun.wildEncounters.roamerActiveThisPath = TRUE;
+
+                // Grow berries based on progress in runs (This will grow in run berries and hub berries)
+                BerryTreeTimeUpdate(600);
 
                 // Increase tutor move lvl
                 {

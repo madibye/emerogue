@@ -400,6 +400,12 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     {TRAINER_CLASS_TEAM_ROCKET_LEADER, 10},
     {TRAINER_CLASS_TEAM_GALACTIC, 5},
     {TRAINER_CLASS_TEAM_GALACTIC_LEADER, 10},
+    {TRAINER_CLASS_TEAM_PLASMA, 5},
+    {TRAINER_CLASS_TEAM_PLASMA_LEADER, 10},
+    {TRAINER_CLASS_TEAM_NEOPLASMA, 5},
+    {TRAINER_CLASS_TEAM_NEOPLASMA_LEADER, 10},
+    {TRAINER_CLASS_TEAM_FLARE, 5},
+    {TRAINER_CLASS_TEAM_FLARE_LEADER, 10},
     {TRAINER_CLASS_BIKER, 4},
     {0xFF, 5}, // Any trainer class not listed above uses this
 };
@@ -2995,6 +3001,17 @@ bool8 InBattleRunningActions()
     return gBattleMainFunc == RunTurnActionsFunctions;
 }
 
+bool8 Rogue_InBattleChoosingMoves()
+{
+    // Make sure we're actually in the battle scene
+    return gMain.callback2 == BattleMainCB2 && InBattleChoosingMoves();
+}
+
+bool8 Rogue_InBattleRunningActions()
+{
+    // Make sure we're actually in the battle scene
+    return gMain.callback2 == BattleMainCB2 && InBattleRunningActions();
+}
 
 static void BattleMainCB1(void)
 {

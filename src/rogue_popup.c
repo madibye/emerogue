@@ -19,6 +19,7 @@
 #include "sound.h"
 #include "task.h"
 #include "text.h"
+#include "text_window.h"
 #include "constants/battle_frontier.h"
 #include "constants/items.h"
 #include "constants/layouts.h"
@@ -148,6 +149,7 @@ struct PopupManager
     bool8 forceEnabledFromScript : 1;
     bool8 forceEnabledCanSkip : 1;
     bool8 hasPopupBeenSkipped : 1;
+    bool8 forceInstantSkip : 1;
 };
 
 struct CustomIcon
@@ -575,6 +577,8 @@ static const struct PopupRequestTemplate sPopupRequestTemplates[] =
     },
 };
 
+bool8 Rogue_InBattleChoosingMoves();
+
 static void ShowQuestPopup(void);
 static void HideQuestPopUpWindow(void);
 
@@ -636,11 +640,12 @@ static u8 AddQuestPopUpWindow(struct PopupRequest* request)
 {
     struct PopupRequestTemplate const* template = &sPopupRequestTemplates[request->templateId];
     sRoguePopups.hasPopupBeenSkipped = FALSE;
+    sRoguePopups.forceInstantSkip = FALSE;
 
     RemoveQuestPopUpWindow();
 
     sRoguePopups.windowId = AddWindowParameterized(
-        0, 
+        gMain.inBattle ? 1 : 0, 
         template->left,
         template->down,
         template->width,
@@ -654,7 +659,7 @@ static u8 AddQuestPopUpWindow(struct PopupRequest* request)
     if(template->iconMode != POPUP_ICON_MODE_NONE)
     {
         sRoguePopups.iconWindowId = AddWindowParameterized(
-            0, 
+            gMain.inBattle ? 1 : 0, 
             template->iconLeft,
             template->iconDown,
             template->iconWidth,
@@ -723,6 +728,11 @@ void Rogue_UpdatePopups(bool8 inOverworld, bool8 inputEnabled)
 
     START_TIMER(ROGUE_POPUPS);
 
+    if(gMain.inBattle && Rogue_InBattleChoosingMoves())
+    {
+        enabled = TRUE;
+    }
+
     if(sRoguePopups.forceEnabled)
     {
         enabled = TRUE;
@@ -760,16 +770,17 @@ void Rogue_UpdatePopups(bool8 inOverworld, bool8 inputEnabled)
                     Rogue_PushPopup_WeatherActive(sRoguePopups.lastWeatherPopup);
             }
         }
-        else
+        else if(inOverworld)
         {
             // Push next party notification, if
             Rogue_PushPopup_NextPartyNotification();
         }
         
 
-        if(GetCurrentPopup()->allowHiPriSkipping && GetNextPopup() != NULL)
+        if(!sRoguePopups.hasPopupBeenSkipped && GetCurrentPopup()->allowHiPriSkipping && GetNextPopup() != NULL)
         {
             sRoguePopups.hasPopupBeenSkipped = TRUE;
+            sRoguePopups.forceInstantSkip = TRUE;
         }
 
         // If you press a button during a script, it will skip this notification
@@ -829,6 +840,16 @@ void Rogue_DisplayPopupsFromScriptSkippable()
     sRoguePopups.forceEnabledCanSkip = TRUE;
 }
 
+static u8 TryOverrideAnim(u8 anim)
+{
+    if(gMain.inBattle)
+    {
+        return POPUP_ANIM_NONE;
+    }
+
+    return anim;
+}
+
 static void ApplyPopupAnimation(struct PopupRequest* request, u16 timer, bool8 useEnterAnim)
 {
     struct PopupRequestTemplate const* template = &sPopupRequestTemplates[request->templateId];
@@ -843,7 +864,7 @@ static void ApplyPopupAnimation(struct PopupRequest* request, u16 timer, bool8 u
     yStart = 0;
     yEnd = 0;
 
-    switch (useEnterAnim ? template->enterAnim : template->exitAnim)
+    switch (TryOverrideAnim(useEnterAnim ? template->enterAnim : template->exitAnim))
     {
     case POPUP_ANIM_SLIDE_VERTICAL:
         yStart = (template->height + 2) * 8;
@@ -857,19 +878,19 @@ static void ApplyPopupAnimation(struct PopupRequest* request, u16 timer, bool8 u
     }
 
     if(xStart == xEnd)
-        SetGpuReg(REG_OFFSET_BG0HOFS, xStart);
+        SetGpuReg(gMain.inBattle ? REG_OFFSET_BG1HOFS : REG_OFFSET_BG0HOFS, xStart);
     else
     {
         value = (invTimer * xEnd) / template->animDuration + (timer * xStart) / template->animDuration;
-        SetGpuReg(REG_OFFSET_BG0HOFS, value);
+        SetGpuReg(gMain.inBattle ? REG_OFFSET_BG1HOFS : REG_OFFSET_BG0HOFS, value);
     }
 
     if(yStart == yEnd)
-        SetGpuReg(REG_OFFSET_BG0VOFS, yStart);
+        SetGpuReg(gMain.inBattle ? REG_OFFSET_BG1VOFS : REG_OFFSET_BG0VOFS, yStart);
     else
     {
         value = (invTimer * yEnd) / template->animDuration + (timer * yStart) / template->animDuration;
-        SetGpuReg(REG_OFFSET_BG0VOFS, value);
+        SetGpuReg(gMain.inBattle ? REG_OFFSET_BG1VOFS : REG_OFFSET_BG0VOFS, value);
     }
 }
 
@@ -890,6 +911,12 @@ static void Task_QuestPopUpWindow(u8 taskId)
     bool8 useEnterAnim = FALSE;
     u16 animDuration = sRoguePopups.hasPopupBeenSkipped ? 1 : template->animDuration;
     u16 displayDuration = sRoguePopups.hasPopupBeenSkipped ? SKIP_DISPLAY_DURATION : popupRequest->displayDuration;
+
+    if(sRoguePopups.forceInstantSkip)
+    {
+        animDuration = 0;
+        displayDuration = 0;
+    }
 
     switch (task->sStateNum)
     {
@@ -975,8 +1002,17 @@ static void HideQuestPopUpWindow(void)
         }
 
         RemoveQuestPopUpWindow();
-        SetGpuReg_ForcedBlank(REG_OFFSET_BG0VOFS, 0);
-        SetGpuReg_ForcedBlank(REG_OFFSET_BG0HOFS, 0);
+        if(gMain.inBattle)
+        {
+            SetGpuReg_ForcedBlank(REG_OFFSET_BG1VOFS, 0);
+            SetGpuReg_ForcedBlank(REG_OFFSET_BG1HOFS, 0);
+            //HideBg(1);
+        }
+        else
+        {
+            SetGpuReg_ForcedBlank(REG_OFFSET_BG0VOFS, 0);
+            SetGpuReg_ForcedBlank(REG_OFFSET_BG0HOFS, 0);
+        }
         DestroyTask(sRoguePopups.taskId);
         
         sRoguePopups.lastShownId = (sRoguePopups.lastShownId + 1) % POPUP_QUEUE_CAPACITY;
@@ -1151,6 +1187,12 @@ static void ShowQuestPopUpWindow(void)
 {
     struct PopupRequest* popupRequest = GetCurrentPopup();
     struct PopupRequestTemplate const* template = &sPopupRequestTemplates[popupRequest->templateId];
+
+    if(gMain.inBattle)
+    {
+        LoadPalette(GetTextWindowPalette(0), 0xF0, 0x20);
+        //ShowBg(1);
+    }
 
     AddQuestPopUpWindow(popupRequest);
 
@@ -1948,9 +1990,9 @@ void Rogue_PushPopup_UpgradeBagCapacity()
 
 void Rogue_PushPopup_ToggleSpeedup(bool8 speedupEnabled)
 {
-    if(gMain.inBattle)
+    if(gMain.inBattle && !Rogue_InBattleChoosingMoves())
     {
-        // Can't push in battle, so just play sound
+        // Can't push in current battle state, so just play sound
         PlaySE(speedupEnabled ? SE_POKENAV_ON : SE_POKENAV_OFF);
     }
     else

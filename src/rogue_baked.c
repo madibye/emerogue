@@ -50,7 +50,6 @@ extern const struct BaseStats gBaseStats[];
 
 #include "rogue_baked.h"
 
-
 #ifdef ROGUE_BAKING
 #define ROGUE_BAKE_INVALID
 bool8 Rogue_GetRevisionModeActive()
@@ -1938,6 +1937,8 @@ u16 Rogue_GetSpeciesForMegaItem(u16 itemId)
 #ifdef ROGUE_BAKE_VALID
     if(itemId >= ITEM_VENUSAURITE && itemId <= ITEM_DIANCITE)
         return gRogueBake_MegaItemToSpecies[itemId - ITEM_VENUSAURITE];
+    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
+        return gRogueBake_MegaItemToSpecies[(ITEM_DIANCITE - ITEM_VENUSAURITE) + (itemId - ITEM_CLEFABLITE)];
 #endif
 
     return SPECIES_NONE;

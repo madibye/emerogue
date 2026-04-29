@@ -1090,11 +1090,8 @@ static bool8 Transition_StartIntro(struct Task *task)
         task->tState++;
         return FALSE;
     }
-    else
-    {
-        task->tState = 2;
-        return TRUE;
-    }
+    task->tState = 2;
+    return TRUE;
 }
 
 static bool8 Transition_WaitForIntro(struct Task *task)
@@ -1104,10 +1101,7 @@ static bool8 Transition_WaitForIntro(struct Task *task)
         task->tState++;
         return TRUE;
     }
-    else
-    {
-        return FALSE;
-    }
+    return FALSE;
 }
 
 static bool8 Transition_StartMain(struct Task *task)
@@ -1117,12 +1111,9 @@ static bool8 Transition_StartMain(struct Task *task)
         task->tTransitionDone = TRUE;
         return FALSE;
     }
-    else
-    {
-        CreateTask(sTasks_Main[task->tTransitionId], 0);
-        task->tState++;
-        return FALSE;
-    }
+    CreateTask(sTasks_Main[task->tTransitionId], 0);
+    task->tState++;
+    return FALSE;
 }
 
 static bool8 Transition_WaitForMain(struct Task *task)

@@ -305,7 +305,10 @@ int main()
 
 #ifdef ROGUE_EXPANSION
 		std::vector<u16> megaItemToSpecies;
-		megaItemToSpecies.resize(ITEMS_COUNT - ITEM_VENUSAURITE);
+		u16 gen6MegaItemCount = (ITEM_DIANCITE - ITEM_VENUSAURITE);
+		u16 gen9MegaItemCount = (ITEM_GLIMMORANITE - ITEM_CLEFABLITE);
+		u16 allMegaItemCount = (gen6MegaItemCount + gen9MegaItemCount);
+		megaItemToSpecies.resize(allMegaItemCount);
 
 		// Form change to base species
 		for (int s = SPECIES_NONE; s < NUM_SPECIES; ++s)
@@ -319,7 +322,10 @@ int main()
 					if (gSpeciesInfo[s].formChangeTable[i].method == FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM)
 					{
 						u16 itemId = gSpeciesInfo[s].formChangeTable[i].param1;
-						megaItemToSpecies[itemId - ITEM_VENUSAURITE] = s;
+						if (itemId >= ITEM_VENUSAURITE && itemId <= ITEM_DIANCITE)
+							megaItemToSpecies[itemId - ITEM_VENUSAURITE] = s;
+						if (itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
+							megaItemToSpecies[gen6MegaItemCount + (itemId - ITEM_CLEFABLITE)] = s;
 					}
 					++i;
 				}
@@ -327,7 +333,7 @@ int main()
 		}
 
 		file << "\n";
-		file << "const u16 gRogueBake_MegaItemToSpecies[ITEMS_COUNT - ITEM_VENUSAURITE] =\n{\n";
+		file << "const u16 gRogueBake_MegaItemToSpecies[" << allMegaItemCount << "] =\n{\n" << allMegaItemCount;
 
 		for (int i = 0; i < megaItemToSpecies.size(); ++i)
 		{

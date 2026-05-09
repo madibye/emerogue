@@ -2061,24 +2061,22 @@ u8 SpeciesToGen(u16 species)
     case SPECIES_NECROZMA_ULTRA:
         return 7;
 
-    case SPECIES_ZACIAN_CROWNED_SWORD:
-    case SPECIES_ZAMAZENTA_CROWNED_SHIELD:
-    case SPECIES_ETERNATUS_ETERNAMAX:
-    case SPECIES_URSHIFU_RAPID_STRIKE_STYLE:
-    case SPECIES_ZARUDE_DADA:
-    case SPECIES_CALYREX_ICE_RIDER:
-    case SPECIES_CALYREX_SHADOW_RIDER:
-        return 8;
+        case SPECIES_ZACIAN_CROWNED_SWORD:
+        case SPECIES_ZAMAZENTA_CROWNED_SHIELD:
+        case SPECIES_ETERNATUS_ETERNAMAX:
+        case SPECIES_URSHIFU_RAPID_STRIKE_STYLE:
+        case SPECIES_ZARUDE_DADA:
+        case SPECIES_CALYREX_ICE_RIDER:
+        case SPECIES_CALYREX_SHADOW_RIDER:
+        case SPECIES_ENAMORUS_THERIAN:
+            return 8;
 
-    case SPECIES_ENAMORUS_THERIAN:
-        return 8;
-    }
+        case SPECIES_FLOETTE_ETERNAL_FLOWER:
+            return 9;
 
-    // Alternate forms
-    switch (species)
-    {
-    case SPECIES_MEOWSTIC_FEMALE:
-        return 7;
+        // Alternate forms
+        case SPECIES_MEOWSTIC_FEMALE:
+            return 7;
 
     case SPECIES_INDEEDEE_FEMALE:
         return 8;

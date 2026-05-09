@@ -143,6 +143,7 @@ struct QuestInfo
 	std::string questId;
 	std::string preprocessorCondition;
 	std::string displayGroup;
+	std::string displayGroupOrder;
 	bool isUnlockedViaReward;
 	std::vector<std::string> flags;
 	std::vector<QuestTrigger> triggers;
@@ -620,6 +621,11 @@ void ExportQuestData_C(std::ofstream& fileStream, std::string const& dataPath, j
 				}
 				else
 				{
+					if(!a.displayGroupOrder.empty() && !b.displayGroupOrder.empty())
+					{
+						return a.displayGroupOrder < b.displayGroupOrder;
+					}
+
 					return a.importIndex < b.importIndex;
 				}
 			}
@@ -1066,6 +1072,10 @@ static void GatherQuests(std::string const& dataPath, json const& rawJsonData, Q
 			if (quest.questObj.contains("display_group"))
 			{
 				quest.displayGroup = quest.questObj["display_group"].get<std::string>();
+			}
+			if (quest.questObj.contains("display_group_order"))
+			{
+				quest.displayGroupOrder = QuestExpandString(quest, quest.questObj["display_group_order"].get<std::string>());
 			}
 
 			// Preprocessor condition

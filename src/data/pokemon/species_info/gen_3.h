@@ -6392,7 +6392,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formChangeTable = sChimechoFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_CHIMECHO_MEGA] =
     {
         .baseHP        = 75,
@@ -6403,13 +6402,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpDefense = 120,
         .types = { TYPE_PSYCHIC, TYPE_STEEL },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_7
         .expYield = 159,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
-        .expYield = 149,
-    #else
-        .expYield = 147,
-    #endif
         .evYield_SpAttack = 1,
         .evYield_SpDefense = 1,
         .itemRare = ITEM_CLEANSE_TAG,
@@ -6417,44 +6410,41 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .eggCycles = 25,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FAST,
-        .eggGroups = { EGG_GROUP_AMORPHOUS },
+        .eggGroups = { EGG_GROUP_AMORPHOUS, EGG_GROUP_AMORPHOUS },
         .abilities = { ABILITY_LEVITATE, ABILITY_LEVITATE, ABILITY_LEVITATE },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Chimecho"),
-        .cryId = CRY_CHIMECHO, // CRY_CHIMECHO_MEGA
+        .cryId = CRY_CHIMECHO,
         .natDexNum = NATIONAL_DEX_CHIMECHO,
         .categoryName = _("Wind Chime"),
-        .height = 12,
-        .weight = 80,
-        .description = COMPOUND_STRING(
-            "It vibrates its entire body to attack in\n"
-            "all directions using sound waves. Any who\n"
-            "hear the vibrations get so confused, they\n"
-            "forget who they are."),
-        .frontPic = gMonFrontPic_ChimechoMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 6,
+        .weight = 10,
+        .description = POKEDEX_DESC_STRING(
+            "They fly about very actively when the hot\n"
+            "season arrives. They communicate among\n"
+            "themselves using seven different and\n"
+            "distinguishing cries."),
+        .pokemonScale = 505,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(ChimechoMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_ChimechoMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ChimechoMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_H_SLIDE_WOBBLE,
+        .enemyMonElevation = 16,
+        BACK_PIC(ChimechoMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
-        .palette = gMonPalette_ChimechoMega,
-        .shinyPalette = gMonShinyPalette_ChimechoMega,
-        .iconSprite = gMonIcon_ChimechoMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(Chimecho)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sChimechoLevelUpLearnset,
-        // .teachableLearnset = sChimechoTeachableLearnset,
-        // .eggMoveLearnset = sChimechoEggMoveLearnset,
+        .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
+        PALETTES(ChimechoMega),
+        ICON(ChimechoMega, 0),
+        .footprint = gMonFootprint_Chimecho,
+        LEARNSETS(ChimechoMega),
         .formSpeciesIdTable = sChimechoFormSpeciesIdTable,
         .formChangeTable = sChimechoFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_CHIMECHO
 
 #if P_FAMILY_ABSOL
@@ -6795,7 +6785,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .formChangeTable = sFroslassFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_FROSLASS_MEGA] =
     {
         .baseHP        = 70,
@@ -6806,7 +6795,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpDefense = 100,
         .types = { TYPE_ICE, TYPE_GHOST },
         .catchRate = 75,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 168 : 187,
+        .expYield = 168,
         .evYield_Speed = 2,
         .genderRatio = MON_FEMALE,
         .eggCycles = 20,
@@ -6816,39 +6805,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .abilities = { ABILITY_SNOW_WARNING, ABILITY_SNOW_WARNING, ABILITY_SNOW_WARNING },
         .bodyColor = BODY_COLOR_WHITE,
         .speciesName = _("Froslass"),
-        .cryId = CRY_FROSLASS, // CRY_FROSLASS_MEGA,
+        .cryId = CRY_FROSLASS,
         .natDexNum = NATIONAL_DEX_FROSLASS,
         .categoryName = _("Snow Land"),
-        .height = 26,
-        .weight = 296,
-        .description = COMPOUND_STRING(
-            "This Pokémon can use eerie cold\n"
-            "air imbued with ghost energy to\n"
-            "freeze even insubstantial things,\n"
-            "such as flames or the wind."),
-        .frontPic = gMonFrontPic_FroslassMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 13,
+        .weight = 266,
+        .description = POKEDEX_DESC_STRING(
+            "When it finds people or Pokémon it likes,\n"
+            "it freezes them and takes them to its\n"
+            "chilly den, where they become its\n"
+            "decorations."),
+        .pokemonScale = 272,
+        .pokemonOffset = 3,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(FroslassMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_FroslassMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_FroslassMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_FroslassMega,
-        .shinyPalette = gMonShinyPalette_FroslassMega,
-        .iconSprite = gMonIcon_FroslassMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sFroslassLevelUpLearnset,
-        // .teachableLearnset = sFroslassTeachableLearnset,
+        .frontAnimId = ANIM_V_SLIDE_WOBBLE,
+        .enemyMonElevation = 7,
+        BACK_PIC(FroslassMega, 64, 64),
+        .backPicYOffset = 1,
+        .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
+        PALETTES(FroslassMega),
+        ICON(FroslassMega, 0),
+        .footprint = gMonFootprint_Froslass,
+        LEARNSETS(FroslassMega),
         .formSpeciesIdTable = sFroslassFormSpeciesIdTable,
         .formChangeTable = sFroslassFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_GEN_4_CROSS_EVOS
 #endif //P_FAMILY_SNORUNT
 

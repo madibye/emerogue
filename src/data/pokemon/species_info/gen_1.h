@@ -2916,11 +2916,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         ICON(Clefable, 0),
         .footprint = gMonFootprint_Clefable,
         LEARNSETS(Clefable),
-        .formSpeciesIdTable = sClefableFormSpeciesIdTable,
         .formChangeTable = sClefableFormChangeTable,
+        .formSpeciesIdTable = sClefableFormSpeciesIdTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_CLEFABLE_MEGA] =
     {
         .baseHP        = 95,
@@ -2931,57 +2930,47 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .baseSpDefense = 110,
         .types = { TYPE_FAIRY, TYPE_FLYING },
         .catchRate = 25,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 242,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_7
         .expYield = 217,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
-        .expYield = 213,
-    #else
-        .expYield = 129,
-    #endif
         .evYield_HP = 3,
         .itemRare = ITEM_MOON_STONE,
         .genderRatio = PERCENT_FEMALE(75),
         .eggCycles = 10,
         .friendship = 140,
         .growthRate = GROWTH_FAST,
-        .eggGroups = { EGG_GROUP_FAIRY },
+        .eggGroups = { EGG_GROUP_FAIRY, EGG_GROUP_FAIRY },
         .abilities = { ABILITY_MAGIC_BOUNCE, ABILITY_MAGIC_BOUNCE, ABILITY_MAGIC_BOUNCE },
         .bodyColor = BODY_COLOR_PINK,
+        .noFlip = TRUE,
         .speciesName = _("Clefable"),
-        .cryId = CRY_CLEFABLE, // CRY_CLEFABLE_MEGA,
+        .cryId = CRY_CLEFABLE,
         .natDexNum = NATIONAL_DEX_CLEFABLE,
         .categoryName = _("Fairy"),
-        .height = 17,
-        .weight = 423,
-        .description = COMPOUND_STRING(
-            "It flies by using the power of\n"
-            "moonlight to control gravity within\n"
-            "a radius of over 32 feet around it."),
-        .frontPic = gMonFrontPic_ClefableMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 13,
+        .weight = 400,
+        .description = POKEDEX_DESC_STRING(
+            "A Clefable uses its wings to skip lightly \n"
+            "as if it were flying. Its bouncy step\n"
+            "lets it even walk on water. On quiet,\n"
+            "moonlit nights, it strolls on lakes."),
+        .pokemonScale = 256,
+        .pokemonOffset = 5,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(ClefableMega, 64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_ClefableMega,
+        .frontAnimFrames = sAnims_Clefable,
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ClefableMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        .backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ClefableMega,
-        .shinyPalette = gMonShinyPalette_ClefableMega,
-        .iconSprite = gMonIcon_ClefableMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sClefableLevelUpLearnset,
-        // .teachableLearnset = sClefableTeachableLearnset,
-        .formSpeciesIdTable = sClefableFormSpeciesIdTable,
+        BACK_PIC(ClefableMega, 64, 64),
+        .backPicYOffset = 3,
+        .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
+        PALETTES(ClefableMega),
+        ICON(ClefableMega, 0),
+        .footprint = gMonFootprint_Clefable,
+        LEARNSETS(Clefable),
         .formChangeTable = sClefableFormChangeTable,
+        .formSpeciesIdTable = sClefableFormSpeciesIdTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_CLEFAIRY
 
 #if P_FAMILY_VULPIX
@@ -5514,8 +5503,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .formSpeciesIdTable = sVictreebelFormSpeciesIdTable,
         .formChangeTable = sVictreebelFormChangeTable,
     },
-
-#if P_GEN_9_MEGA_EVOLUTIONS
+    
     [SPECIES_VICTREEBEL_MEGA] =
     {
         .baseHP        = 80,
@@ -5526,57 +5514,45 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .baseSpDefense = 95,
         .types = { TYPE_GRASS, TYPE_POISON },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 245,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_7
         .expYield = 221,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
-        .expYield = 216,
-    #else
-        .expYield = 191,
-    #endif
         .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_GRASS },
+        .eggGroups = { EGG_GROUP_GRASS, EGG_GROUP_GRASS },
         .abilities = { ABILITY_INNARDS_OUT, ABILITY_INNARDS_OUT, ABILITY_INNARDS_OUT },
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Victreebel"),
-        .cryId = CRY_VICTREEBEL, // CRY_VICTREEBEL_MEGA,
+        .cryId = CRY_VICTREEBEL,
         .natDexNum = NATIONAL_DEX_VICTREEBEL,
         .categoryName = _("Flycatcher"),
-        .height = 45,
-        .weight = 1255,
-        .description = COMPOUND_STRING(
-            "The volume of this Pokémon's acid\n"
-            "has increased due to Mega Evolution,\n"
-            "filling its mouth. If not careful,\n"
-            "the acid will overflow and spill out."),
-        .frontPic = gMonFrontPic_VictreebelMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 17,
+        .weight = 155,
+        .description = POKEDEX_DESC_STRING(
+            "The long vine extending from its head is\n"
+            "waved about as if it were a living thing to\n"
+            "attract prey. When an unsuspecting victim\n"
+            "approaches, it is swallowed whole."),
+        .pokemonScale = 256,
+        .pokemonOffset = 1,
+        .trainerScale = 312,
+        .trainerOffset = 3,
+        FRONT_PIC(VictreebelMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_VictreebelMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_VictreebelMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_H_JUMPS_V_STRETCH,
+        BACK_PIC(VictreebelMega, 64, 64),
         .backPicYOffset = 1,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_VictreebelMega,
-        .shinyPalette = gMonShinyPalette_VictreebelMega,
-        .iconSprite = gMonIcon_VictreebelMega,
-        .iconPalIndex = 1,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sVictreebelLevelUpLearnset,
-        // .teachableLearnset = sVictreebelTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_STRETCH,
+        PALETTES(VictreebelMega),
+        ICON(VictreebelMega, 1),
+        .footprint = gMonFootprint_Victreebel,
+        LEARNSETS(VictreebelMega),
         .formSpeciesIdTable = sVictreebelFormSpeciesIdTable,
         .formChangeTable = sVictreebelFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_BELLSPROUT
 
 #if P_FAMILY_TENTACOOL
@@ -9504,7 +9480,6 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .formChangeTable = sStarmieFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_STARMIE_MEGA] =
     {
         .baseHP        = 60,
@@ -9515,7 +9490,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .baseSpDefense = 105,
         .types = { TYPE_WATER, TYPE_PSYCHIC },
         .catchRate = 60,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 182 : 207,
+        .expYield = 182,
         .evYield_Speed = 2,
         .itemCommon = ITEM_STARDUST,
         .itemRare = ITEM_STAR_PIECE,
@@ -9523,43 +9498,39 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = { EGG_GROUP_WATER_3 },
+        .eggGroups = { EGG_GROUP_WATER_3, EGG_GROUP_WATER_3 },
         .abilities = { ABILITY_HUGE_POWER, ABILITY_HUGE_POWER, ABILITY_HUGE_POWER },
         .bodyColor = BODY_COLOR_PURPLE,
         .speciesName = _("Starmie"),
-        .cryId = CRY_STARMIE, // CRY_STARMIE_MEGA,
+        .cryId = CRY_STARMIE,
         .natDexNum = NATIONAL_DEX_STARMIE,
         .categoryName = _("Mysterious"),
-        .height = 23,
+        .height = 11,
         .weight = 800,
-        .description = COMPOUND_STRING(
-            "Its movements have become more\n"
-            "humanlike. Whether it's simply\n"
-            "trying to communicate or wants to\n"
-            "supplant humanity is unclear."),
-        .frontPic = gMonFrontPic_StarmieMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .description = POKEDEX_DESC_STRING(
+            "People in ancient times imagined that\n"
+            "Starmie were transformed from the\n"
+            "reflections of stars that twinkled on\n"
+            "gentle waves at night."),
+        .pokemonScale = 301,
+        .pokemonOffset = 3,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(StarmieMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_StarmieMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_StarmieMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_TWIST,
+        BACK_PIC(StarmieMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_StarmieMega,
-        .shinyPalette = gMonShinyPalette_StarmieMega,
-        .iconSprite = gMonIcon_StarmieMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sStarmieLevelUpLearnset,
-        // .teachableLearnset = sStarmieTeachableLearnset,
+        .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
+        PALETTES(StarmieMega),
+        ICON(StarmieMega, 2),
+        .footprint = gMonFootprint_Starmie,
+        LEARNSETS(StarmieMega),
         .formSpeciesIdTable = sStarmieFormSpeciesIdTable,
         .formChangeTable = sStarmieFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_STARYU
 
 #if P_FAMILY_MR_MIME
@@ -12346,7 +12317,6 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .formChangeTable = sDragoniteFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_DRAGONITE_MEGA] =
     {
         .baseHP        = 91,
@@ -12357,13 +12327,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .baseSpDefense = 125,
         .types = { TYPE_DRAGON, TYPE_FLYING },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 300,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
         .expYield = 270,
-    #else
-        .expYield = 218,
-    #endif
         .evYield_Attack = 3,
         .itemRare = ITEM_DRAGON_SCALE,
         .genderRatio = PERCENT_FEMALE(50),
@@ -12374,39 +12338,35 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .abilities = { ABILITY_MULTISCALE, ABILITY_MULTISCALE, ABILITY_MULTISCALE },
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Dragonite"),
-        .cryId = CRY_DRAGONITE, // CRY_DRAGONITE_MEGA,
+        .cryId = CRY_DRAGONITE,
         .natDexNum = NATIONAL_DEX_DRAGONITE,
         .categoryName = _("Dragon"),
         .height = 22,
-        .weight = 2900,
-        .description = COMPOUND_STRING(
-            "Mega Evolution has excessively\n"
-            "powered up this Pokémon's feelings\n"
-            "of kindness. It finishes off its\n"
-            "opponents with mercy in its heart."),
-        .frontPic = gMonFrontPic_DragoniteMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
+        .weight = 2100,
+        .description = POKEDEX_DESC_STRING(
+            "It can circle the globe in just 16 hours.\n"
+            "It is a kindhearted Pokémon that leads\n"
+            "lost and foundering ships in a storm\n"
+            "to the safety of land."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 309,
+        .trainerOffset = 4,
+        FRONT_PIC(DragoniteMega, 64, 64),
+        .frontPicYOffset = 1,
         .frontAnimFrames = sAnims_DragoniteMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_DragoniteMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_DragoniteMega,
-        .shinyPalette = gMonShinyPalette_DragoniteMega,
-        .iconSprite = gMonIcon_DragoniteMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sDragoniteLevelUpLearnset,
-        // .teachableLearnset = sDragoniteTeachableLearnset,
+        .frontAnimId = ANIM_V_SHAKE,
+        BACK_PIC(DragoniteMega, 64, 64),
+        .backPicYOffset = 3,
+        .backAnimId = BACK_ANIM_V_SHAKE,
+        PALETTES(DragoniteMega),
+        ICON(DragoniteMega, 2),
+        .footprint = gMonFootprint_Dragonite,
+        LEARNSETS(DragoniteMega),
         .formSpeciesIdTable = sDragoniteFormSpeciesIdTable,
         .formChangeTable = sDragoniteFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_DRATINI
 
 #if P_FAMILY_MEWTWO

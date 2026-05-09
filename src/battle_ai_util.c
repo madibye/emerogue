@@ -189,7 +189,6 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_RECEIVER] = 0,
     [ABILITY_RECKLESS] = 6,
     [ABILITY_REFRIGERATE] = 8,
-    [ABILITY_DRAGONIZE] = 8,
     [ABILITY_REGENERATOR] = 8,
     [ABILITY_RIVALRY] = 1,
     [ABILITY_RKS_SYSTEM] = 8,
@@ -300,6 +299,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_GORILLA_TACTICS] = 4,
     [ABILITY_EARTH_EATER] = 7,
     [ABILITY_WELL_BAKED_BODY] = 7,
+    [ABILITY_DRAGONIZE] = 8,
     [ABILITY_VOODOO_CURSE] = 5,
     [ABILITY_MEGA_SOL] = 7,
     [ABILITY_UNSEEN_FIST] = 8,
@@ -1408,7 +1408,7 @@ u32 AI_GetWeather(struct AiLogicData *aiData)
         return B_WEATHER_NONE;
     if (!AI_WeatherHasEffect(aiData))
         return B_WEATHER_NONE;
-    return gBattleWeather;
+    return GetWeather();
 }
 
 u32 AI_GetBattlerMoveTargetType(u32 battlerId, u32 move)

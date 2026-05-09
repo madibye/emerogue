@@ -1,7 +1,7 @@
 {
   "Species": [
-    "SPECIES_MEOWSTIC",
-    "SPECIES_MEOWSTIC_M_MEGA"
+    "SPECIES_MEOWSTIC_MALE",
+    "SPECIES_MEOWSTIC_MALE_MEGA"
   ],
   "LevelUpMoves": [
     {

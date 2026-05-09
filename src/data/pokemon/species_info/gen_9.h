@@ -2383,7 +2383,6 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .formChangeTable = sScovillainFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_SCOVILLAIN_MEGA] =
     {
         .baseHP        = 65,
@@ -2400,42 +2399,40 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = { EGG_GROUP_GRASS },
+        .eggGroups = { EGG_GROUP_GRASS, EGG_GROUP_GRASS },
         .abilities = { ABILITY_SPICY_SPRAY, ABILITY_SPICY_SPRAY, ABILITY_SPICY_SPRAY },
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Scovillain"),
-        .cryId = CRY_SCOVILLAIN, //CRY_SCOVILLAIN_MEGA
+        .cryId = CRY_SCOVILLAIN,
         .natDexNum = NATIONAL_DEX_SCOVILLAIN,
         .categoryName = _("Spicy Pepper"),
-        .height = 12,
-        .weight = 220,
-        .description = COMPOUND_STRING(
-            "Mega Evolution has dialed up this\n"
-            "Pokémon's spiciness. It swings its\n"
-            "“necktie” around to wallop its foes."),
-        .frontPic = gMonFrontPic_ScovillainMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 9,
+        .weight = 150,
+        .description = POKEDEX_DESC_STRING(
+            "The green head has turned vicious\n"
+            "due to the spicy chemicals\n"
+            "stimulating its brain. Once it goes on a\n"
+            "rampage, there is no stopping it."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(ScovillainMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_ScovillainMega,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ScovillainMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        BACK_PIC(ScovillainMega, 64, 64),
+        .backPicYOffset = 8,
         //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ScovillainMega,
-        .shinyPalette = gMonShinyPalette_ScovillainMega,
-        .iconSprite = gMonIcon_ScovillainMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(Scovillain)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sScovillainLevelUpLearnset,
-        // .teachableLearnset = sScovillainTeachableLearnset,
+        PALETTES(ScovillainMega),
+        ICON(ScovillainMega, 1),
+        //.footprint = gMonFootprint_Scovillain,
+        LEARNSETS(ScovillainMega),
         .formSpeciesIdTable = sScovillainFormSpeciesIdTable,
         .formChangeTable = sScovillainFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_CAPSAKID
 
 #if P_FAMILY_RELLOR
@@ -3346,7 +3343,6 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .formChangeTable = sGlimmoraFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_GLIMMORA_MEGA] =
     {
         .baseHP        = 83,
@@ -3363,44 +3359,41 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .eggCycles = 30,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_MINERAL },
+        .eggGroups = { EGG_GROUP_MINERAL, EGG_GROUP_MINERAL },
         .abilities = { ABILITY_ADAPTABILITY, ABILITY_ADAPTABILITY, ABILITY_ADAPTABILITY },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Glimmora"),
-        .cryId = CRY_GLIMMORA, //CRY_GLIMMORA_MEGA
+        .cryId = CRY_GLIMMORA,
         .natDexNum = NATIONAL_DEX_GLIMMORA,
         .categoryName = _("Ore"),
         .height = 15,
         .weight = 450,
-        .description = COMPOUND_STRING(
-            "Glimmora's petals-now larger and\n"
-            "separated from its main body-rotate\n"
-            "around it to provide defense while\n"
-            "cattering poisonous fragments."),
-        .frontPic = gMonFrontPic_GlimmoraMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .description = POKEDEX_DESC_STRING(
+            "GlimmoraMega's petals are made of\n"
+            "crystallized poison energy. It has\n"
+            "recently become evident that these\n"
+            "petals resemble Tera Jewels."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(GlimmoraMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_GlimmoraMega,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .enemyMonElevation = 7,
-        .backPic = gMonBackPic_GlimmoraMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .enemyMonElevation = 8,
+        BACK_PIC(GlimmoraMega, 64, 64),
         .backPicYOffset = 12,
         //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_GlimmoraMega,
-        .shinyPalette = gMonShinyPalette_GlimmoraMega,
-        .iconSprite = gMonIcon_GlimmoraMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(Glimmora)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sGlimmoraLevelUpLearnset,
-        // .teachableLearnset = sGlimmoraTeachableLearnset,
+        PALETTES(GlimmoraMega),
+        ICON(GlimmoraMega, 0),
+        //.footprint = gMonFootprint_Glimmora,
+        LEARNSETS(GlimmoraMega),
         .formSpeciesIdTable = sGlimmoraFormSpeciesIdTable,
         .formChangeTable = sGlimmoraFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_GLIMMET
 
 #if P_FAMILY_GREAVARD

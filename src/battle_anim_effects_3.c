@@ -5724,20 +5724,18 @@ static void AnimRecycle_Step(struct Sprite *sprite)
 }
 
 void AnimTask_GetWeather(u8 taskId)
-{
-    bool32 utilityUmbrellaAffected = GetBattlerHoldEffect(gBattleAnimAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA;
-    bool32 hasMegaSol = GetBattlerAbility(gBattleAnimAttacker) == ABILITY_MEGA_SOL;
-
+{        
+    u32 weather = GetAttackerWeather(GetBattlerHoldEffect(gBattleAnimAttacker, TRUE), GetBattlerAbility(gBattleAnimAttacker), gWeatherMoveAnim);
     gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_NONE;
-    if ((gWeatherMoveAnim & B_WEATHER_SUN && !utilityUmbrellaAffected) || hasMegaSol)
+    if (weather & B_WEATHER_SUN)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SUN;
-    else if (gWeatherMoveAnim & B_WEATHER_RAIN && !utilityUmbrellaAffected && !hasMegaSol)
+    else if (weather & B_WEATHER_RAIN)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_RAIN;
-    else if (gWeatherMoveAnim & B_WEATHER_SANDSTORM && !hasMegaSol)
+    else if (weather & B_WEATHER_SANDSTORM)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SANDSTORM;
-    else if (gWeatherMoveAnim & B_WEATHER_HAIL && !hasMegaSol)
+    else if (weather & B_WEATHER_HAIL)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_HAIL;
-    else if (gWeatherMoveAnim & B_WEATHER_SNOW && !hasMegaSol)
+    else if (weather & B_WEATHER_SNOW)
         gBattleAnimArgs[ARG_RET_ID] = ANIM_WEATHER_SNOW;
 
     DestroyAnimVisualTask(taskId);

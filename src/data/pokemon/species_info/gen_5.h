@@ -345,7 +345,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sEmboarFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_EMBOAR_MEGA] =
     {
         .baseHP        = 110,
@@ -356,50 +355,47 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseSpDefense = 110,
         .types = { TYPE_FIRE, TYPE_FIGHTING },
         .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 264 : 238,
+        .expYield = 238,
         .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_FIELD },
+        .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_FIELD },
         .abilities = { ABILITY_MOLD_BREAKER, ABILITY_MOLD_BREAKER, ABILITY_MOLD_BREAKER },
         .bodyColor = BODY_COLOR_RED,
         .noFlip = TRUE,
         .speciesName = _("Emboar"),
-        .cryId = CRY_EMBOAR, // CRY_EMBOAR_MEGA,
+        .cryId = CRY_EMBOAR,
         .natDexNum = NATIONAL_DEX_EMBOAR,
         .categoryName = _("Fire Pig"),
-        .height = 18,
-        .weight = 1803,
-        .description = COMPOUND_STRING(
-            "Brandishing a blazing flame\n"
-            "shaped like a serpentine spear,\n"
-            "it rushes in to save its\n"
-            "imperiled allies."),
-        .frontPic = gMonFrontPic_EmboarMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 16,
+        .weight = 1500,
+        .description = POKEDEX_DESC_STRING(
+            "It is adept at using many different moves.\n" 
+            "It can throw a fire punch by setting its\n"
+            "fists on fire with its fiery chin.\n"
+            "It cares deeply about its friends."),
+        .pokemonScale = 259,
+        .pokemonOffset = 1,
+        .trainerScale = 296,
+        .trainerOffset = 1,
+        FRONT_PIC(EmboarMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_EmboarMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_EmboarMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_EmboarMega,
-        .shinyPalette = gMonShinyPalette_EmboarMega,
-        .iconSprite = gMonIcon_EmboarMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sEmboarLevelUpLearnset,
-        // .teachableLearnset = sEmboarTeachableLearnset,
+        .frontAnimId = ANIM_DEEP_V_SQUISH_AND_BOUNCE,
+        BACK_PIC(EmboarMega, 64, 64),
+        .backPicYOffset = 1,
+        .backAnimId = BACK_ANIM_SHAKE_GLOW_RED,
+        PALETTES(EmboarMega),
+        ICON(EmboarMega, 5),
+        .footprint = gMonFootprint_Emboar,
+        LEARNSETS(EmboarMega),
         .formSpeciesIdTable = sEmboarFormSpeciesIdTable,
         .formChangeTable = sEmboarFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_TEPIG
 
 #if P_FAMILY_OSHAWOTT
@@ -1914,7 +1910,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sExcadrillFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_EXCADRILL_MEGA] =
     {
         .baseHP        = 110,
@@ -1931,44 +1926,41 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = { EGG_GROUP_FIELD },
+        .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_FIELD },
         .abilities = { ABILITY_PIERCING_DRILL, ABILITY_PIERCING_DRILL, ABILITY_PIERCING_DRILL },
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = TRUE,
         .speciesName = _("Excadrill"),
-        .cryId = CRY_EXCADRILL, // CRY_EXCADRILL_MEGA,
+        .cryId = CRY_EXCADRILL,
         .natDexNum = NATIONAL_DEX_EXCADRILL,
         .categoryName = _("Subterrene"),
-        .height = 9,
-        .weight = 600,
-        .description = COMPOUND_STRING(
-            "If this Pokémon brings its arms and\n"
-            "head together to form a streamlined\n"
-            "shape and spins at high speeds,\n"
-            "it can destroy anything."),
-        .frontPic = gMonFrontPic_ExcadrillMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 7,
+        .weight = 404,
+        .description = POKEDEX_DESC_STRING(
+            "More than 300 feet below the surface,\n"
+            "they build mazelike nests. Their activity\n"
+            "can be destructive to subway tunnels,\n"
+            "but it can also help with construction."),
+        .pokemonScale = 365,
+        .pokemonOffset = 12,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(ExcadrillMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_ExcadrillMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ExcadrillMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_H_SHAKE,
+        BACK_PIC(ExcadrillMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ExcadrillMega,
-        .shinyPalette = gMonShinyPalette_ExcadrillMega,
-        .iconSprite = gMonIcon_ExcadrillMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sExcadrillLevelUpLearnset,
-        // .teachableLearnset = sExcadrillTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        PALETTES(ExcadrillMega),
+        ICON(ExcadrillMega, 0),
+        .footprint = gMonFootprint_Excadrill,
+        LEARNSETS(ExcadrillMega),
         .formSpeciesIdTable = sExcadrillFormSpeciesIdTable,
         .formChangeTable = sExcadrillFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_DRILBUR
 
 #define AUDINO_MISC_INFO                                    \
@@ -6720,7 +6712,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sChandelureFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_CHANDELURE_MEGA] =
     {
         .baseHP        = 60,
@@ -6731,50 +6722,47 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseSpDefense = 110,
         .types = { TYPE_GHOST, TYPE_FIRE },
         .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 260 : 234,
+        .expYield = 234,
         .evYield_SpAttack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_AMORPHOUS },
+        .eggGroups = { EGG_GROUP_AMORPHOUS, EGG_GROUP_AMORPHOUS },
         .abilities = { ABILITY_INFILTRATOR, ABILITY_INFILTRATOR, ABILITY_INFILTRATOR },
         .bodyColor = BODY_COLOR_BLACK,
         .speciesName = _("Chandelure"),
-        .cryId = CRY_CHANDELURE, // CRY_CHANDELURE_MEGA,
+        .cryId = CRY_CHANDELURE,
         .natDexNum = NATIONAL_DEX_CHANDELURE,
         .categoryName = _("Luring"),
-        .height = 25,
-        .weight = 696,
-        .description = COMPOUND_STRING(
-            "One of its eyes is a window linking\n"
-            "our world with the afterlife.\n"
-            "This Pokémon draws in hatred and\n"
-            "converts it into power."),
-        .frontPic = gMonFrontPic_ChandelureMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 10,
+        .weight = 343,
+        .description = POKEDEX_DESC_STRING(
+            "Being consumed in ChandelureMega's flame burns\n"
+            "up the spirit, leaving the body behind.\n"
+            "By waving the flames on its arms, it puts\n"
+            "its foes into a hypnotic trance."),
+        .pokemonScale = 305,
+        .pokemonOffset = 7,
+        .trainerScale = 257,
+        .trainerOffset = 0,
+        FRONT_PIC(ChandelureMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_ChandelureMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .enemyMonElevation = 6,
-        .backPic = gMonBackPic_ChandelureMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        BACK_PIC(ChandelureMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ChandelureMega,
-        .shinyPalette = gMonShinyPalette_ChandelureMega,
-        .iconSprite = gMonIcon_ChandelureMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sChandelureLevelUpLearnset,
-        // .teachableLearnset = sChandelureTeachableLearnset,
+        .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
+        PALETTES(ChandelureMega),
+        ICON(ChandelureMega, 2),
+        .footprint = gMonFootprint_Chandelure,
+        LEARNSETS(ChandelureMega),
         .formSpeciesIdTable = sChandelureFormSpeciesIdTable,
         .formChangeTable = sChandelureFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_LITWICK
 
 #if P_FAMILY_AXEW
@@ -7509,7 +7497,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sGolurkFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_GOLURK_MEGA] =
     {
         .baseHP        = 89,
@@ -7527,43 +7514,41 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .eggCycles = 25,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = { EGG_GROUP_MINERAL },
+        .eggGroups = { EGG_GROUP_MINERAL, EGG_GROUP_MINERAL },
         .abilities = { ABILITY_UNSEEN_FIST, ABILITY_UNSEEN_FIST, ABILITY_UNSEEN_FIST },
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = TRUE,
         .speciesName = _("Golurk"),
-        .cryId = CRY_GOLURK, //CRY_GOLURK_MEGA
+        .cryId = CRY_GOLURK,
         .natDexNum = NATIONAL_DEX_GOLURK,
         .categoryName = _("Automaton"),
-        .height = 40,
+        .height = 28,
         .weight = 3300,
-        .description = COMPOUND_STRING(
-            "The energy within Golurk has been\n"
-            "stimulated by Mega Evolution.\n"
-            "The Pokémon could explode at any moment."),
-        .frontPic = gMonFrontPic_GolurkMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .description = POKEDEX_DESC_STRING(
+            "GolurkMega were created to protect people\n"
+            "and Pokémon by an ancient civilisation.\n"
+            "Removing the seal on its chest makes its\n"
+            "internal energy go out of control."),
+        .pokemonScale = 275,
+        .pokemonOffset = 3,
+        .trainerScale = 300,
+        .trainerOffset = 0,
+        FRONT_PIC(GolurkMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_GolurkMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_GolurkMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_V_SHAKE_TWICE,
+        BACK_PIC(GolurkMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_GolurkMega,
-        .shinyPalette = gMonShinyPalette_GolurkMega,
-        .iconSprite = gMonIcon_GolurkMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(Golurk)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sGolurkLevelUpLearnset,
-        // .teachableLearnset = sGolurkTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_SHAKE,
+        PALETTES(GolurkMega),
+        ICON(GolurkMega, 0),
+        .footprint = gMonFootprint_Golurk,
+        LEARNSETS(GolurkMega),
         .formSpeciesIdTable = sGolurkFormSpeciesIdTable,
         .formChangeTable = sGolurkFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_GOLETT
 
 #if P_FAMILY_PAWNIARD

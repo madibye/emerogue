@@ -153,7 +153,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .formChangeTable = sMeganiumFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_MEGANIUM_MEGA] =
     {
         .baseHP        = 80,
@@ -164,13 +163,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .baseSpDefense = 115,
         .types = { TYPE_GRASS, TYPE_FAIRY },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 263,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
         .expYield = 236,
-    #else
-        .expYield = 208,
-    #endif
         .evYield_Defense = 1,
         .evYield_SpDefense = 2,
         .genderRatio = PERCENT_FEMALE(12.5),
@@ -181,39 +174,35 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .abilities = { ABILITY_MEGA_SOL, ABILITY_MEGA_SOL, ABILITY_MEGA_SOL },
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Meganium"),
-        .cryId = CRY_MEGANIUM, // CRY_MEGANIUM_MEGA,
+        .cryId = CRY_MEGANIUM,
         .natDexNum = NATIONAL_DEX_MEGANIUM,
         .categoryName = _("Herb"),
-        .height = 24,
-        .weight = 2010,
-        .description = COMPOUND_STRING(
-            "This Pokémon can fire a tremendously\n"
-            "powerful Solar Beam from its four\n"
-            "flowers. Another name for this is\n"
-            "Mega Sol Cannon."),
-        .frontPic = gMonFrontPic_MeganiumMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 18,
+        .weight = 1005,
+        .description = POKEDEX_DESC_STRING(
+            "The fragrance of a Meganium's flower\n"
+            "soothes and calms emotions. In battle,\n"
+            "it gives off more of its becalming scent\n"
+            "to blunt the foe's fighting spirit."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 277,
+        .trainerOffset = 1,
+        FRONT_PIC(MeganiumMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_MeganiumMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_MeganiumMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_GROW_VIBRATE,
+        BACK_PIC(MeganiumMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_MeganiumMega,
-        .shinyPalette = gMonShinyPalette_MeganiumMega,
-        .iconSprite = gMonIcon_MeganiumMega,
-        .iconPalIndex = 1,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sMeganiumLevelUpLearnset,
-        // .teachableLearnset = sMeganiumTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_SHAKE,
+        PALETTES(MeganiumMega),
+        ICON(MeganiumMega, 1),
+        .footprint = gMonFootprint_Meganium,
+        LEARNSETS(Meganium),
         .formSpeciesIdTable = sMeganiumFormSpeciesIdTable,
         .formChangeTable = sMeganiumFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_CHIKORITA
 
 #if P_FAMILY_CYNDAQUIL
@@ -503,6 +492,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .footprint = gMonFootprint_Croconaw,
         LEARNSETS(Croconaw),
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_FERALIGATR}),
+        .formSpeciesIdTable = sFeraligatrFormSpeciesIdTable,
+        .formChangeTable = sFeraligatrFormChangeTable,
     },
 
     [SPECIES_FERALIGATR] =
@@ -556,7 +547,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .formChangeTable = sFeraligatrFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_FERALIGATR_MEGA] =
     {
         .baseHP        = 85,
@@ -567,13 +557,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .baseSpDefense = 93,
         .types = { TYPE_WATER, TYPE_DRAGON },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 265,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
         .expYield = 239,
-    #else
-        .expYield = 210,
-    #endif
         .evYield_Attack = 2,
         .evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(12.5),
@@ -584,39 +568,36 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .abilities = { ABILITY_DRAGONIZE, ABILITY_DRAGONIZE, ABILITY_DRAGONIZE },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Feraligatr"),
-        .cryId = CRY_FERALIGATR, // CRY_FERALIGATR_MEGA,
+        .cryId = CRY_FERALIGATR,
         .natDexNum = NATIONAL_DEX_FERALIGATR,
-        .categoryName = _("Double Jaw"),
+        .categoryName = _("Big Jaw"),
         .height = 23,
-        .weight = 1088,
-        .description = COMPOUND_STRING(
-            "With its arms and hoodlike fin, this\n"
-            "Pokémon forms a gigantic set of jaws\n"
-            "with a bite 10 times as powerful\n"
-            "as Mega Feraligatr's actual jaws."),
-        .frontPic = gMonFrontPic_FeraligatrMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .weight = 888,
+        .description = POKEDEX_DESC_STRING(
+            "It opens its huge mouth to intimidate\n"
+            "enemies. In battle, it runs using its thick\n"
+            "and powerful hind legs to charge the\n"
+            "foe with incredible speed."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 342,
+        .trainerOffset = 7,
+        FRONT_PIC(FeraligatrMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_FeraligatrMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_FeraligatrMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_H_SHAKE,
+        .frontAnimDelay = 5,
+        BACK_PIC(FeraligatrMega, 56, 64),
         .backPicYOffset = 4,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_FeraligatrMega,
-        .shinyPalette = gMonShinyPalette_FeraligatrMega,
-        .iconSprite = gMonIcon_FeraligatrMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sFeraligatrLevelUpLearnset,
-        // .teachableLearnset = sFeraligatrTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_SHAKE,
+        PALETTES(FeraligatrMega),
+        ICON(FeraligatrMega, 0),
+        .footprint = gMonFootprint_Feraligatr,
+        LEARNSETS(FeraligatrMega),
         .formSpeciesIdTable = sFeraligatrFormSpeciesIdTable,
         .formChangeTable = sFeraligatrFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_TOTODILE
 
 #if P_FAMILY_SENTRET
@@ -5023,7 +5004,6 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .formChangeTable = sSkarmoryFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_SKARMORY_MEGA] =
     {
         .baseHP        = 65,
@@ -5034,51 +5014,47 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .baseSpDefense = 100,
         .types = { TYPE_STEEL, TYPE_FLYING },
         .catchRate = 25,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 163 : 168,
+        .expYield = 163,
         .evYield_Defense = 2,
         .itemRare = ITEM_METAL_COAT,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 25,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = { EGG_GROUP_FLYING },
+        .eggGroups = { EGG_GROUP_FLYING, EGG_GROUP_FLYING },
         .abilities = { ABILITY_STALWART, ABILITY_STALWART, ABILITY_STALWART },
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Skarmory"),
-        .cryId = CRY_SKARMORY, // CRY_SKARMORY_MEGA,
+        .cryId = CRY_SKARMORY,
         .natDexNum = NATIONAL_DEX_SKARMORY,
         .categoryName = _("Armor Bird"),
         .height = 17,
-        .weight = 404,
-        .description = COMPOUND_STRING(
-            "Due to the effects of Mega Evolution,\n"
-            "its pincers have taken a more\n"
-            "diabolical form, ripping anything\n"
-            "they pierce to shreds."),
-        .frontPic = gMonFrontPic_SkarmoryMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .weight = 505,
+        .description = POKEDEX_DESC_STRING(
+            "A Pokémon that has a body and wings of\n"
+            "steel. People in the past used feathers\n"
+            "fallen from SkarmoryMega to make swords and\n"
+            "knives."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 271,
+        .trainerOffset = 1,
+        FRONT_PIC(SkarmoryMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_SkarmoryMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .enemyMonElevation = 6,
-        .backPic = gMonBackPic_SkarmoryMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_V_SHAKE,
+        BACK_PIC(SkarmoryMega, 64, 64),
         .backPicYOffset = 1,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_SkarmoryMega,
-        .shinyPalette = gMonShinyPalette_SkarmoryMega,
-        .iconSprite = gMonIcon_SkarmoryMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sSkarmoryLevelUpLearnset,
-        // .teachableLearnset = sSkarmoryTeachableLearnset,
+        .backAnimId = BACK_ANIM_JOLT_RIGHT,
+        PALETTES(SkarmoryMega),
+        ICON(SkarmoryMega, 0),
+        .footprint = gMonFootprint_Skarmory,
+        LEARNSETS(SkarmoryMega),
         .formSpeciesIdTable = sSkarmoryFormSpeciesIdTable,
         .formChangeTable = sSkarmoryFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_SKARMORY
 
 #if P_FAMILY_HOUNDOUR

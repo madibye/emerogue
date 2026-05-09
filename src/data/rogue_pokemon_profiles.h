@@ -314995,7 +314995,7 @@ struct RoguePokemonProfile const gRoguePokemonProfiles[NUM_SPECIES] =
 		.competitiveSetCount = ARRAY_COUNT(sCompetitiveSets_SPECIES_MAGEARNA),
 		.monFlags = MON_FLAGS_SPECIES_MAGEARNA,
 	},
-	[SPECIES_MAGEARNA_ORIGINAL_MEGA] = 
+	[SPECIES_MAGEARNA_ORIGINAL_COLOR_MEGA] = 
 	{
 		.levelUpMoves = sLevelUpMoves_SPECIES_MAGEARNA,
 		.tutorMoves = sTutorMoves_SPECIES_MAGEARNA,

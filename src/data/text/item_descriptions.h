@@ -1616,11 +1616,6 @@ static const u8 sMewtwoniteDesc[] = _(
     "Mewtwo to Mega\n"
     "Evolve in battle.");
 
-static const u8 sRaichuniteDesc[] = _(
-    "This stone enables\n"
-    "Raichu to Mega\n"
-    "Evolve in battle.");
-
 static const u8 sAmpharositeDesc[] = _(
     "This stone enables\n"
     "Ampharos to Mega\n"

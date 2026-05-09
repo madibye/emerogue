@@ -637,63 +637,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .formChangeTable = sGreninjaBattleBondFormChangeTable,
     },
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    [SPECIES_GRENINJA_MEGA] =
-    {
-        .baseHP        = 72,
-        .baseAttack    = 125,
-        .baseDefense   = 77,
-        .baseSpeed     = 142,
-        .baseSpAttack  = 133,
-        .baseSpDefense = 81,
-        .types = { TYPE_WATER, TYPE_DARK },
-        .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 265 : 239,
-        .evYield_Speed = 3,
-        .genderRatio = PERCENT_FEMALE(12.5),
-        .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_WATER_1 },
-        .abilities = { ABILITY_PROTEAN, ABILITY_PROTEAN, ABILITY_PROTEAN },
-        .bodyColor = BODY_COLOR_BLUE,
-        .noFlip = TRUE,
-        .speciesName = _("Greninja"),
-        .cryId = CRY_GRENINJA, // CRY_GRENINJA_MEGA,
-        .natDexNum = NATIONAL_DEX_GRENINJA,
-        .categoryName = _("Ninja"),
-        .height = 15,
-        .weight = 400,
-        .description = COMPOUND_STRING(
-            "This Pokémon spins a giant\n"
-            "shuriken at high speed to make it\n"
-            "float, then clings to it upside\n"
-            "down to catch opponents unawares."),
-        .frontPic = gMonFrontPic_GreninjaMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_GreninjaMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .enemyMonElevation = 6,
-        .backPic = gMonBackPic_GreninjaMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 11,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_GreninjaMega,
-        .shinyPalette = gMonShinyPalette_GreninjaMega,
-        .iconSprite = gMonIcon_GreninjaMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sGreninjaLevelUpLearnset,
-        // .teachableLearnset = sGreninjaTeachableLearnset,
-        .formSpeciesIdTable = sGreninjaFormSpeciesIdTable,
-        .formChangeTable = sGreninjaFormChangeTable,
-    },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_FROAKIE
 
 #if P_FAMILY_BUNNELBY
@@ -1675,61 +1618,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .formChangeTable = sFloetteEternalFormChangeTable,
         .isMegaEvolution = TRUE,
     },
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    [SPECIES_FLOETTE_MEGA] =
-    {
-        .baseHP        = 74,
-        .baseAttack    = 85,
-        .baseDefense   = 87,
-        .baseSpeed     = 102,
-        .baseSpAttack  = 155,
-        .baseSpDefense = 148,
-        .types = { TYPE_FAIRY, TYPE_FAIRY },
-        .catchRate = 120,
-        .expYield = 1,
-        .evYield_SpDefense = 2,
-        .genderRatio = MON_FEMALE,
-        .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = { EGG_GROUP_NO_EGGS_DISCOVERED },
-        .abilities = { ABILITY_FAIRY_AURA, ABILITY_FAIRY_AURA, ABILITY_FAIRY_AURA },
-        .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Floette"),
-        .cryId = CRY_FLOETTE_ETERNAL_FLOWER, // CRY_FLOETTE_MEGA,
-        .natDexNum = NATIONAL_DEX_FLOETTE,
-        .categoryName = _("Single Bloom"),
-        // height
-        // weight
-        .description = COMPOUND_STRING(
-            "The Eternal Flower has absorbed\n"
-            "all the energy from Mega\n"
-            "Evolution. The flower now attacks\n"
-            "enemies on its own."),
-        .frontPic = gMonFrontPic_FloetteMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_FloetteMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_FloetteMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_FloetteMega,
-        .shinyPalette = gMonShinyPalette_FloetteMega,
-        .iconSprite = gMonIcon_FloetteMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sFloetteEternalLevelUpLearnset,
-        // .teachableLearnset = sFloetteEternalTeachableLearnset,
-        .formSpeciesIdTable = sFloetteFormSpeciesIdTable,
-        .formChangeTable = sFloetteEternalFormChangeTable,
-    },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 
 #define FLORGES_MISC_INFO(Form, iconPal)                                        \
         .baseHP        = 78,                                                    \

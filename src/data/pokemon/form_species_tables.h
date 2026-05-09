@@ -494,12 +494,10 @@ static const u16 sMeganiumFormSpeciesIdTable[] = {
 #endif //P_FAMILY_CHIKORITA
 
 #if P_FAMILY_TOTODILE
-static const struct FormChange sFeraligatrFormChangeTable[] =
-{
-    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_FERALIGATR_MEGA, ITEM_FERALIGITE},
-    {FORM_CHANGE_FAINT,                         SPECIES_FERALIGATR},
-    {FORM_CHANGE_END_BATTLE,                    SPECIES_FERALIGATR},
-    {FORM_CHANGE_TERMINATOR},
+static const u16 sFeraligatrFormSpeciesIdTable[] = {
+    SPECIES_FERALIGATR,
+    SPECIES_FERALIGATR_MEGA,
+    FORM_SPECIES_END,
 };
 #endif //P_FAMILY_TOTODILE
 
@@ -510,16 +508,6 @@ static const u16 sTyphlosionFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_CYNDAQUIL
-
-#if P_FAMILY_TOTODILE
-static const u16 sFeraligatrFormSpeciesIdTable[] = {
-    SPECIES_FERALIGATR,
-#if P_GEN_9_MEGA_EVOLUTIONS
-    SPECIES_FERALIGATR_MEGA,
-#endif
-    FORM_SPECIES_END,
-};
-#endif //P_FAMILY_TOTODILE
 
 #if P_FAMILY_MAREEP
 static const u16 sMareepFormSpeciesIdTable[] = {
@@ -602,12 +590,10 @@ static const u16 sHeracrossFormSpeciesIdTable[] = {
 #endif //P_FAMILY_HERACROSS
 
 #if P_FAMILY_SKARMORY
-static const struct FormChange sSkarmoryFormChangeTable[] =
-{
-    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_SKARMORY_MEGA, ITEM_SKARMORITE},
-    {FORM_CHANGE_FAINT,                         SPECIES_SKARMORY},
-    {FORM_CHANGE_END_BATTLE,                    SPECIES_SKARMORY},
-    {FORM_CHANGE_TERMINATOR},
+static const u16 sSkarmoryFormSpeciesIdTable[] = {
+    SPECIES_SKARMORY,
+    SPECIES_SKARMORY_MEGA,
+    FORM_SPECIES_END,
 };
 #endif //P_FAMILY_SKARMORY
 
@@ -634,16 +620,6 @@ static const u16 sCorsolaFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_CORSOLA
-
-#if P_FAMILY_SKARMORY
-static const u16 sSkarmoryFormSpeciesIdTable[] = {
-    SPECIES_SKARMORY,
-#if P_GEN_9_MEGA_EVOLUTIONS
-    SPECIES_SKARMORY_MEGA,
-#endif
-    FORM_SPECIES_END,
-};
-#endif //P_FAMILY_SKARMORY
 
 #if P_FAMILY_HOUNDOUR
 static const u16 sHoundoomFormSpeciesIdTable[] = {
@@ -831,12 +807,10 @@ static const u16 sGlalieFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
-static const struct FormChange sFroslassFormChangeTable[] =
-{
-    {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_FROSLASS_MEGA, ITEM_FROSLASSITE},
-    {FORM_CHANGE_FAINT,                         SPECIES_FROSLASS},
-    {FORM_CHANGE_END_BATTLE,                    SPECIES_FROSLASS},
-    {FORM_CHANGE_TERMINATOR},
+static const u16 sFroslassFormSpeciesIdTable[] = {
+    SPECIES_FROSLASS,
+    SPECIES_FROSLASS_MEGA,
+    FORM_SPECIES_END,
 };
 #endif //P_FAMILY_SNORUNT
 
@@ -1219,6 +1193,16 @@ static const u16 sSawsbuckFormSpeciesIdTable[] = {
 };
 #endif //P_FAMILY_DEERLING
 
+#if P_FAMILY_TYNAMO
+static const u16 sEelektrossFormSpeciesIdTable[] = {
+    SPECIES_EELEKTROSS,
+#if P_GEN_9_MEGA_EVOLUTIONS
+    SPECIES_EELEKTROSS_MEGA,
+#endif
+    FORM_SPECIES_END,
+};
+#endif //P_FAMILY_TYNAMO
+
 #if P_FAMILY_LITWICK
 static const u16 sChandelureFormSpeciesIdTable[] = {
     SPECIES_CHANDELURE,
@@ -1468,16 +1452,6 @@ static const u16 sDragalgeFormSpeciesIdTable[] = {
 };
 #endif //P_FAMILY_SKRELP
 
-#if P_FAMILY_HAWLUCHA
-static const u16 sHawluchaFormSpeciesIdTable[] = {
-    SPECIES_HAWLUCHA,
-#if P_GEN_9_MEGA_EVOLUTIONS
-    SPECIES_HAWLUCHA_MEGA,
-#endif
-    FORM_SPECIES_END,
-};
-#endif //P_FAMILY_HAWLUCHA
-
 #if P_FAMILY_GOOMY
 static const u16 sSliggooFormSpeciesIdTable[] = {
     SPECIES_SLIGGOO,
@@ -1699,7 +1673,7 @@ static const u16 sMagearnaFormSpeciesIdTable[] = {
     SPECIES_MAGEARNA_ORIGINAL_COLOR,
 #if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_MAGEARNA_MEGA,
-    SPECIES_MAGEARNA_ORIGINAL_MEGA,
+    SPECIES_MAGEARNA_ORIGINAL_COLOR_MEGA,
 #endif
     FORM_SPECIES_END,
 };

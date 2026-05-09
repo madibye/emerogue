@@ -4640,7 +4640,7 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         .formChangeTable = sMagearnaFormChangeTable,
     },
     
-    [SPECIES_MAGEARNA_ORIGINAL_MEGA] =
+    [SPECIES_MAGEARNA_ORIGINAL_COLOR_MEGA] =
     {
         .baseHP        = 80,
         .baseAttack    = 125,

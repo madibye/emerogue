@@ -2280,14 +2280,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
 
     const u32 gMonFrontPic_MeganiumF[] = INCBIN_U32("graphics/pokemon/meganium/anim_frontf.4bpp.lz");
     const u32 gMonBackPic_MeganiumF[] = INCBIN_U32("graphics/pokemon/meganium/backf.4bpp.lz");
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_MeganiumMega[] = INCBIN_U32("graphics/pokemon/meganium/mega/front.4bpp.lz");
-    const u32 gMonPalette_MeganiumMega[] = INCBIN_U32("graphics/pokemon/meganium/mega/normal.gbapal.lz");
-    const u32 gMonBackPic_MeganiumMega[] = INCBIN_U32("graphics/pokemon/meganium/mega/back.4bpp.lz");
-    const u32 gMonShinyPalette_MeganiumMega[] = INCBIN_U32("graphics/pokemon/meganium/mega/shiny.gbapal.lz");
-    const u8 gMonIcon_MeganiumMega[] = INCBIN_U8("graphics/pokemon/meganium/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_CHIKORITA
 
 #if P_FAMILY_CYNDAQUIL
@@ -7432,14 +7424,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u32 gMonBackPic_GreninjaAsh[] = INCBIN_U32("graphics/pokemon/greninja/ash/back.4bpp.lz");
     const u32 gMonShinyPalette_GreninjaAsh[] = INCBIN_U32("graphics/pokemon/greninja/ash/shiny.gbapal.lz");
     const u8 gMonIcon_GreninjaAsh[] = INCBIN_U8("graphics/pokemon/greninja/ash/icon.4bpp");
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_GreninjaMega[] = INCBIN_U32("graphics/pokemon/greninja/mega/front.4bpp.lz");
-    const u32 gMonPalette_GreninjaMega[] = INCBIN_U32("graphics/pokemon/greninja/mega/normal.gbapal.lz");
-    const u32 gMonBackPic_GreninjaMega[] = INCBIN_U32("graphics/pokemon/greninja/mega/back.4bpp.lz");
-    const u32 gMonShinyPalette_GreninjaMega[] = INCBIN_U32("graphics/pokemon/greninja/mega/shiny.gbapal.lz");
-    const u8 gMonIcon_GreninjaMega[] = INCBIN_U8("graphics/pokemon/greninja/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_FROAKIE
 
 #if P_FAMILY_BUNNELBY
@@ -7707,14 +7691,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u32 gMonShinyPalette_FloetteEternalFlower[] = INCBIN_U32("graphics/pokemon/floette/eternal_flower/shiny.gbapal.lz");
     const u8 gMonIcon_FloetteEternalFlower[] = INCBIN_U8("graphics/pokemon/floette/eternal_flower/icon.4bpp");
 
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_FloetteMega[] = INCBIN_U32("graphics/pokemon/floette/mega/front.4bpp.lz");
-    const u32 gMonPalette_FloetteMega[] = INCBIN_U32("graphics/pokemon/floette/mega/normal.gbapal.lz");
-    const u32 gMonBackPic_FloetteMega[] = INCBIN_U32("graphics/pokemon/floette/mega/back.4bpp.lz");
-    const u32 gMonShinyPalette_FloetteMega[] = INCBIN_U32("graphics/pokemon/floette/mega/shiny.gbapal.lz");
-    const u8 gMonIcon_FloetteMega[] = INCBIN_U8("graphics/pokemon/floette/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
-
     const u32 gMonFrontPic_Florges[] = INCBIN_U32("graphics/pokemon/florges/anim_front.4bpp.lz");
     const u32 gMonBackPic_Florges[] = INCBIN_U32("graphics/pokemon/florges/back.4bpp.lz");
     const u8 gMonFootprint_Florges[] = INCBIN_U8("graphics/pokemon/florges/footprint.1bpp");
@@ -7861,14 +7837,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u32 gMonBackPic_MeowsticFemale[] = INCBIN_U32("graphics/pokemon/meowstic/female/back.4bpp.lz");
     const u32 gMonShinyPalette_MeowsticFemale[] = INCBIN_U32("graphics/pokemon/meowstic/female/shiny.gbapal.lz");
     const u8 gMonIcon_MeowsticFemale[] = INCBIN_U8("graphics/pokemon/meowstic/female/icon.4bpp");
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_MeowsticMega[] = INCBIN_U32("graphics/pokemon/meowstic/mega/front.4bpp.lz");
-    const u32 gMonPalette_MeowsticMega[] = INCBIN_U32("graphics/pokemon/meowstic/mega/normal.gbapal.lz");
-    const u32 gMonBackPic_MeowsticMega[] = INCBIN_U32("graphics/pokemon/meowstic/mega/back.4bpp.lz");
-    const u32 gMonShinyPalette_MeowsticMega[] = INCBIN_U32("graphics/pokemon/meowstic/mega/shiny.gbapal.lz");
-    const u8 gMonIcon_MeowsticMega[] = INCBIN_U8("graphics/pokemon/meowstic/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_ESPURR
 
 #if P_FAMILY_HONEDGE

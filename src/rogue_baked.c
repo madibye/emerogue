@@ -1943,8 +1943,6 @@ u16 Rogue_GetSpeciesForMegaItem(u16 itemId)
 #ifdef ROGUE_BAKE_VALID
     if(IS_MEGA_STONE(itemId))
         return gRogueBake_MegaItemToSpecies[itemId - ITEM_VENUSAURITE];
-    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
-        return gRogueBake_MegaItemToSpecies[(ITEM_DIANCITE - ITEM_VENUSAURITE) + (itemId - ITEM_CLEFABLITE)];
 #endif
 
     return SPECIES_NONE;

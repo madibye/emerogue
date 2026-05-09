@@ -105,7 +105,6 @@ static u16 const sDynamicCustomMonAbilities[] =
     ABILITY_DEFIANT,
     ABILITY_IMPOSTER,
     ABILITY_SNIPER,
-    ABILITY_MULTITYPE,
     ABILITY_MAGIC_GUARD,
     ABILITY_AERILATE,
     ABILITY_PIXILATE,
@@ -349,7 +348,7 @@ static u16 const sDynamicCustomMonMoves[] =
 #endif
 };
 
-STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonAbilities) <= 127, SizeOfDynamicCustomMonAbilities);
+STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonAbilities) <= 255, SizeOfDynamicCustomMonAbilities);
 STATIC_ASSERT(ARRAY_COUNT(sDynamicCustomMonMoves) <= 255, SizeOfDynamicCustomMonMoves);
 
 #include "data/rogue/custom_mons.h"
@@ -358,8 +357,8 @@ struct CompressedDynamicData
 {
     u32 move1:8; // 255 indices
     u32 move2:8; // 255 indices
-    u32 move3:8; // 255 indices
-    u32 ability:6; // 63 indices
+    u32 unused:6;
+    u32 ability:8; // 255 indices
     u32 reserved:2; // reserved for bitmask OTID_FLAG_CUSTOM_MON etc.
 };
 
@@ -385,8 +384,8 @@ static void UncompressDynamicMonData(u32 customMonId, struct DynamicMonData* out
     if(compressedData->move2 != 0 && (compressedData->move2 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
         outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move2 - 1];
 
-    if(compressedData->move3 != 0 && (compressedData->move3 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
-        outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move3 - 1];
+    //if(compressedData->move3 != 0 && (compressedData->move3 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
+    //    outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move3 - 1];
 
     //if(compressedData->move4 != 0 && (compressedData->move4 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
     //    outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move4 - 1];
@@ -823,7 +822,7 @@ u32 RogueGift_CreateDynamicMonId(u8 rarity, u16 species)
     case UNIQUE_RARITY_EPIC:
         compressedData.move1 = SelectNextMoveIndex(&compressedData, species);
         compressedData.move2 = SelectNextMoveIndex(&compressedData, species);
-        compressedData.move3 = SelectNextMoveIndex(&compressedData, species);
+        //compressedData.move3 = SelectNextMoveIndex(&compressedData, species);
         //compressedData.move4 = SelectNextMoveIndex(&compressedData, species);
         compressedData.ability = SelectNextAbilityIndex(&compressedData, species);
         break;
@@ -847,8 +846,9 @@ u32 RogueGift_CreateDynamicMonId(u8 rarity, u16 species)
         {
             (compressedData.move1 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData.move1 - 1],
             (compressedData.move2 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData.move2 - 1],
-            (compressedData.move3 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData.move3 - 1],
-            MOVE_NONE
+            MOVE_NONE,
+            MOVE_NONE,
+            //(compressedData.move3 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData.move3 - 1]
             //(compressedData.move4 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData.move4 - 1],
         };
 

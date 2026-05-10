@@ -86,7 +86,7 @@
 #define HUB_UPGRADE_DAY_CARE_PHONE1                     (HUB_UPGRADE_FIRST + 47)
 #define HUB_UPGRADE_DAY_CARE_PHONE2                     (HUB_UPGRADE_FIRST + 48)
 
-#define HUB_UPGRADE_LAB_UNIQUE_TYPINGS                  (HUB_UPGRADE_FIRST + 47)
+#define HUB_UPGRADE_LAB_UNIQUE_TYPINGS                  (HUB_UPGRADE_FIRST + 49)
 
 #define HUB_UPGRADE_COUNT                               (HUB_UPGRADE_LAB_UNIQUE_TYPINGS + 1)
 

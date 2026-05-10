@@ -364,18 +364,18 @@ enum
 
 struct CompressedDynamicData
 {
-    u32 data1:21;
+    u32 data1:20;
     u32 format:2; // COMPRESSED_FORMAT_[...]
-    u32 data2:7;
+    u32 data2:8;
     u32 reserved:2; // reserved for bitmask OTID_FLAG_CUSTOM_MON etc.
 };
 struct CompressedDynamicData_Original
 {
-    u32 move1:7; // 127 indices
-    u32 move2:7; // 127 indices
-    u32 move3:7; // 127 indices
+    u32 move1:8; // 127 indices
+    u32 move2:8; // 127 indices
+    u32 unused:4;
     u32 format:2;
-    u32 ability:7; // 127 indices
+    u32 ability:8; // 127 indices
     u32 reserved:2;
 };
 
@@ -384,10 +384,10 @@ struct CompressedDynamicData_MonType
     u32 type: 5;
     u32 typeSlot:1;
     u32 typeMoveFlip:1;
-    u32 move1:7; // 127 indices
-    u32 move2:7; // 127 indices
+    u32 move1:8; // 127 indices
+    u32 unused:5;
     u32 format:2;
-    u32 ability:7; // 127 indices
+    u32 ability:8; // 127 indices
     u32 reserved:2;
 };
 
@@ -512,8 +512,8 @@ static void UncompressDynamicMonData(u32 customMonId, struct DynamicMonData* out
         if(compressedData->move2 != 0 && (compressedData->move2 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
             outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move2 - 1];
 
-        if(compressedData->move3 != 0 && (compressedData->move3 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
-            outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move3 - 1];
+        //if(compressedData->move3 != 0 && (compressedData->move3 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
+        //    outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move3 - 1];
 
         //if(compressedData->move4 != 0 && (compressedData->move4 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
         //    outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move4 - 1];
@@ -531,8 +531,8 @@ static void UncompressDynamicMonData(u32 customMonId, struct DynamicMonData* out
         if(compressedData->move1 != 0 && (compressedData->move1 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
             outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move1 - 1];
 
-        if(compressedData->move2 != 0 && (compressedData->move2 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
-            outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move2 - 1];
+        //if(compressedData->move2 != 0 && (compressedData->move2 - 1) < ARRAY_COUNT(sDynamicCustomMonMoves))
+        //    outData->moves[outData->movesCount++] = sDynamicCustomMonMoves[compressedData->move2 - 1];
     }
     else
     {
@@ -1026,7 +1026,7 @@ u32 RogueGift_CreateDynamicMonId(u8 rarity, u16 species)
         case UNIQUE_RARITY_EPIC:
             compressedData->move1 = SelectNextMoveIndex(species);
             compressedData->move2 = SelectNextMoveIndex(species);
-            compressedData->move3 = SelectNextMoveIndex(species);
+            //compressedData->move3 = SelectNextMoveIndex(species);
             //compressedData.move4 = SelectNextMoveIndex(species);
             compressedData->ability = SelectNextAbilityIndex(species);
             break;
@@ -1051,13 +1051,13 @@ u32 RogueGift_CreateDynamicMonId(u8 rarity, u16 species)
         case UNIQUE_RARITY_RARE:
             compressedData->type = SelectRandomType(species, compressedData->typeSlot);
             compressedData->move1 = SelectNextMoveIndex(species);
-            compressedData->move2 = SelectNextMoveIndex(species);
+            //compressedData->move2 = SelectNextMoveIndex(species);
             break;
 
         case UNIQUE_RARITY_EPIC:
             compressedData->type = SelectRandomType(species, compressedData->typeSlot);
             compressedData->move1 = SelectNextMoveIndex(species);
-            compressedData->move2 = SelectNextMoveIndex(species);
+            //compressedData->move2 = SelectNextMoveIndex(species);
             compressedData->ability = SelectNextAbilityIndex(species);
             break;
 
@@ -1090,7 +1090,8 @@ u32 RogueGift_CreateDynamicMonId(u8 rarity, u16 species)
         {
             (compressedData->move1 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData->move1 - 1],
             (compressedData->move2 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData->move2 - 1],
-            (compressedData->move3 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData->move3 - 1],
+            MOVE_NONE,
+            //(compressedData->move3 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData->move3 - 1],
             MOVE_NONE
             //(compressedData.move4 == 0) ? MOVE_NONE : sDynamicCustomMonMoves[compressedData.move4 - 1],
         };

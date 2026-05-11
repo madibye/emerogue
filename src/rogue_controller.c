@@ -1751,7 +1751,7 @@ void Rogue_ModifyBattleWinnings(u16 trainerNum, u32 *money)
             if (Rogue_IsKeyTrainer(trainerNum))
             {
                 u8 difficulty = Rogue_GetCurrentDifficulty();
-                *money = (difficulty + 1) * 1000;
+                *money = (difficulty + 1) * 2000;
             }
             else
             {
@@ -5012,7 +5012,7 @@ static void ChooseLegendarysForNewAdventure()
 
     if (spawnBox)
     {
-        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_ELITE_START_DIFFICULTY - 1 + RogueRandomRange(3, 0);
+        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_ELITE_START_DIFFICULTY - 1 + RogueRandomRange(2, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_BOX] = SelectLegendarySpecies(ADVPATH_LEGEND_BOX);
     }
 
@@ -5024,7 +5024,7 @@ static void ChooseLegendarysForNewAdventure()
 
     if (spawnMinor)
     {
-        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : 4 + RogueRandomRange(4, 0);
+        gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_GYM_MID_DIFFICULTY - 1 + RogueRandomRange(3, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_MINOR] = SelectLegendarySpecies(ADVPATH_LEGEND_MINOR);
     }
 
@@ -5067,25 +5067,14 @@ static u16 ChooseTeamEncounterNum()
     if (Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_SINNOH))
         RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_GALACTIC);
 
-    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_UNOVA))
-    //{
-    //    RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_PLASMA);
-    //    RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_NEOPLASMA);
-    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_UNOVA;
-    //}
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_UNOVA))
+    {
+        RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_PLASMA);
+        //RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_NEOPLASMA);
+    }
 
-    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_KALOS))
-    //    RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_FLARE);
-    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_KALOS;
-    //
-    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_ALOLA))
-    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_ALOLA;
-    //
-    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_GALAR))
-    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_GALAR;
-    //
-    //if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_PALDEA))
-    //    filter->trainerFlagsInclude |= TRAINER_FLAG_REGION_PALDEA;
+    if(Rogue_GetConfigToggle(CONFIG_TOGGLE_TRAINER_KALOS))
+        RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, TEAM_NUM_FLARE);
 #endif
 
     if (!RogueMiscQuery_AnyActiveElements())
@@ -5095,9 +5084,8 @@ static u16 ChooseTeamEncounterNum()
             RogueMiscQuery_EditElement(QUERY_FUNC_INCLUDE, i);
 
         // Temp exclude while these are incomplete
-        RogueMiscQuery_EditElement(QUERY_FUNC_EXCLUDE, TEAM_NUM_PLASMA);
+        // Technically TEAM_NUM_JOHTO_ROCKET should be here too
         RogueMiscQuery_EditElement(QUERY_FUNC_EXCLUDE, TEAM_NUM_NEOPLASMA);
-        RogueMiscQuery_EditElement(QUERY_FUNC_EXCLUDE, TEAM_NUM_FLARE);
     }
 
     RogueWeightQuery_Begin();

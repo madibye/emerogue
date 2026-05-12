@@ -1526,11 +1526,6 @@ void Rogue_OnPrepareMonPaletteDecompress(const u32 * compressedPal, u16 species,
 
 }
 
-void Rogue_OnPrepareMonPaletteDecompress(const u32 * compressedPal, u16 species, u8 gender, bool8 isShiny, u32 otId)
-{
-
-}
-
 bool8 Rogue_ModifyPaletteDecompress(const u32* input, void* buffer)
 {
     const u16 *overrideBuffer = NULL;

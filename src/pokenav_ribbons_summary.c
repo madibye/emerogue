@@ -971,7 +971,7 @@ static u16 DrawRibbonsMonFrontPic(s32 x, s32 y)
     u8 gender;
     bool8 isShiny;
 
-    GetMonSpeciesPersonalityOtId(&species, &personality, &otId, &gender);
+    GetMonSpeciesPersonalityOtId(&species, &personality, &otId, &gender, &isShiny);
     spriteId = CreateMonPicSprite(species, FALSE, otId, personality, gender, TRUE, MON_SPRITE_X_ON, MON_SPRITE_Y, 15, TAG_NONE);
     gSprites[spriteId].oam.priority = 0;
     return spriteId;

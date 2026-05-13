@@ -806,7 +806,6 @@ static void Task_ShowAiPoints(u8 taskId)
                                                  gBattleMons[data->aiBattlerId].otId,
                                                  gBattleMons[data->aiBattlerId].personality,
                                                  GetGenderForSpecies(gBattleMons[data->aiBattlerId].species, gBattleMons[data->aiBattlerId].genderFlag),
-                                                 FALSE,
                                                  TRUE,
                                                  39, 130, 15, TAG_NONE);
         data->aiViewState++;
@@ -967,7 +966,6 @@ static void Task_ShowAiKnowledge(u8 taskId)
                                                  gBattleMons[data->aiBattlerId].otId,
                                                  gBattleMons[data->aiBattlerId].personality,
                                                  GetGenderForSpecies(gBattleMons[data->aiBattlerId].species, gBattleMons[data->aiBattlerId].genderFlag),
-                                                 FALSE,
                                                  TRUE,
                                                  39, 130, 15, TAG_NONE);
         data->aiViewState++;

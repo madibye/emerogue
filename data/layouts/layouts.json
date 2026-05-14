@@ -2142,6 +2142,16 @@
       "blockdata_filepath": "data/layouts/Rogue_Encounter_BattleTower/map.bin"
     },
     {
+      "id": "LAYOUT_ROGUE_ENCOUNTER_DRAGON_SPIRAL_TOWER",
+      "name": "Rogue_Encounter_DragonSpiralTower_Layout",
+      "width": 69,
+      "height": 69,
+      "primary_tileset": "gTileset_GeneralHub",
+      "secondary_tileset": "gTileset_Pacifidlog",
+      "border_filepath": "data/layouts/Rogue_Encounter_DragonSpiralTower/border.bin",
+      "blockdata_filepath": "data/layouts/Rogue_Encounter_DragonSpiralTower/map.bin"
+    },
+    {
       "id": "LAYOUT_ROGUE_ROUTE_QUICK_MAP0",
       "name": "Rogue_Route_QuickMap0_Layout",
       "width": 25,

@@ -2152,6 +2152,16 @@
       "blockdata_filepath": "data/layouts/Rogue_Encounter_DragonSpiralTower/map.bin"
     },
     {
+      "id": "LAYOUT_ROGUE_ENCOUNTER_CHARGE_STONE_CAVE",
+      "name": "Rogue_Encounter_ChargeStoneCave_Layout",
+      "width": 82,
+      "height": 61,
+      "primary_tileset": "gTileset_GeneralHub",
+      "secondary_tileset": "gTileset_CaveAlt",
+      "border_filepath": "data/layouts/Rogue_Encounter_ChargeStoneCave/border.bin",
+      "blockdata_filepath": "data/layouts/Rogue_Encounter_ChargeStoneCave/map.bin"
+    },
+    {
       "id": "LAYOUT_ROGUE_ROUTE_QUICK_MAP0",
       "name": "Rogue_Route_QuickMap0_Layout",
       "width": 25,

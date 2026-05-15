@@ -654,11 +654,29 @@ bool8 Rogue_IsFinalQuestFinalBoss(void)
     return FALSE;
 }
 
-bool8 Rogue_ApplyFinalQuestFinalBossTeamSwap(void)
+
+static u8 CountEnemyAliveNonEggMonsExcept()
 {
-    if (Rogue_IsFinalQuestFinalBoss())
+    u16 i, count;
+
+    for (i = 0, count = 0; i < PARTY_SIZE; i++)
     {
-        if (!HasFinalQuestBossAppliedSwap())
+        if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES) != SPECIES_NONE
+            && !GetMonData(&gEnemyParty[i], MON_DATA_IS_EGG)
+            && GetMonData(&gEnemyParty[i], MON_DATA_HP) != 0)
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+bool8 Rogue_TryApplyFinalQuestFinalBossTeamSwap(void)
+{
+    if(Rogue_IsFinalQuestFinalBoss() && !HasFinalQuestBossAppliedSwap())
+    {   
+        if(CountEnemyAliveNonEggMonsExcept() <= ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) ? 1 : 0))
         {
             // Only do this once
             // Swap out team for the "final" mon a custom Wobbuffet
@@ -872,7 +890,7 @@ u16 Rogue_ModifyPlayBGM(u16 songNum)
     {
         if(songNum == MUS_VICTORY_ROAD && RogueAdv_IsViewingPath())
         {
-            if(Rogue_GetCurrentDifficulty() >= ROGUE_FINAL_CHAMP_DIFFICULTY)
+            if(Rogue_GetCurrentDifficulty() >= ROGUE_FINAL_CHAMP_DIFFICULTY || Rogue_AssumeFinalQuestFakeChamp())
                 songNum = MUS_PL_DISTORTION_WORLD;
             else if(Rogue_GetCurrentDifficulty() >= ROGUE_ELITE_START_DIFFICULTY)
                 songNum = MUS_RG_VICTORY_ROAD;

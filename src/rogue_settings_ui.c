@@ -464,6 +464,7 @@ static u8 const sMenuName_DebugToggleHideFollower[] = _("Hide Follower");
 static u8 const sMenuName_DebugToggleStopWildSpawning[] = _("Stop Wild Spawn");
 static u8 const sMenuName_DebugToggleDisableAssistantTimeout[] = _("Disable Assist Timeout");
 static u8 const sMenuName_DebugToggleFullBattleHud[] = _("Full Battle HUD");
+static u8 const sMenuName_DebugToggleSpriteLayers[] = _("Sprite Layers");
 
 static u8 const sMenuName_DebugRangeStartDifficulty[] = _("START DIFFICULTY");
 static u8 const sMenuName_DebugRangeForcedRoute[] = _("FORCED ROUTE");
@@ -531,6 +532,7 @@ enum
     MENUITEM_MENU_DEBUG_TOGGLE_STOP_WILD_SPAWNING,
     MENUITEM_MENU_DEBUG_TOGGLE_DISABLE_ASSISTANT_TIMEOUT,
     MENUITEM_MENU_DEBUG_TOGGLE_FULL_BATTLE_HUD,
+    MENUITEM_MENU_DEBUG_TOGGLE_SPRITE_LAYERS,
 
     MENUITEM_MENU_DEBUG_RANGE_START_DIFFICULTY,
     MENUITEM_MENU_DEBUG_RANGE_FORCED_ROUTE,
@@ -980,6 +982,12 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = DebugToggle_ProcessInput,
         .drawChoices = DebugToggle_DrawChoices
     },
+    [MENUITEM_MENU_DEBUG_TOGGLE_SPRITE_LAYERS] = 
+    {
+        .itemName = sMenuName_DebugToggleSpriteLayers,
+        .processInput = DebugToggle_ProcessInput,
+        .drawChoices = DebugToggle_DrawChoices
+    },
 
     [MENUITEM_MENU_DEBUG_RANGE_START_DIFFICULTY] = 
     {
@@ -1121,6 +1129,7 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
             MENUITEM_MENU_DEBUG_TOGGLE_STOP_WILD_SPAWNING,
             MENUITEM_MENU_DEBUG_TOGGLE_DISABLE_ASSISTANT_TIMEOUT,
             MENUITEM_MENU_DEBUG_TOGGLE_FULL_BATTLE_HUD,
+            MENUITEM_MENU_DEBUG_TOGGLE_SPRITE_LAYERS,
 
             MENUITEM_MENU_DEBUG_RANGE_START_DIFFICULTY,
             MENUITEM_MENU_DEBUG_RANGE_FORCED_ROUTE,
@@ -2359,6 +2368,9 @@ static u8 GetMenuItemValue(u8 menuItem)
     case MENUITEM_MENU_DEBUG_TOGGLE_FULL_BATTLE_HUD:
         return RogueDebug_GetConfigToggle(DEBUG_TOGGLE_FULL_BATTLE_HUD);
 
+    case MENUITEM_MENU_DEBUG_TOGGLE_SPRITE_LAYERS:
+        return RogueDebug_GetConfigToggle(DEBUG_TOGGLE_SPRITE_LAYERS);
+
 
     case MENUITEM_MENU_DEBUG_RANGE_START_DIFFICULTY:
         return RogueDebug_GetConfigRange(DEBUG_RANGE_START_DIFFICULTY);
@@ -2550,6 +2562,10 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
 
     case MENUITEM_MENU_DEBUG_TOGGLE_FULL_BATTLE_HUD:
         RogueDebug_SetConfigToggle(DEBUG_TOGGLE_FULL_BATTLE_HUD, value);
+        break;
+
+    case MENUITEM_MENU_DEBUG_TOGGLE_SPRITE_LAYERS:
+        RogueDebug_SetConfigToggle(DEBUG_TOGGLE_SPRITE_LAYERS, value);
         break;
 
     case MENUITEM_MENU_DEBUG_RANGE_START_DIFFICULTY:

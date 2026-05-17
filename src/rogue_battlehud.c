@@ -13,6 +13,7 @@
 #include "string_util.h"
 #include "sprite.h"
 #include "trig.h"
+#include "text.h"
 
 #include "rogue_battlehud.h"
 #include "rogue_settings.h"
@@ -947,7 +948,7 @@ void RogueBH_PrintStatView()
         ptr = StringAppend(ptr, sText_Evasion);
         ptr = AppendBoostString(ptr, mon->statStages[STAT_EVASION]);
 
-        BattlePutTextOnWindow(gStringVar4, B_WIN_MSG);
+        BattlePutTextOnWindowWithSpeed(gStringVar4, B_WIN_MSG, TEXT_INSTANT_DRAW);
     }
 }
 

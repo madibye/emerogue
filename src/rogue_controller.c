@@ -14,6 +14,7 @@
 #include "constants/trainer_types.h"
 #include "constants/weather.h"
 #include "data.h"
+#include "decompress.h"
 #include "gba/isagbprint.h"
 
 #include "battle.h"
@@ -3551,9 +3552,32 @@ void Rogue_NotifySaveVersionUpdated(u16 fromNumber, u16 toNumber)
         Rogue_SetConfigRange(CONFIG_RANGE_GAME_MODE_NUM, ROGUE_GAME_MODE_STANDARD);
     }
     
+    RogueQuest_NotifySaveVersionUpdated(fromNumber, toNumber);
+
     // TODO - Hook up warnings here??
     // if(IsPreReleaseCompatVersion(gSaveBlock1Ptr->rogueCompatVersion))
     //    FlagSet(FLAG_ROGUE_PRE_RELEASE_COMPAT_WARNING);
+
+
+    // Total species count has changed so we need to adjust some save data
+    if(gRogueSaveBlock->lastKnownNumSpecies != NUM_SPECIES)
+    {
+        // work backwards to reshuffle the data to make sure it's correctly placed
+        u32 i, j;
+        u32 prevArraySize = ROUND_BITS_TO_BYTES(gRogueSaveBlock->lastKnownNumSpecies);
+        u8* tempBuffer = gDecompressionBuffer; // borrow this buffer
+
+        AGB_ASSERT(sizeof(gDecompressionBuffer) >= prevArraySize * 2);
+        AGB_ASSERT(gRogueSaveBlock->lastKnownNumSpecies < NUM_SPECIES); // not sure what to do if num species goes down
+
+        memcpy(tempBuffer, &gSaveBlock1Ptr->pokedexBitFlags1[0], prevArraySize * 2);
+
+        memset(&gSaveBlock1Ptr->pokedexBitFlags1[0], 0, sizeof(gSaveBlock1Ptr->pokedexBitFlags1));
+        memset(&gSaveBlock1Ptr->pokedexBitFlags2[0], 0, sizeof(gSaveBlock1Ptr->pokedexBitFlags2));
+
+        memcpy(&gSaveBlock1Ptr->pokedexBitFlags1[0], tempBuffer, prevArraySize);
+        memcpy(&gSaveBlock1Ptr->pokedexBitFlags2[0], tempBuffer + prevArraySize, prevArraySize);
+    }
 }
 
 void Rogue_NotifySaveLoaded(void)
@@ -3838,7 +3862,7 @@ void Rogue_MainLateCB(void)
 
 static void TryAutoItemPickup()
 {
-    u8 i;
+    u8 i, elevation;
     s16 x, y;
     struct ObjectEventTemplate * template;
 
@@ -3846,6 +3870,7 @@ static void TryAutoItemPickup()
         return;
 
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    elevation = PlayerGetElevation();
 
     if(gRogueLocal.autoPickupLastX == x && gRogueLocal.autoPickupLastY == y)
         return;
@@ -3864,7 +3889,7 @@ static void TryAutoItemPickup()
         if (!gObjectEvents[i].active || i == gPlayerAvatar.objectEventId)
             continue;
 
-        if(gObjectEvents[i].currentCoords.x != x || gObjectEvents[i].currentCoords.y != y)
+        if(gObjectEvents[i].currentCoords.x != x || gObjectEvents[i].currentCoords.y != y || gObjectEvents[i].currentElevation != elevation)
             continue;
 
         // Object is directly infront of player
@@ -6093,7 +6118,24 @@ void Rogue_OnSetWarpData(struct WarpData *warp)
 
                 case ADVPATH_ROOM_BATTLE_TOWER:
                 {
+                    u8 const battleWeather[] = 
+                    {
+                        WEATHER_NONE,
+                        WEATHER_SUNNY,
+                        WEATHER_SANDSTORM,
+                        WEATHER_DROUGHT,
+                        WEATHER_DOWNPOUR,
+                        WEATHER_LEAVES,
+                        WEATHER_RAIN_THUNDERSTORM,
+                        WEATHER_PSYCHIC_FOG,
+                        WEATHER_SNOW,
+                        WEATHER_MISTY_FOG,
+                    };
+
                     VarSet(VAR_ROGUE_SPECIAL_ENCOUNTER_DATA, RogueRandom());
+
+                    if(Rogue_GetConfigRange(CONFIG_RANGE_TRAINER_LVL) != DIFFICULTY_LEVEL_EASY)
+                        VarSet(VAR_ROGUE_DESIRED_WEATHER, battleWeather[RogueRandomRange(ARRAY_COUNT(battleWeather), 0)]);
 
                     ResetTrainerBattles();
                     RandomiseEnabledTrainers();
@@ -9001,6 +9043,10 @@ void Rogue_EndCatchingContest()
 
     // Store caught mon for later
     CopyMon(&gEnemyParty[0], &gPlayerParty[0], sizeof(struct Pokemon));
+    {
+        u32 item = ITEM_NONE; // this is why we can't have nice things, Nacho >:( /j
+        SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &item);
+    }
 
     // Hack to hide follower
     ZeroMonData(&gPlayerParty[0]);

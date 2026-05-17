@@ -22,6 +22,7 @@ struct QuestReward
 {
 	QuestRewardType type;
 	std::string preprocessorCondition;
+	std::string addedInVersion;
 	std::string visibility;
 	std::string requiredDifficulty;
 	struct
@@ -142,6 +143,7 @@ struct QuestInfo
 	int sortIndex;
 	std::string questId;
 	std::string preprocessorCondition;
+	std::string addedInVersion;
 	std::string displayGroup;
 	std::string displayGroupOrder;
 	bool isUnlockedViaReward;
@@ -294,6 +296,7 @@ void ExportQuestData_C(std::ofstream& fileStream, std::string const& dataPath, j
 
 			fileStream << c_TabSpacing << "{\n";
 			fileStream << c_TabSpacing2 << ".visiblity = QUEST_REWARD_VISIBLITY_" << rewardInfo.visibility << ",\n";
+			fileStream << c_TabSpacing2 << ".addedInVersion = " << rewardInfo.addedInVersion << ",\n";
 			fileStream << c_TabSpacing2 << ".requiredDifficulty = DIFFICULTY_LEVEL_" << rewardInfo.requiredDifficulty << ",\n";
 
 			if (rewardInfo.customPopup.isValid)
@@ -563,6 +566,7 @@ void ExportQuestData_C(std::ofstream& fileStream, std::string const& dataPath, j
 		fileStream << c_TabSpacing2 << ".title = sTitle_" << quest.GetUniqueWriteId() << ",\n";
 		fileStream << c_TabSpacing2 << ".desc = gQuestDescText_" << quest.GetUniqueWriteId() << ",\n";
 		fileStream << c_TabSpacing2 << ".flags = " << FlagsToString("QUEST_CONST_", quest.flags) << ",\n";
+		fileStream << c_TabSpacing2 << ".addedInVersion = " << quest.addedInVersion << ",\n";
 
 		fileStream << c_TabSpacing2 << ".triggers = sTriggers_" << quest.GetUniqueWriteId() << ",\n";
 		fileStream << c_TabSpacing2 << ".triggerCount = ARRAY_COUNT(sTriggers_" << quest.GetUniqueWriteId() << "),\n";
@@ -809,6 +813,12 @@ static QuestReward ParseQuestReward(json const& jsonData)
 	{
 		reward.preprocessorCondition = jsonData["#if"].get<std::string>();
 	}
+
+	if (jsonData.contains("added_in_version"))
+		reward.addedInVersion = jsonData["added_in_version"].get<std::string>();
+	else
+		reward.addedInVersion = "SAVE_VER_ID_2_0_0";
+
 
 	if (jsonData.contains("visibility"))
 		reward.visibility = GetAsString(jsonData["visibility"]);
@@ -1067,6 +1077,11 @@ static void GatherQuests(std::string const& dataPath, json const& rawJsonData, Q
 			{
 				quest.sortIndex = quest.questObj["sort_index"].get<int>();
 			}
+
+			if (quest.questObj.contains("added_in_version"))
+				quest.addedInVersion = quest.questObj["added_in_version"].get<std::string>();
+			else
+				quest.addedInVersion = "SAVE_VER_ID_2_0_0";
 
 			// Display Group Name
 			if (quest.questObj.contains("display_group"))

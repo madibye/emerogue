@@ -337,6 +337,14 @@ static bool8 CanCycleRideMons()
     return !Rogue_IsRideMonFlying() && !Rogue_IsRideMonSwimming();
 }
 
+static bool8 IsSafeToSwapRideMons()
+{
+    struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    // Only swap when player is at a valid tile position
+    return (player->currentCoords.x == player->previousCoords.x && player->currentCoords.y == player->previousCoords.y);
+}
+
 bool8 Rogue_HandleRideMonInput()
 {
     if(Rogue_IsRideActive())
@@ -344,7 +352,7 @@ bool8 Rogue_HandleRideMonInput()
         // Cycle through mons, when pressing L
         if(sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.whistleType == RIDE_WHISTLE_BASIC || (FlagGet(FLAG_SYS_RIDING_ACCESS_DAYCARE) && sRideMonData.rideObjects[RIDE_OBJECT_PLAYER].state.whistleType == RIDE_WHISTLE_GOLD))
         {
-            if(gSaveBlock2Ptr->optionsRidemonControlMode == OPTIONS_RIDEMON_CONTROL_VANILLA)
+            if(IsSafeToSwapRideMons())
             {
                 if(JOY_NEW(L_BUTTON))
                 {
@@ -371,22 +379,6 @@ bool8 Rogue_HandleRideMonInput()
                     }
                 }
             }
-            else
-            {
-                if(JOY_NEW(L_BUTTON))
-                {
-                    if(CanCycleRideMons())
-                    {
-                        CalculateRideSpecies(-1);
-                        PlayRideMonCry();
-                    }
-                    else
-                    {
-                        PlaySE(SE_FAILURE);
-                    }
-                }
-            }
-            
         }
     }
 

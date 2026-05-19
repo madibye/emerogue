@@ -1237,7 +1237,7 @@ static u32 CalculatePresetDisplayScore(struct Pokemon* mon, struct RoguePokemonC
         score += 1;
 
 #ifdef ROGUE_EXPANSION
-    if(IS_MEGA_STONE(temp) && !IsMegaEvolutionEnabled())
+    if((IS_MEGA_STONE(temp) || temp == ITEM_RED_ORB || temp == ITEM_BLUE_ORB) && !IsMegaEvolutionEnabled())
     {
         return 1;
     }
@@ -1259,7 +1259,7 @@ static u32 CalculatePresetDisplayScore(struct Pokemon* mon, struct RoguePokemonC
         }
     }
 
-    return score;
+    return score * 5;
 }
 
 static struct RoguePokemonCompetitiveSet const* SelectMonPreset(struct Pokemon* mon)

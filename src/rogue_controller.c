@@ -1368,7 +1368,7 @@ u16 Rogue_ModifyItemPickupAmount(u16 itemId, u16 amount)
 {
     if (Rogue_IsRunActive())
     {
-        if (gRogueAdvPath.currentRoomType == ADVPATH_ROOM_ROUTE || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_TEAM_HIDEOUT)
+        if(gRogueAdvPath.currentRoomType == ADVPATH_ROOM_ROUTE || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_TEAM_HIDEOUT || gRogueAdvPath.currentRoomType == ADVPATH_ROOM_RESTSTOP)
         {
             u8 pocket = ItemId_GetPocket(itemId);
             amount = 1;
@@ -2531,6 +2531,7 @@ bool8 Rogue_IsItemEnabled(u16 itemId)
         // No mochi
         if (itemId >= ITEM_HEALTH_MOCHI && itemId <= ITEM_FRESH_START_MOCHI)
             return FALSE;
+
 #endif
 
         if (Rogue_IsRunActive())
@@ -3531,7 +3532,7 @@ extern const u8 RogueMP_OnHostReloadInRun[];
 extern const u8 RogueMP_OnClientReloadInRun[];
 extern const u8 RogueMP_OnClientReloadInHub[];
 
-void Rogue_NotifySaveVersionUpdated(u16 fromNumber, u16 toNumber)
+void Rogue_NotifySaveVersionUpdated(u16 fromVersion, u16 toVersion)
 {
     u32 i;
 
@@ -3546,13 +3547,13 @@ void Rogue_NotifySaveVersionUpdated(u16 fromNumber, u16 toNumber)
 
     FlagClear(FLAG_ROGUE_ADVENTURE_REPLAY_ACTIVE);
 
-    if(RogueSave_GetVersionIdFor(fromNumber) < SAVE_VER_ID_2_1_0)
+    if(RogueSave_GetVersionIdFor(fromVersion) < SAVE_VER_ID_2_1_0)
     {
         // Reset mode, as we removed rainbow mode
         Rogue_SetConfigRange(CONFIG_RANGE_GAME_MODE_NUM, ROGUE_GAME_MODE_STANDARD);
     }
     
-    RogueQuest_NotifySaveVersionUpdated(fromNumber, toNumber);
+    RogueQuest_NotifySaveVersionUpdated(fromVersion, toVersion);
 
     // TODO - Hook up warnings here??
     // if(IsPreReleaseCompatVersion(gSaveBlock1Ptr->rogueCompatVersion))
@@ -6522,6 +6523,7 @@ void RemoveMonAtSlot(u8 slot, bool8 keepItems, bool8 compactPartySlots)
                 // Try to put held item back in bag
                 if (heldItem != ITEM_NONE && AddBagItem(heldItem, 1))
                 {
+                    Rogue_PushPopup_AddItem(heldItem, 1);
                     heldItem = ITEM_NONE;
                     SetMonData(&gPlayerParty[slot], MON_DATA_HELD_ITEM, &heldItem);
                 }
@@ -6638,8 +6640,10 @@ void RemoveAnyFaintedMons(bool8 keepItems)
                 {
                     // Dead so give back held item
                     u16 heldItem = GetMonData(&gPlayerParty[read], MON_DATA_HELD_ITEM);
-                    if (heldItem != ITEM_NONE)
-                        AddBagItem(heldItem, 1);
+                    if(heldItem != ITEM_NONE && AddBagItem(heldItem, 1))
+                    {
+                        Rogue_PushPopup_AddItem(heldItem, 1);
+                    }
                 }
 
                 // Only push mons if run is active
@@ -9137,7 +9141,8 @@ void Rogue_OpenMartQuery(u16 difficulty, u16 itemCategory, u16* minSalePrice)
 {
     bool8 applyRandomChance = FALSE;
     bool8 applyPriceRange = TRUE;
-    u16 randomChanceMinimum = 0;
+    u16 randomChanceMinimum = 10;
+    u16 randomChanceGymRate = 5;
     u16 maxPriceRange = 65000;
     u16 originalItemCategory = itemCategory;
     u16 randomSeed;
@@ -9293,7 +9298,8 @@ void Rogue_OpenMartQuery(u16 difficulty, u16 itemCategory, u16* minSalePrice)
             }
         }
         applyRandomChance = TRUE;
-        randomChanceMinimum = 50;
+        randomChanceMinimum = 20;
+        randomChanceGymRate = 3;
         break;
 
     case ROGUE_SHOP_HELD_ITEMS:
@@ -9481,14 +9487,12 @@ void Rogue_OpenMartQuery(u16 difficulty, u16 itemCategory, u16* minSalePrice)
 
                 if (difficulty < ROGUE_ELITE_START_DIFFICULTY)
                 {
-                    chance = 10 + 5 * difficulty;
+                    chance = randomChanceMinimum + randomChanceGymRate * difficulty;
                 }
                 else if (difficulty < ROGUE_CHAMP_START_DIFFICULTY)
                 {
                     chance = 60 + 10 * (difficulty - ROGUE_ELITE_START_DIFFICULTY);
                 }
-
-                chance = max(randomChanceMinimum, chance);
 
                 if(chance < 100)
                 {

@@ -310,17 +310,16 @@
                 ],
                 "rewards":
                 [
-                    { "money": "QUEST_REWARD_MEDIUM_MONEY" },
+                    { "money": "QUEST_REWARD_LARGE_MONEY" },
                     {
                         "species": "SPECIES_LOTAD",
                         "custom_mon_id": "CUSTOM_MON_EXOTIC_LOTAD"
-                    },
+                    },      
                     {
                         "species": "SPECIES_UMBREON",
                         "shiny": true,
                         "difficulty": "HARD"
-                    },
-                    {
+                    },                    {
                         "species": "SPECIES_ESPEON",
                         "shiny": true,
                         "difficulty": "HARD"

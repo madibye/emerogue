@@ -1830,12 +1830,17 @@ void Rogue_ModifyBattleWinnings(u16 trainerNum, u32 *money)
         // }
         // else if(!FlagGet(FLAG_ROGUE_EASY_ITEMS))
         //{
-        //     if(difficulty <= 11)
-        //     {
-        //         if(difficultyModifier != ADVPATH_SUBROOM_ROUTE_TOUGH) // !Hard
-        //             *money = *money / 2;
-        //     }
-        // }
+        //    if(difficulty <= 11)
+        //    {
+        //        if(difficultyModifier != ADVPATH_SUBROOM_ROUTE_TOUGH) // !Hard
+        //            *money = *money / 2;
+        //    }
+        //}
+
+        if(gRogueRun.gameRules.trainerBattleWinningsPerc != 0)
+        {
+            *money = ((*money) * gRogueRun.gameRules.trainerBattleWinningsPerc) / 100;
+        }
 
         // Snap/Floor to multiple of ten
         if (*money > 100)
@@ -3437,6 +3442,8 @@ void Rogue_OnNewGame(void)
     SetMoney(&gSaveBlock1Ptr->money, 0);
     memset(&gRogueLocal, 0, sizeof(gRogueLocal));
 
+    FlagSet(FLAG_ROGUE_SETTINGS_MENU_DISPLAY_HIGHLIGHT);
+    
     FlagClear(FLAG_ROGUE_RUN_ACTIVE);
     FlagClear(FLAG_ROGUE_IS_VICTORY_LAP);
     FlagClear(FLAG_ROGUE_WILD_SAFARI);
@@ -3535,6 +3542,8 @@ extern const u8 RogueMP_OnClientReloadInHub[];
 void Rogue_NotifySaveVersionUpdated(u16 fromVersion, u16 toVersion)
 {
     u32 i;
+
+    FlagSet(FLAG_ROGUE_SETTINGS_MENU_DISPLAY_HIGHLIGHT);
 
     if (Rogue_IsRunActive())
         gRogueLocal.hasSaveWarningPending = TRUE;
@@ -3874,6 +3883,9 @@ static void TryAutoItemPickup()
     elevation = PlayerGetElevation();
 
     if(gRogueLocal.autoPickupLastX == x && gRogueLocal.autoPickupLastY == y)
+        return;
+
+    if(Rogue_IsRideMonFlying())
         return;
 
     if(Rogue_IsRunActive())
@@ -4492,6 +4504,12 @@ static bool8 CanBringInHeldItem(u16 itemId)
 static void BeginRogueRun_ModifyParty(void)
 {
     u16 starterSpecies = VarGet(VAR_STARTER_SWAP_SPECIES);
+    u32 startLevel = STARTER_MON_LEVEL;
+
+    if(gRogueRun.gameRules.initialLevelOverride != 0)
+    {
+        startLevel = gRogueRun.gameRules.initialLevelOverride;
+    }
 
     FlagClear(FLAG_ROGUE_HAS_RANDOM_STARTER);
 
@@ -4528,7 +4546,7 @@ static void BeginRogueRun_ModifyParty(void)
                 SetMonData(&gPlayerParty[i], MON_DATA_SPDEF_EV, &temp);
 
                 // Force to starter lvl
-                exp = Rogue_ModifyExperienceTables(gRogueSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL)].growthRate, STARTER_MON_LEVEL);
+                exp = Rogue_ModifyExperienceTables(gRogueSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL)].growthRate, startLevel);
                 SetMonData(&gPlayerParty[i], MON_DATA_EXP, &exp);
 
                 // Adjust item
@@ -4551,7 +4569,7 @@ static void BeginRogueRun_ModifyParty(void)
 
             if (species != SPECIES_NONE)
             {
-                u32 exp = Rogue_ModifyExperienceTables(gRogueSpeciesInfo[species].growthRate, STARTER_MON_LEVEL);
+                u32 exp = Rogue_ModifyExperienceTables(gRogueSpeciesInfo[species].growthRate, startLevel);
                 SetBoxMonData(boxMon, MON_DATA_EXP, &exp);
 
                 temp = 0;
@@ -4794,8 +4812,8 @@ static void BeginRogueRun(void)
     Rogue_SetCurrentDifficulty(GetStartDifficulty());
     gRogueRun.currentLevelOffset = gRogueRun.gameRules.initialLevelOffset;
     gRogueRun.adventureRoomId = ADVPATH_INVALID_ROOM_ID;
-
-    if (gRogueRun.currentLevelOffset == 0)
+    
+    if(gRogueRun.currentLevelOffset == 0 && gRogueRun.gameRules.initialLevelOverride != 0)
     {
         // Apply default
         gRogueRun.currentLevelOffset = 3; // assume STARTER_MON_LEVEL == 5 and first boss level is 10
@@ -5132,18 +5150,36 @@ static void ChooseLegendarysForNewAdventure()
     {
         gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_ELITE_START_DIFFICULTY - 1 + RogueRandomRange(2, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_BOX] = SelectLegendarySpecies(ADVPATH_LEGEND_BOX);
+
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL)
+        {
+            // Snap to paths where no routes are present
+            gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] = (gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX] / 2) * 2;
+        }
     }
 
     if (spawnRoamer)
     {
         gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_ROAMER] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : 1 + RogueRandomRange(5, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_ROAMER] = SelectLegendarySpecies(ADVPATH_LEGEND_ROAMER);
+
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL)
+        {
+            // Snap to paths where no routes are present
+            gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_ROAMER] = (gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_ROAMER] / 2) * 2;
+        }
     }
 
     if (spawnMinor)
     {
         gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] = (gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_GAUNTLET) ? 0 : ROGUE_GYM_MID_DIFFICULTY - 1 + RogueRandomRange(3, 0);
         gRogueRun.legendarySpecies[ADVPATH_LEGEND_MINOR] = SelectLegendarySpecies(ADVPATH_LEGEND_MINOR);
+
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL)
+        {
+            // Snap to paths where no routes are present
+            gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] = (gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR] / 2) * 2;
+        }
     }
 
     // DEBUG - Force all legends to spawn at specific difficulties
@@ -5254,11 +5290,23 @@ static void ChooseTeamEncountersForNewAdventure()
     gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_PRE_LEGEND] = gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_BOX];
 
     // Early can be anytime from badge 2 to badge 5 (provided there is no legend at that time)
-    while (TRUE)
+    for(i = 0; i < 1000; ++i)
     {
         gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] = 2 + RogueRandomRange(3, 0);
 
-        if (gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] == gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR])
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL)
+        {
+            // Snap to paths where no routes are present
+            gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] = (gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] / 2) * 2;
+        }
+
+        if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL)
+        {
+            // Snap to paths where no routes are present
+            gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] = (gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] / 2) * 2;
+        }
+
+        if(gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] == gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_MINOR])
             continue;
         if (gRogueRun.teamEncounterDifficulties[ADVPATH_TEAM_ENCOUNTER_EARLY] == gRogueRun.legendaryDifficulties[ADVPATH_LEGEND_ROAMER])
             continue;
@@ -7200,7 +7248,7 @@ void Rogue_Battle_EndTrainerBattle(u16 trainerNum)
                     for(i = 0; i < gPlayerPartyCount; ++i)
                     {
                         u8 lvl = GetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL);
-                        if(lvl < TUTOR_MOVE_LVL_COUNT_RUN)
+                        if(lvl + 1 < TUTOR_MOVE_LVL_COUNT_RUN)
                         {
                             lvl++;
                             SetMonData(&gPlayerParty[i], MON_DATA_TUTOR_MOVE_LVL, &lvl);
@@ -9130,6 +9178,9 @@ static void applyMartSeed(u16 itemCategory)
     case ROGUE_SHOP_TREATS:
         SeedRogueRng(gRogueRun.subSeeds[ROGUE_SUBSEED_SHOP_TREATS]);
         break;
+    case ROGUE_SHOP_COURIER:
+        SeedRogueRng(gRogueAdvPath.rooms[gRogueRun.adventureRoomId].rngSeed);
+        break;
     
     default:
         // Use whatever the active seed is
@@ -10290,13 +10341,13 @@ u8 GetCurrentDropRarity()
     switch (gRogueAdvPath.currentRoomType)
     {
     case ADVPATH_ROOM_ROUTE:
-        return gRogueRouteTable.routes[gRogueRun.currentRouteIndex].dropRarity;
-
+        return gRogueRun.gameRules.itemDropRarityInc + gRogueRouteTable.routes[gRogueRun.currentRouteIndex].dropRarity;
+    
     case ADVPATH_ROOM_TEAM_HIDEOUT:
-        return 3;
+        return gRogueRun.gameRules.itemDropRarityInc + 3;
     }
 
-    return 0;
+    return gRogueRun.gameRules.itemDropRarityInc;
 }
 
 static void RandomiseItemContent(u8 difficultyLevel)

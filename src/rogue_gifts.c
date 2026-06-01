@@ -1244,7 +1244,8 @@ static bool8 IsCustomMonInUse(u32 customMonId)
 static u32 SelectUnusedUnlockedExoticMon()
 {
     struct RogueQuestReward const* reward;
-    u32 currentList[CUSTOM_MON_COUNT];
+    u32 targetIndex;
+    u32 currentIndex = 0;
     u32 listSize = 0;
     u32 questId, j;
     u32 questCount;
@@ -1253,7 +1254,7 @@ static u32 SelectUnusedUnlockedExoticMon()
     for(j = 0; j < CUSTOM_MON_COUNT; ++j)
     {
         if(sCustomPokemon[j].isDefaultSpawn)
-            currentList[listSize++] = j;
+            listSize++;
     }
 
     // Populate with exotic mons we have already unlocked
@@ -1270,15 +1271,46 @@ static u32 SelectUnusedUnlockedExoticMon()
                 if(reward->type == QUEST_REWARD_POKEMON && reward->perType.pokemon.customMonId != 0)
                 {
                     if(!IsCustomMonInUse(reward->perType.pokemon.customMonId))
-                        currentList[listSize++] = reward->perType.pokemon.customMonId;
+                        listSize++;
                 }
             }
         }
     }
 
     // Pick from random options
-    if(listSize != 0)
-        return currentList[Random() % listSize];
+    if(listSize == 0)
+        return 0;
+
+    targetIndex = Random() % listSize;
+
+    for(j = 0; j < CUSTOM_MON_COUNT; ++j)
+    {
+        if(sCustomPokemon[j].isDefaultSpawn)
+        {
+            if(currentIndex == targetIndex) return j;
+                currentIndex++;
+        }
+    }
+
+    for(questId = 0; questId < QUEST_ID_COUNT; ++questId)
+    {
+        if(RogueQuest_HasCollectedRewards(questId))
+        {
+            questCount = RogueQuest_GetRewardCount(questId);
+            for(j = 0; j < questCount; ++j)
+            {
+                reward = RogueQuest_GetReward(questId, j);
+                if(reward->type == QUEST_REWARD_POKEMON && reward->perType.pokemon.customMonId != 0)
+                {
+                    if(!IsCustomMonInUse(reward->perType.pokemon.customMonId))
+                    {
+                        if(currentIndex == targetIndex) return reward->perType.pokemon.customMonId;
+                            currentIndex++;
+                    }
+                }
+            }
+        }
+    }
 
     return 0;
 }
@@ -1379,6 +1411,9 @@ void RogueGift_EnsureDynamicCustomMonsAreValid()
                 // Fallback to just have an epic mon in this slot
                 rarity = UNIQUE_RARITY_EPIC;
             }
+
+            if (newSpecies[i] == SPECIES_NONE)
+                continue; // Skip this slot if the query system failed to find a valid species
 
             gRogueSaveBlock->dynamicUniquePokemon[i].species = newSpecies[i];
             gRogueSaveBlock->dynamicUniquePokemon[i].customMonId = RogueGift_CreateDynamicMonId(rarity, newSpecies[i]);

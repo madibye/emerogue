@@ -36,6 +36,8 @@ static EWRAM_DATA u8 sProcessInputDelay = 0;
 
 static u8 sLilycoveSSTidalSelections[SSTIDAL_SELECTION_COUNT];
 
+extern const u8 gText_DefaultLevelUpMoves[];
+
 static void Task_HandleMultichoiceInput(u8 taskId);
 static void Task_HandleYesNoInput(u8 taskId);
 static void Task_HandleMultichoiceGridInput(u8 taskId);
@@ -1068,13 +1070,23 @@ static void PrintUniqueMonInfoToWindow(u8 windowId)
     }
 
     // Moves
-    for(i = 0; i < RogueGift_GetCustomMonMoveCount(customMonId); ++i)
+    u16 moveCount = RogueGift_GetCustomMonMoveCount(customMonId);
+    if(moveCount == 0)
     {
-        u16 moveId = RogueGift_GetCustomMonMove(customMonId, i);
-        
-        StringCopy(gStringVar1, gMoveNames[moveId]);
-        StringExpandPlaceholders(gStringVar4, sText_UniqueMonMove);
+        StringCopy(gStringVar1, gText_DefaultLevelUpMoves);
+        StringExpandPlaceholders(gStringVar4, sText_UniqueMonBaseType);
         AddTextPrinterParameterized(windowId, FONT_SMALL, gStringVar4, 2, 13 + 13 * (line++), TEXT_SKIP_DRAW, NULL);
+    }
+    else 
+    {
+        for(i = 0; i < moveCount; ++i)
+        {
+            u16 moveId = RogueGift_GetCustomMonMove(customMonId, i);
+            
+            StringCopy(gStringVar1, gMoveNames[moveId]);
+            StringExpandPlaceholders(gStringVar4, sText_UniqueMonMove);
+            AddTextPrinterParameterized(windowId, FONT_SMALL, gStringVar4, 2, 13 + 13 * (line++), TEXT_SKIP_DRAW, NULL);
+        }
     }
 
     CopyWindowToVram(windowId, COPYWIN_FULL);

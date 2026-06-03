@@ -65,6 +65,11 @@ const u8 gText_EscapeRopeDesc[] = _(
     "instantly from\n"
     "most encounters.");
 
+// Uniques
+const u8 gText_DefaultLevelUpMoves[] = _(
+    "-Default Level-up\n"
+    "  Moves");
+
 // Difficulty/Config lab settings
 //
 

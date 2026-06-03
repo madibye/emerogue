@@ -1236,27 +1236,14 @@ u16 Rogue_GetPrice(u16 itemId)
         price = 2100;
     }
 
-    if(itemId >= ITEM_RED_ORB && itemId <= ITEM_DIANCITE)
-    {
-        // Expect price from above
-        price = HELD_ITEM_HIGH_PRICE;
-        applyDefaultHubIncrease = TRUE;
-    }
-    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
+    if(IS_PRIMAL_ORB(itemId) || IS_MEGA_STONE(itemId))
     {
         // Expect price from above
         price = HELD_ITEM_HIGH_PRICE;
         applyDefaultHubIncrease = TRUE;
     }
 
-    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
-    {
-        // Expect price from above
-        price = HELD_ITEM_HIGH_PRICE;
-        applyDefaultHubIncrease = TRUE;
-    }
-
-    if(itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z)
+    if(IS_Z_CRYSTAL(itemId))
     {
         // Expect price from above
         price = HELD_ITEM_MID_PRICE;
@@ -1304,7 +1291,7 @@ u16 Rogue_GetPrice(u16 itemId)
         price = HELD_ITEM_HIGH_PRICE;
     }
     
-    if((itemId >= ITEM_BUG_TERA_SHARD && itemId <= ITEM_WATER_TERA_SHARD) || itemId == ITEM_STELLAR_TERA_SHARD)
+    if(IS_TERA_SHARD(itemId))
     {
         price = HELD_ITEM_MID_PRICE + 1000;
     }
@@ -1563,13 +1550,8 @@ void Rogue_ModifyItem(u16 itemId, struct Item* outItem)
     {
         outItem->pocket = POCKET_STONES;
     }
-    
-    if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
-    {
-        outItem->pocket = POCKET_STONES;
-    }
 
-    if(itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z)
+    if(IS_Z_CRYSTAL(itemId))
     {
         outItem->pocket = POCKET_STONES;
     }
@@ -1599,7 +1581,7 @@ void Rogue_ModifyItem(u16 itemId, struct Item* outItem)
         outItem->pocket = POCKET_STONES;
     }
 
-    if((itemId >= ITEM_BUG_TERA_SHARD && itemId <= ITEM_WATER_TERA_SHARD) || itemId == ITEM_STELLAR_TERA_SHARD)
+    if(IS_TERA_SHARD(itemId))
     {
         outItem->type = ITEM_USE_PARTY_MENU,
         outItem->fieldUseFunc = ItemUseOutOfBattle_TeraShard,

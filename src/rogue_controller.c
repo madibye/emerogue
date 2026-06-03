@@ -1433,7 +1433,7 @@ u16 Rogue_ModifyItemPickupAmount(u16 itemId, u16 amount)
             if (itemId >= ITEM_RED_NECTAR && itemId <= ITEM_PURPLE_NECTAR)
                 amount = 1;
 
-            if ((itemId >= ITEM_BUG_TERA_SHARD && itemId <= ITEM_WATER_TERA_SHARD) || itemId == ITEM_STELLAR_TERA_SHARD)
+            if (IS_TERA_SHARD(itemId))
                 amount = 1;
 #endif
         }
@@ -2180,88 +2180,115 @@ static u8 ItemToGen(u16 item)
         return 7;
 
     // Mega stones are gonna be gen'd by the mons as we already feature toggle them based on key items
-    if (item >= ITEM_VENUSAURITE && item <= ITEM_MEWTWONITE_Y)
-        return 1;
-    if (item >= ITEM_CLEFABLITE && item <= ITEM_DRAGONINITE)
-        return 1;
-    if ((item == ITEM_RAICHUNITE_X) || (item == ITEM_RAICHUNITE_Y))
-        return 1;
-    if (item >= ITEM_AMPHAROSITE && item <= ITEM_TYRANITARITE) 
-        return 2;
-    if (item >= ITEM_MEGANIUMITE && item <= ITEM_SKARMORITE)
-        return 2;
-    if (item >= ITEM_SCEPTILITE && item <= ITEM_LATIOSITE) 
-        return 3;
-    if ((item == ITEM_CHIMECHITE) || (item == ITEM_ABSOLITE_Z))
-        return 3;
-    if (item >= ITEM_LOPUNNITE && item <= ITEM_GALLADITE) 
-        return 4;
-    if (item == ITEM_FROSLASSITE) 
-        return 4;
-    if (item >= ITEM_STARAPTITE && item <= ITEM_LUCARIONITE_Z) 
-        return 4;
-    if ((item == ITEM_HEATRANITE) || (item == ITEM_DARKRANITE))
-        return 4;
-    if (item == ITEM_AUDINITE) 
-        return 5;
-    if (item >= ITEM_EMBOARITE && item <= ITEM_CHANDELURITE) 
-        return 5;
-    if (item == ITEM_GOLURKITE)
-        return 5;
-    if (item == ITEM_DIANCITE) 
-        return 6;
-
-    
-
-    // Legends Z-A Mega Stones
-    if(item >= ITEM_CLEFABLITE && item <= ITEM_DRAGONINITE)
-        return 1;
-    if(item >= ITEM_MEGANIUMITE && item <= ITEM_SKARMORITE)
-        return 2;
-    if(item == ITEM_FROSLASSITE)
-        return 4;
-    if(item >= ITEM_EMBOARITE && item <= ITEM_CHANDELURITE)
-        return 5;
-    if(item >= ITEM_CHESNAUGHTITE && item <= ITEM_ZYGARDITE)
-        return 6;
-    if(item == ITEM_DRAMPANITE)
-        return 7;
-    if(item == ITEM_FALINKSITE)
-        return 8;
-
-    // Legends Z-A: Mega Dimension DLC Mega Stones
     switch(item)
     {
+        case ITEM_VENUSAURITE:
+        case ITEM_CHARIZARDITE_X:
+        case ITEM_CHARIZARDITE_Y:
+        case ITEM_BLASTOISINITE:
+        case ITEM_BEEDRILLITE:
+        case ITEM_PIDGEOTITE:
         case ITEM_RAICHUNITE_X:
         case ITEM_RAICHUNITE_Y:
+        case ITEM_CLEFABLITE:
+        case ITEM_ALAKAZITE:
+        case ITEM_VICTREEBELITE:
+        case ITEM_SLOWBRONITE:
+        case ITEM_GENGARITE:
+        case ITEM_KANGASKHANITE:
+        case ITEM_STARMINITE:
+        case ITEM_PINSIRITE:
+        case ITEM_GYARADOSITE:
+        case ITEM_AERODACTYLITE:
+        case ITEM_DRAGONINITE:
+        case ITEM_MEWTWONITE_X:
+        case ITEM_MEWTWONITE_Y:
             return 1;
 
+        case ITEM_MEGANIUMITE:
+        case ITEM_FERALIGITE:
+        case ITEM_AMPHAROSITE:
+        case ITEM_STEELIXITE:
+        case ITEM_SCIZORITE:
+        case ITEM_HERACRONITE:
+        case ITEM_SKARMORITE:
+        case ITEM_HOUNDOOMINITE:
+        case ITEM_TYRANITARITE:
+            return 2;
+        
+        case ITEM_SCEPTILITE:
+        case ITEM_BLAZIKENITE:
+        case ITEM_SWAMPERTITE:
+        case ITEM_GARDEVOIRITE:
+        case ITEM_SABLENITE:
+        case ITEM_MAWILITE:
+        case ITEM_AGGRONITE:
+        case ITEM_MEDICHAMITE:
+        case ITEM_MANECTITE:
+        case ITEM_SHARPEDONITE:
+        case ITEM_CAMERUPTITE:
+        case ITEM_ALTARIANITE:
+        case ITEM_BANETTITE:
         case ITEM_CHIMECHITE:
+        case ITEM_ABSOLITE:
         case ITEM_ABSOLITE_Z:
+        case ITEM_GLALITITE:
+        case ITEM_SALAMENCITE:
+        case ITEM_METAGROSSITE:
+        case ITEM_LATIASITE:
+        case ITEM_LATIOSITE:
             return 3;
 
+        case ITEM_LOPUNNITE:
+        case ITEM_GARCHOMPITE:
+        case ITEM_GARCHOMPITE_Z:
+        case ITEM_LUCARIONITE:
+        case ITEM_LUCARIONITE_Z:
+        case ITEM_ABOMASITE:
+        case ITEM_GALLADITE:
+        case ITEM_FROSLASSITE:
         case ITEM_HEATRANITE:
         case ITEM_DARKRANITE:
-        case ITEM_GARCHOMPITE_Z:
-        case ITEM_LUCARIONITE_Z:
             return 4;
 
+        case ITEM_EMBOARITE:
+        case ITEM_EXCADRITE:
+        case ITEM_AUDINITE:
+        case ITEM_SCOLIPITE:
+        case ITEM_SCRAFTINITE:
+        case ITEM_EELEKTROSSITE:
+        case ITEM_CHANDELURITE:
         case ITEM_GOLURKITE:
             return 5;
 
+        case ITEM_CHESNAUGHTITE:
+        case ITEM_DELPHOXITE:
+        case ITEM_GRENINJITE:
+        case ITEM_PYROARITE:
+        case ITEM_FLOETTITE:
         case ITEM_MEOWSTICITE:
+        case ITEM_MALAMARITE:
+        case ITEM_BARBARACITE:
+        case ITEM_DRAGALGITE:
+        case ITEM_HAWLUCHANITE:
+        case ITEM_ZYGARDITE:
+        case ITEM_DIANCITE:
             return 6;
 
-        case ITEM_ZERAORITE:
         case ITEM_CRABOMINITE:
         case ITEM_GOLISOPITE:
+        case ITEM_DRAMPANITE:
         case ITEM_MAGEARNITE:
+        case ITEM_ZERAORITE:
             return 7;
+        
+        case ITEM_FALINKSITE:
+            return 8;
 
         case ITEM_SCOVILLAINITE:
-        case ITEM_BAXCALIBRITE:
-        case ITEM_TATSUGIRINITE:
         case ITEM_GLIMMORANITE:
+        case ITEM_TATSUGIRINITE:
+        case ITEM_BAXCALIBRITE:
             return 9;
     }
     
@@ -2699,7 +2726,7 @@ bool8 Rogue_IsItemEnabled(u16 itemId)
 #ifdef ROGUE_EXPANSION
         // Mass exclude mega, Z moves & Tera Shards
         // Only show tera shards if we have teras enabled
-        if ((itemId >= ITEM_BUG_TERA_SHARD && itemId <= ITEM_WATER_TERA_SHARD) || itemId == ITEM_STELLAR_TERA_SHARD)
+        if (IS_TERA_SHARD(itemId))
         {
             if (Rogue_IsRunActive())
                 return IsTerastallizeEnabled();
@@ -2707,7 +2734,7 @@ bool8 Rogue_IsItemEnabled(u16 itemId)
                 return TRUE;
         }
 
-        if (itemId >= ITEM_RED_ORB && itemId <= ITEM_DIANCITE)
+        if (IS_PRIMAL_ORB(itemId) || IS_MEGA_STONE(itemId))
         {
             if (Rogue_IsRunActive())
                 return IsMegaEvolutionEnabled();
@@ -2715,15 +2742,7 @@ bool8 Rogue_IsItemEnabled(u16 itemId)
                 return TRUE;
         }
 
-        if (itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
-        {
-            if (Rogue_IsRunActive())
-                return IsMegaEvolutionEnabled();
-            else
-                return TRUE;
-        }
-
-        if (itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z)
+        if (IS_Z_CRYSTAL(itemId))
         {
             if (Rogue_IsRunActive())
                 return IsZMovesEnabled();
@@ -6379,7 +6398,7 @@ void Rogue_ModifyObjectEvents(struct MapHeader *mapHeader, bool8 loadingFromSave
                         {
                             objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MINT;
                         }
-                        else if ((itemId >= ITEM_BUG_TERA_SHARD && itemId <= ITEM_WATER_TERA_SHARD) || itemId == ITEM_STELLAR_TERA_SHARD)
+                        else if (IS_TERA_SHARD(itemId))
                         {
                             objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_TERA_SHARD;
                         }
@@ -6388,6 +6407,10 @@ void Rogue_ModifyObjectEvents(struct MapHeader *mapHeader, bool8 loadingFromSave
                         {
                             objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_EVO_STONE;
                         }
+                        else if(IS_PRIMAL_ORB(itemId) || IS_MEGA_STONE(itemId))
+                            objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MEGA_STONE;
+                        else if (IS_Z_CRYSTAL(itemId))
+                            objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_Z_CRYSTAL;
                         else
                         {
 
@@ -6413,16 +6436,7 @@ void Rogue_ModifyObjectEvents(struct MapHeader *mapHeader, bool8 loadingFromSave
                                 break;
 #ifdef ROGUE_EXPANSION
                             case POCKET_STONES:
-                                if(itemId >= ITEM_RED_ORB && itemId <= ITEM_DIANCITE)
-                                    objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MEGA_STONE;
-                                else if(itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
-                                    objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MEGA_STONE;
-                                if (itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE)
-                                    objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_MEGA_STONE;
-                                else if (itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z)
-                                    objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_Z_CRYSTAL;
-                                else
-                                    objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_HOLD_ITEM;
+                                objectEvents[write].graphicsId = OBJ_EVENT_GFX_ITEM_HOLD_ITEM;
                                 break;
 #endif
                             }

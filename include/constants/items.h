@@ -1046,7 +1046,10 @@
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 #define IS_MEGA_STONE(itemId) ((itemId >= ITEM_VENUSAURITE && itemId <= ITEM_DIANCITE) || (itemId >= ITEM_CLEFABLITE && itemId <= ITEM_GLIMMORANITE))
-#define IS_GIMMICK_ITEM(itemId) (IS_MEGA_STONE(itemId) || itemId == ITEM_RED_ORB || itemId == ITEM_BLUE_ORB || (itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z))
+#define IS_PRIMAL_ORB(itemId) ((itemId == ITEM_RED_ORB || itemId == ITEM_BLUE_ORB))
+#define IS_Z_CRYSTAL(itemId) ((itemId >= ITEM_NORMALIUM_Z && itemId <= ITEM_ULTRANECROZIUM_Z))
+#define IS_TERA_SHARD(itemId) ((itemId >= ITEM_BUG_TERA_SHARD && itemId <= ITEM_WATER_TERA_SHARD) || itemId == ITEM_STELLAR_TERA_SHARD)
+#define IS_GIMMICK_ITEM(itemId) (IS_MEGA_STONE(itemId) || IS_PRIMAL_ORB(itemId) || IS_Z_CRYSTAL(itemId) || IS_TERA_SHARD(itemId) || itemId == ITEM_MAX_MUSHROOMS)
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow

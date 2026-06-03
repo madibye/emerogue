@@ -1237,12 +1237,12 @@ static u32 CalculatePresetDisplayScore(struct Pokemon* mon, struct RoguePokemonC
         score += 1;
 
 #ifdef ROGUE_EXPANSION
-    if((IS_MEGA_STONE(temp) || temp == ITEM_RED_ORB || temp == ITEM_BLUE_ORB) && !IsMegaEvolutionEnabled())
+    if((IS_MEGA_STONE(temp) || IS_PRIMAL_ORB(temp)) && !IsMegaEvolutionEnabled())
     {
         return 1;
     }
 
-    if(temp >= ITEM_NORMALIUM_Z && temp <= ITEM_ULTRANECROZIUM_Z && !IsZMovesEnabled())
+    if(IS_Z_CRYSTAL(temp) && !IsZMovesEnabled())
     {
         return 1;
     }

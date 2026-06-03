@@ -3443,7 +3443,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
                 }
 
                 // Special case for primal reversion
-                if(currPreset->heldItem == ITEM_RED_ORB || currPreset->heldItem == ITEM_BLUE_ORB)
+                if(IS_PRIMAL_ORB(currPreset->heldItem))
                 {
                     if(IsMegaEvolutionEnabled())
                     {
@@ -3483,7 +3483,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
                     }
                 }
 
-                if(currPreset->heldItem >= ITEM_NORMALIUM_Z && currPreset->heldItem <= ITEM_ULTRANECROZIUM_Z)
+                if(IS_Z_CRYSTAL(currPreset->heldItem))
                 {
                     if(IsZMovesEnabled())
                     {
@@ -3580,7 +3580,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
         if(!IsMegaEvolutionEnabled())
         {
             // Special case for primal reversion
-            if(outPreset->heldItem == ITEM_RED_ORB || outPreset->heldItem == ITEM_BLUE_ORB)
+            if(IS_PRIMAL_ORB(outPreset->heldItem))
             {
                 outPreset->heldItem = ITEM_NONE;
             }
@@ -3596,7 +3596,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
 
         if(scratch->heldItems.hasZCrystal || !IsZMovesEnabled())
         {
-            if(outPreset->heldItem >= ITEM_NORMALIUM_Z && outPreset->heldItem <= ITEM_ULTRANECROZIUM_Z)
+            if(IS_Z_CRYSTAL(outPreset->heldItem))
             {
                 outPreset->heldItem = ITEM_NONE;
             }
@@ -3637,7 +3637,7 @@ static bool8 SelectNextPreset(struct TrainerPartyScratch* scratch, u16 species, 
         {
             scratch->heldItems.hasMegaStone = TRUE;
         }
-        else if(outPreset->heldItem >= ITEM_NORMALIUM_Z && outPreset->heldItem <= ITEM_ULTRANECROZIUM_Z)
+        else if(IS_Z_CRYSTAL(outPreset->heldItem))
         {
             scratch->heldItems.hasZCrystal = TRUE;
         }
@@ -3878,7 +3878,7 @@ s16 CalulcateMonSortScore(u16 trainerNum, struct Pokemon* mon)
     u16 item = GetMonData(mon, MON_DATA_HELD_ITEM);
 
 #ifdef ROGUE_EXPANSION
-    if(item == ITEM_RED_ORB || item == ITEM_BLUE_ORB)
+    if(IS_PRIMAL_ORB(item))
     {
         // Try to push primals towards the end
         score -= 15;
@@ -3890,7 +3890,7 @@ s16 CalulcateMonSortScore(u16 trainerNum, struct Pokemon* mon)
         score -= 20;
     }
 
-    if(item >= ITEM_NORMALIUM_Z && item <= ITEM_ULTRANECROZIUM_Z)
+    if(IS_Z_CRYSTAL(item))
     {
         // Try to push gigantimax forms to the end
         score -= 15;

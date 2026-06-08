@@ -10540,8 +10540,7 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(u32 move, u32 mov
     }
 
     // Thousand Arrows ignores type modifiers for flying mons
-    if (!IsBattlerGrounded(battlerDef) && (gBattleMoves[move].ignoreTypeIfFlyingAndUngrounded)
-        && (gBattleMons[battlerDef].type1 == TYPE_FLYING || gBattleMons[battlerDef].type2 == TYPE_FLYING || gBattleMons[battlerDef].type3 == TYPE_FLYING))
+    if (!IsBattlerGrounded(battlerDef) && gBattleMoves[move].ignoreTypeIfFlyingAndUngrounded && IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING))
     {
         modifier = UQ_4_12(1.0);
     }
@@ -10627,9 +10626,8 @@ static inline uq4_12_t CalcTypeEffectivenessMultiplierForUIInternal(u32 move, u3
         modifier = UQ_4_12(0.0);
     }
 
-    // Thousand Arrows ignores type modifiers for flying mons
-    if (!IsBattlerGrounded(battlerDef) && (gBattleMoves[move].ignoreTypeIfFlyingAndUngrounded)
-        && (gBattleMons[battlerDef].type1 == TYPE_FLYING || gBattleMons[battlerDef].type2 == TYPE_FLYING || gBattleMons[battlerDef].type3 == TYPE_FLYING))
+    // Thousand Arrows ignores type modifiers for ungrounded flying mons
+    if (!IsBattlerGrounded(battlerDef) && gBattleMoves[move].ignoreTypeIfFlyingAndUngrounded && IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING))
     {
         modifier = UQ_4_12(1.0);
     }

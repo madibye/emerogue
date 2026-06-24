@@ -6213,13 +6213,11 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u8 gMonIcon_Scolipede[] = INCBIN_U8("graphics/pokemon/scolipede/icon.4bpp");
     const u8 gMonFootprint_Scolipede[] = INCBIN_U8("graphics/pokemon/scolipede/footprint.1bpp");
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     const u32 gMonFrontPic_ScolipedeMega[] = INCBIN_U32("graphics/pokemon/scolipede/mega/front.4bpp.lz");
     const u32 gMonPalette_ScolipedeMega[] = INCBIN_U32("graphics/pokemon/scolipede/mega/normal.gbapal.lz");
     const u32 gMonBackPic_ScolipedeMega[] = INCBIN_U32("graphics/pokemon/scolipede/mega/back.4bpp.lz");
     const u32 gMonShinyPalette_ScolipedeMega[] = INCBIN_U32("graphics/pokemon/scolipede/mega/shiny.gbapal.lz");
     const u8 gMonIcon_ScolipedeMega[] = INCBIN_U8("graphics/pokemon/scolipede/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_VENIPEDE
 
 #if P_FAMILY_COTTONEE
@@ -6403,13 +6401,11 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u8 gMonIcon_Scrafty[] = INCBIN_U8("graphics/pokemon/scrafty/icon.4bpp");
     const u8 gMonFootprint_Scrafty[] = INCBIN_U8("graphics/pokemon/scrafty/footprint.1bpp");
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     const u32 gMonFrontPic_ScraftyMega[] = INCBIN_U32("graphics/pokemon/scrafty/mega/front.4bpp.lz");
     const u32 gMonPalette_ScraftyMega[] = INCBIN_U32("graphics/pokemon/scrafty/mega/normal.gbapal.lz");
     const u32 gMonBackPic_ScraftyMega[] = INCBIN_U32("graphics/pokemon/scrafty/mega/back.4bpp.lz");
     const u32 gMonShinyPalette_ScraftyMega[] = INCBIN_U32("graphics/pokemon/scrafty/mega/shiny.gbapal.lz");
     const u8 gMonIcon_ScraftyMega[] = INCBIN_U8("graphics/pokemon/scrafty/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_SCRAGGY
 
 #if P_FAMILY_SIGILYPH
@@ -6841,13 +6837,11 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u8 gMonIcon_Eelektross[] = INCBIN_U8("graphics/pokemon/eelektross/icon.4bpp");
     const u8 gMonFootprint_Eelektross[] = INCBIN_U8("graphics/pokemon/eelektross/footprint.1bpp");
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     const u32 gMonFrontPic_EelektrossMega[] = INCBIN_U32("graphics/pokemon/eelektross/mega/front.4bpp.lz");
     const u32 gMonPalette_EelektrossMega[] = INCBIN_U32("graphics/pokemon/eelektross/mega/normal.gbapal.lz");
     const u32 gMonBackPic_EelektrossMega[] = INCBIN_U32("graphics/pokemon/eelektross/mega/back.4bpp.lz");
     const u32 gMonShinyPalette_EelektrossMega[] = INCBIN_U32("graphics/pokemon/eelektross/mega/shiny.gbapal.lz");
     const u8 gMonIcon_EelektrossMega[] = INCBIN_U8("graphics/pokemon/eelektross/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_TYNAMO
 
 #if P_FAMILY_ELGYEM

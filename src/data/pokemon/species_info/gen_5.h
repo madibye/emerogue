@@ -2759,7 +2759,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sScolipedeFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_SCOLIPEDE_MEGA] =
     {
         .baseHP        = 60,
@@ -2770,55 +2769,47 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseSpDefense = 99,
         .types = { TYPE_BUG, TYPE_POISON },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 243,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_7
         .expYield = 218,
-    #else
-        .expYield = 214,
-    #endif
         .evYield_Speed = 3,
         .itemRare = ITEM_POISON_BARB,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_BUG },
-        .abilities = { ABILITY_TINTED_LENS, ABILITY_TINTED_LENS, ABILITY_TINTED_LENS },
+        .eggGroups = { EGG_GROUP_BUG, EGG_GROUP_BUG },
+        .abilities = { ABILITY_SHELL_ARMOR, ABILITY_SHELL_ARMOR, ABILITY_SHELL_ARMOR },
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Scolipede"),
-        .cryId = CRY_SCOLIPEDE, // CRY_SCOLIPEDE_MEGA,
+        .cryId = CRY_SCOLIPEDE,
         .natDexNum = NATIONAL_DEX_SCOLIPEDE,
         .categoryName = _("Megapede"),
-        .height = 32,
-        .weight = 2305,
-        .description = COMPOUND_STRING(
-            "Its deadly venom gives off a faint\n"
-            "glow. The venom affects Scolipede's\n"
-            "mind, honing its viciousness."),
-        .frontPic = gMonFrontPic_ScolipedeMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 25,
+        .weight = 2005,
+        .description = POKEDEX_DESC_STRING(
+            "With quick movements, it chases down\n"
+            "its foes, attacking relentlessly with its\n"
+            "horns until it prevails. Then it finishes\n"
+            "them off with deadly poison."),
+        .pokemonScale = 257,
+        .pokemonOffset = 2,
+        .trainerScale = 423,
+        .trainerOffset = 8,
+        FRONT_PIC(ScolipedeMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_ScolipedeMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ScolipedeMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_H_SHAKE,
+        BACK_PIC(ScolipedeMega, 64, 64),
         .backPicYOffset = 2,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ScolipedeMega,
-        .shinyPalette = gMonShinyPalette_ScolipedeMega,
-        .iconSprite = gMonIcon_ScolipedeMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sScolipedeLevelUpLearnset,
-        // .teachableLearnset = sScolipedeTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        PALETTES(ScolipedeMega),
+        ICON(ScolipedeMega, 2),
+        .footprint = gMonFootprint_Scolipede,
+        LEARNSETS(ScolipedeMega),
         .formSpeciesIdTable = sScolipedeFormSpeciesIdTable,
         .formChangeTable = sScolipedeFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_VENIPEDE
 
 #if P_FAMILY_COTTONEE
@@ -3886,7 +3877,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sScraftyFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_SCRAFTY_MEGA] =
     {
         .baseHP        = 65,
@@ -3906,42 +3896,39 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_DRAGON },
-        .abilities = { ABILITY_SHED_SKIN, ABILITY_SHED_SKIN, ABILITY_SHED_SKIN },
+        .abilities = { ABILITY_INTIMIDATE, ABILITY_INTIMIDATE, ABILITY_INTIMIDATE },
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Scrafty"),
         .cryId = CRY_SCRAFTY,
         .natDexNum = NATIONAL_DEX_SCRAFTY,
         .categoryName = _("Hoodlum"),
         .height = 11,
-        .weight = 310,
-        .description = COMPOUND_STRING(
-            "Mega Evolution has caused Scrafty's\n"
-            "shed skin to turn white, growing\n"
-            "tough and supple. Of course, this\n"
-            "Pokémon is still as feisty as ever."),
-        .frontPic = gMonFrontPic_ScraftyMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .weight = 300,
+        .description = POKEDEX_DESC_STRING(
+            "Groups of them beat up anything that\n"
+            "enters their territory. The one with the\n"
+            "biggest crest is the group leader, and\n"
+            "is the most respected."),
+        .pokemonScale = 320,
+        .pokemonOffset = 7,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(ScraftyMega, 64, 64),
         .frontPicYOffset = 1,
         .frontAnimFrames = sAnims_ScraftyMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ScraftyMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        BACK_PIC(ScraftyMega, 64, 64),
         .backPicYOffset = 5,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ScraftyMega,
-        .shinyPalette = gMonShinyPalette_ScraftyMega,
-        .iconSprite = gMonIcon_ScraftyMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sScraftyLevelUpLearnset,
-        // .teachableLearnset = sScraftyTeachableLearnset,
+        .backAnimId = BACK_ANIM_GROW,
+        PALETTES(ScraftyMega),
+        ICON(ScraftyMega, 0),
+        .footprint = gMonFootprint_Scrafty,
+        LEARNSETS(ScraftyMega),
         .formSpeciesIdTable = sScraftyFormSpeciesIdTable,
         .formChangeTable = sScraftyFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_SCRAGGY
 
 #if P_FAMILY_SIGILYPH
@@ -6398,7 +6385,6 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formChangeTable = sEelektrossFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_EELEKTROSS_MEGA] =
     {
         .baseHP        = 85,
@@ -6409,49 +6395,47 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseSpDefense = 90,
         .types = { TYPE_ELECTRIC, TYPE_ELECTRIC },
         .catchRate = 30,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 258 : 232,
+        .expYield = 232,
         .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = { EGG_GROUP_AMORPHOUS },
-        .abilities = { ABILITY_HADRON_ENGINE, ABILITY_HADRON_ENGINE, ABILITY_HADRON_ENGINE },
+        .eggGroups = { EGG_GROUP_AMORPHOUS, EGG_GROUP_AMORPHOUS },
+        .abilities = { ABILITY_EELEVATE, ABILITY_EELEVATE, ABILITY_EELEVATE },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Eelektross"),
-        .cryId = CRY_EELEKTROSS, // CRY_EELEKTROSS_MEGA,
+        .cryId = CRY_EELEKTROSS,
         .natDexNum = NATIONAL_DEX_EELEKTROSS,
         .categoryName = _("EleFish"),
-        .height = 30,
-        .weight = 1800,
-        .description = COMPOUND_STRING(
-            "It now generates 10 times the\n"
-            "electricity it did before Mega\n"
-            "Evolving. It discharges this energy\n"
-            "from its false Eelektrik made of mucus."),
-        .frontPic = gMonFrontPic_EelektrossMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
+        .height = 21,
+        .weight = 805,
+        .description = POKEDEX_DESC_STRING(
+            "They crawl out of the ocean using their\n"
+            "arms. They will attack prey on shore and\n"
+            "immediately drag it into the ocean, with\n"
+            "their sucker mouths."),
+        .pokemonScale = 256,
+        .pokemonOffset = 1,
+        .trainerScale = 365,
+        .trainerOffset = 7,
+        FRONT_PIC(EelektrossMega, 64, 64),
+        .frontPicYOffset = 1,
         .frontAnimFrames = sAnims_EelektrossMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_EelektrossMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SMALL_SLOW,
+        .enemyMonElevation = 8,
+        BACK_PIC(EelektrossMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_EelektrossMega,
-        .shinyPalette = gMonShinyPalette_EelektrossMega,
-        .iconSprite = gMonIcon_EelektrossMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sEelektrossLevelUpLearnset,
-        // .teachableLearnset = sEelektrossTeachableLearnset,
+        .backAnimId = BACK_ANIM_SHAKE_FLASH_YELLOW,
+        PALETTES(EelektrossMega),
+        ICON(EelektrossMega, 0),
+        .footprint = gMonFootprint_Eelektross,
+        LEARNSETS(EelektrossMega),
         .formSpeciesIdTable = sEelektrossFormSpeciesIdTable,
         .formChangeTable = sEelektrossFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_TYNAMO
 
 #if P_FAMILY_ELGYEM

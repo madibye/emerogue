@@ -1089,9 +1089,7 @@ static const u16 sAudinoFormSpeciesIdTable[] = {
 #if P_FAMILY_VENIPEDE
 static const u16 sScolipedeFormSpeciesIdTable[] = {
     SPECIES_SCOLIPEDE,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_SCOLIPEDE_MEGA,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_VENIPEDE
@@ -1138,9 +1136,7 @@ static const u16 sDarmanitanFormSpeciesIdTable[] = {
 #if P_FAMILY_SCRAGGY
 static const u16 sScraftyFormSpeciesIdTable[] = {
     SPECIES_SCRAFTY,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_SCRAFTY_MEGA,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_SCRAGGY
@@ -1196,9 +1192,7 @@ static const u16 sSawsbuckFormSpeciesIdTable[] = {
 #if P_FAMILY_TYNAMO
 static const u16 sEelektrossFormSpeciesIdTable[] = {
     SPECIES_EELEKTROSS,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_EELEKTROSS_MEGA,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_TYNAMO

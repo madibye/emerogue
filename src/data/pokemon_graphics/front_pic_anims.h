@@ -6826,6 +6826,9 @@ static const union AnimCmd sAnim_Scolipede_1[] =
     ANIMCMD_FRAME(0, 5),
     ANIMCMD_END,
 };
+
+PLACEHOLDER_ANIM_SINGLE_FRAME(ScolipedeMega);
+
 #endif //P_FAMILY_VENIPEDE
 
 #if P_FAMILY_COTTONEE
@@ -7009,6 +7012,9 @@ static const union AnimCmd sAnim_Scrafty_1[] =
     ANIMCMD_FRAME(0, 10),
     ANIMCMD_END,
 };
+
+PLACEHOLDER_ANIM_SINGLE_FRAME(ScraftyMega);
+
 #endif //P_FAMILY_SCRAGGY
 
 #if P_FAMILY_SIGILYPH
@@ -7495,6 +7501,9 @@ static const union AnimCmd sAnim_Eelektross_1[] =
     ANIMCMD_FRAME(0, 5),
     ANIMCMD_END,
 };
+
+PLACEHOLDER_ANIM_SINGLE_FRAME(EelektrossMega);
+
 #endif //P_FAMILY_TYNAMO
 
 #if P_FAMILY_ELGYEM
@@ -11796,6 +11805,7 @@ SINGLE_ANIMATION(Leavanny);
 SINGLE_ANIMATION(Venipede);
 SINGLE_ANIMATION(Whirlipede);
 SINGLE_ANIMATION(Scolipede);
+SINGLE_ANIMATION(ScolipedeMega);
 #endif //P_FAMILY_VENIPEDE
 #if P_FAMILY_COTTONEE
 SINGLE_ANIMATION(Cottonee);
@@ -11839,6 +11849,7 @@ SINGLE_ANIMATION(Crustle);
 #if P_FAMILY_SCRAGGY
 SINGLE_ANIMATION(Scraggy);
 SINGLE_ANIMATION(Scrafty);
+SINGLE_ANIMATION(ScraftyMega);
 #endif //P_FAMILY_SCRAGGY
 #if P_FAMILY_SIGILYPH
 SINGLE_ANIMATION(Sigilyph);
@@ -11936,6 +11947,7 @@ SINGLE_ANIMATION(Klinklang);
 SINGLE_ANIMATION(Tynamo);
 SINGLE_ANIMATION(Eelektrik);
 SINGLE_ANIMATION(Eelektross);
+SINGLE_ANIMATION(EelektrossMega);
 #endif //P_FAMILY_TYNAMO
 #if P_FAMILY_ELGYEM
 SINGLE_ANIMATION(Elgyem);

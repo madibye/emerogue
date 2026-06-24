@@ -850,10 +850,9 @@ static const struct FormChange sAudinoFormChangeTable[] = {
 #endif //P_FAMILY_AUDINO
 
 #if P_FAMILY_VENIPEDE
-static const struct FormChange sScolipedeFormChangeTable[] = {
-#if P_GEN_9_MEGA_EVOLUTIONS
+static const struct FormChange sScolipedeFormChangeTable[] =
+{
     {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_SCOLIPEDE_MEGA, ITEM_SCOLIPITE},
-#endif
     {FORM_CHANGE_FAINT,                         SPECIES_SCOLIPEDE},
     {FORM_CHANGE_END_BATTLE,                    SPECIES_SCOLIPEDE},
     {FORM_CHANGE_TERMINATOR},
@@ -881,10 +880,9 @@ static const struct FormChange sDarmanitanGalarianFormChangeTable[] = {
 #endif //P_FAMILY_DARUMAKA
 
 #if P_FAMILY_SCRAGGY
-static const struct FormChange sScraftyFormChangeTable[] = {
-#if P_GEN_9_MEGA_EVOLUTIONS
+static const struct FormChange sScraftyFormChangeTable[] =
+{
     {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_SCRAFTY_MEGA, ITEM_SCRAFTINITE},
-#endif
     {FORM_CHANGE_FAINT,                         SPECIES_SCRAFTY},
     {FORM_CHANGE_END_BATTLE,                    SPECIES_SCRAFTY},
     {FORM_CHANGE_TERMINATOR},
@@ -900,14 +898,14 @@ static const struct FormChange sGarbodorFormChangeTable[] =
 #endif //P_FAMILY_TRUBBISH
 
 #if P_FAMILY_TYNAMO
-static const struct FormChange sEelektrossFormChangeTable[] = {
+static const struct FormChange sEelektrossFormChangeTable[] =
+{
     {FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_EELEKTROSS_MEGA, ITEM_EELEKTROSSITE},
     {FORM_CHANGE_FAINT,                         SPECIES_EELEKTROSS},
     {FORM_CHANGE_END_BATTLE,                    SPECIES_EELEKTROSS},
     {FORM_CHANGE_TERMINATOR},
 };
 #endif //P_FAMILY_TYNAMO
-
 
 #if P_FAMILY_LITWICK
 static const struct FormChange sChandelureFormChangeTable[] =

@@ -307,7 +307,7 @@ static const u8 sMegaSolDescription[] = _("Acts like under sun.");
 static const u8 sSpicySprayDescription[] = _("Burns the foe when damaged.");
 static const u8 sEnlightenmentDescription[] = _("Half sp. damage, double Dark.");
 static const u8 sVoodooCurseDescription[] = _("Curses on contact.");
-static const u8 sThermalBoostDescription[] = _("Powers up Fire moves.");
+static const u8 sThermalBoostDescription[] = _("Ups Fire-type moves.");
 static const u8 sDarkCurrentDescription[] = _("Psy & Ghost weak to Elec.");
 static const u8 sFireManeDescription[] = _("Ups Fire-type moves.");
 

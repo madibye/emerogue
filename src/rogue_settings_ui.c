@@ -927,13 +927,6 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = BattleFormat_ProcessInput,
         .drawChoices = BattleFormat_DrawChoices
     },
-    [MENUITEM_MENU_SLIDER_REVISION_MODE] = 
-    {
-        .itemName = sMenuName_RevisionMode,
-        .MULTI_DESC(sText_DifficultyRevisionModeDesc),
-        .processInput = RevisionMode_ProcessInput,
-        .drawChoices = RevisionMode_DrawChoices
-    },
 
     [MENUITEM_MENU_SLIDER_TRAINER_ORDER] = 
     {

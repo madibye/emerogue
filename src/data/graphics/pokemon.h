@@ -448,20 +448,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u32 gMonShinyPalette_RaichuAlolan[] = INCBIN_U32("graphics/pokemon/raichu/alolan/shiny.gbapal.lz");
     const u8 gMonIcon_RaichuAlolan[] = INCBIN_U8("graphics/pokemon/raichu/alolan/icon.4bpp");
 #endif //P_ALOLAN_FORMS
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_RaichuMegaX[] = INCBIN_U32("graphics/pokemon/raichu/mega_x/front.4bpp.lz");
-    const u32 gMonPalette_RaichuMegaX[] = INCBIN_U32("graphics/pokemon/raichu/mega_x/normal.gbapal.lz");
-    const u32 gMonBackPic_RaichuMegaX[] = INCBIN_U32("graphics/pokemon/raichu/mega_x/back.4bpp.lz");
-    const u32 gMonShinyPalette_RaichuMegaX[] = INCBIN_U32("graphics/pokemon/raichu/mega_x/shiny.gbapal.lz");
-    const u8 gMonIcon_RaichuMegaX[] = INCBIN_U8("graphics/pokemon/raichu/mega_x/icon.4bpp");
-
-    const u32 gMonFrontPic_RaichuMegaY[] = INCBIN_U32("graphics/pokemon/raichu/mega_y/front.4bpp.lz");
-    const u32 gMonPalette_RaichuMegaY[] = INCBIN_U32("graphics/pokemon/raichu/mega_y/normal.gbapal.lz");
-    const u32 gMonBackPic_RaichuMegaY[] = INCBIN_U32("graphics/pokemon/raichu/mega_y/back.4bpp.lz");
-    const u32 gMonShinyPalette_RaichuMegaY[] = INCBIN_U32("graphics/pokemon/raichu/mega_y/shiny.gbapal.lz");
-    const u8 gMonIcon_RaichuMegaY[] = INCBIN_U8("graphics/pokemon/raichu/mega_y/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_PIKACHU
 
 #if P_FAMILY_SANDSHREW
@@ -4958,14 +4944,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u8 gMonIcon_StaraptorMega[] = INCBIN_U8("graphics/pokemon/staraptor/mega/icon.4bpp");
 
     const u32 gMonFrontPic_StaraptorF[] = INCBIN_U32("graphics/pokemon/staraptor/anim_frontf.4bpp.lz");
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_StaraptorMega[] = INCBIN_U32("graphics/pokemon/staraptor/mega/front.4bpp.lz");
-    const u32 gMonPalette_StaraptorMega[] = INCBIN_U32("graphics/pokemon/staraptor/mega/normal.gbapal.lz");
-    const u32 gMonBackPic_StaraptorMega[] = INCBIN_U32("graphics/pokemon/staraptor/mega/back.4bpp.lz");
-    const u32 gMonShinyPalette_StaraptorMega[] = INCBIN_U32("graphics/pokemon/staraptor/mega/shiny.gbapal.lz");
-    const u8 gMonIcon_StaraptorMega[] = INCBIN_U8("graphics/pokemon/staraptor/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_STARLY
 
 #if P_FAMILY_BIDOOF
@@ -7638,14 +7616,6 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u32 gMonFrontPic_PyroarF[] = INCBIN_U32("graphics/pokemon/pyroar/anim_frontf.4bpp.lz");
     const u32 gMonBackPic_PyroarF[] = INCBIN_U32("graphics/pokemon/pyroar/backf.4bpp.lz");
     const u8 gMonIcon_PyroarF[] = INCBIN_U8("graphics/pokemon/pyroar/iconf.4bpp");
-
-#if P_GEN_9_MEGA_EVOLUTIONS
-    const u32 gMonFrontPic_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/front.4bpp.lz");
-    const u32 gMonPalette_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/normal.gbapal.lz");
-    const u32 gMonBackPic_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/back.4bpp.lz");
-    const u32 gMonShinyPalette_PyroarMega[] = INCBIN_U32("graphics/pokemon/pyroar/mega/shiny.gbapal.lz");
-    const u8 gMonIcon_PyroarMega[] = INCBIN_U8("graphics/pokemon/pyroar/mega/icon.4bpp");
-#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_LITLEO
 
 #if P_FAMILY_FLABEBE

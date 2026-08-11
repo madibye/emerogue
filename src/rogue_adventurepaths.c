@@ -732,7 +732,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_SIGN;
 
     // Battle Tower
-    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL && GetPathGenerationDifficulty() < ROGUE_ELITE_START_DIFFICULTY)
+    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_FAST_PATH && GetPathGenerationDifficulty() < ROGUE_ELITE_START_DIFFICULTY)
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_BATTLE_TOWER;
 
     // Shrine (Gauntlet will always offer this encounter)

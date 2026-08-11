@@ -1850,6 +1850,29 @@ static u16 BinarySearchForItem(u16 item, u16 const* data, u16 count)
     return count;
 }
 
+bool8 Rogue_IsTreasureItem(u16 itemId)
+{
+#ifndef ROGUE_BAKING
+    if(ItemId_GetPocket(itemId) == POCKET_ITEMS)
+    {
+        if(ItemId_GetFieldFunc(itemId) != ItemUseOutOfBattle_CannotUse)
+            return FALSE;
+
+#ifdef ROGUE_EXPANSION
+        if(ItemId_GetBattleUsage(itemId) != 0)
+            return FALSE;
+#else
+        if(ItemId_GetBattleFunc(itemId) != NULL)
+            return FALSE;
+#endif
+
+        return TRUE;
+    }
+#endif
+    return FALSE;
+}
+
+
 bool8 Rogue_IsEvolutionItem(u16 itemId)
 {
 #ifdef ROGUE_BAKE_VALID

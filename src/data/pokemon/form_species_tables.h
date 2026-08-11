@@ -96,10 +96,8 @@ static const u16 sPikachuFormSpeciesIdTable[] = {
 static const u16 sRaichuFormSpeciesIdTable[] = {
     SPECIES_RAICHU,
     SPECIES_RAICHU_ALOLAN,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_RAICHU_MEGA_X,
     SPECIES_RAICHU_MEGA_Y,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_PIKACHU
@@ -883,9 +881,7 @@ static const u16 sDeoxysFormSpeciesIdTable[] = {
 #if P_FAMILY_STARLY
 static const u16 sStaraptorFormSpeciesIdTable[] = {
     SPECIES_STARAPTOR,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_STARAPTOR_MEGA,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_STARLY
@@ -1344,9 +1340,7 @@ static const u16 sVivillonFormSpeciesIdTable[] = {
 #if P_FAMILY_LITLEO
 static const u16 sPyroarFormSpeciesIdTable[] = {
     SPECIES_PYROAR,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_PYROAR_MEGA,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_LITLEO
@@ -1419,32 +1413,10 @@ static const u16 sAegislashFormSpeciesIdTable[] = {
 #if P_FAMILY_INKAY
 static const u16 sMalamarFormSpeciesIdTable[] = {
     SPECIES_MALAMAR,
-#if P_GEN_9_MEGA_EVOLUTIONS
     SPECIES_MALAMAR_MEGA,
-#endif
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_INKAY
-
-#if P_FAMILY_BINACLE
-static const u16 sBarbaracleFormSpeciesIdTable[] = {
-    SPECIES_BARBARACLE,
-#if P_GEN_9_MEGA_EVOLUTIONS
-    SPECIES_BARBARACLE_MEGA,
-#endif
-    FORM_SPECIES_END,
-};
-#endif //P_FAMILY_BINACLE
-
-#if P_FAMILY_SKRELP
-static const u16 sDragalgeFormSpeciesIdTable[] = {
-    SPECIES_DRAGALGE,
-#if P_GEN_9_MEGA_EVOLUTIONS
-    SPECIES_DRAGALGE_MEGA,
-#endif
-    FORM_SPECIES_END,
-};
-#endif //P_FAMILY_SKRELP
 
 #if P_FAMILY_GOOMY
 static const u16 sSliggooFormSpeciesIdTable[] = {
@@ -1485,6 +1457,22 @@ static const u16 sAvaluggFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_BERGMITE
+
+#if P_FAMILY_BINACLE
+static const u16 sBarbaracleFormSpeciesIdTable[] = {
+    SPECIES_BARBARACLE,
+    SPECIES_BARBARACLE_MEGA,
+    FORM_SPECIES_END,
+};
+#endif //P_FAMILY_BINACLE
+
+#if P_FAMILY_SKRELP
+static const u16 sDragalgeFormSpeciesIdTable[] = {
+    SPECIES_DRAGALGE,
+    SPECIES_DRAGALGE_MEGA,
+    FORM_SPECIES_END,
+};
+#endif //P_FAMILY_SKRELP
 
 #if P_FAMILY_HAWLUCHA
 static const u16 sHawluchaFormSpeciesIdTable[] = {
@@ -1913,6 +1901,14 @@ static const u16 sEiscueFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_EISCUE
+
+#if P_FAMILY_FALINKS
+static const u16 sFalinksFormSpeciesIdTable[] = {
+    SPECIES_FALINKS,
+    SPECIES_FALINKS_MEGA,
+    FORM_SPECIES_END,
+};
+#endif //P_FAMILY_FALINKS
 
 #if P_FAMILY_INDEEDEE
 static const u16 sIndeedeeFormSpeciesIdTable[] = {

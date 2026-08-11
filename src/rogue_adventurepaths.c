@@ -434,7 +434,7 @@ static u8 SelectRoomType_CalculateWeight(u16 weightIndex, u16 roomType, void* da
         // else default weight
         break;
 
-    // Usually only allow 1, but encourage multiple in experimental
+    // Usually only allow 1, but encourage multiple in fast path
     case ADVPATH_ROOM_BATTLE_SIM:
     case ADVPATH_ROOM_BATTLE_TOWER:
         count = CountRoomType(roomType);
@@ -627,7 +627,7 @@ static void ReplaceRoomEncounter(u8 fromRoomType, u8 toRoomType)
     }
 }
 
-static bool8 ExperimentalAreRoutesHidden()
+static bool8 FastPathAreRoutesHidden()
 {
     if(GetPathGenerationDifficulty() >= ROGUE_CHAMP_START_DIFFICULTY)
         return FALSE;
@@ -642,7 +642,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
     u8 validEncounterCount = 0;
     u16 validEncounterList[ADVPATH_ROOM_COUNT];
     u16 minReplaceCount = 1;
-    bool8 experimentalHideRoutes = ExperimentalAreRoutesHidden();
+    bool8 fastPathHideRoutes = FastPathAreRoutesHidden();
 
     // Place gym at very end
     GenerateRoomInstance(0, ADVPATH_ROOM_BOSS);
@@ -740,7 +740,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
         validEncounterList[validEncounterCount++] = ADVPATH_ROOM_SHRINE;
 
 
-    if(gRogueRun.gameRules.adventureGenerator != ADV_GENERATOR_EXPERIMENTAL || !experimentalHideRoutes)
+    if(gRogueRun.gameRules.adventureGenerator != ADV_GENERATOR_FAST_PATH || !fastPathHideRoutes)
     {
         // Legends
         for(i = 0; i < ADVPATH_LEGEND_COUNT; ++i)
@@ -843,7 +843,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
             break;
         }
 
-        if(experimentalHideRoutes)
+        if(fastPathHideRoutes)
         {
             replacePerc = 100;
         }
@@ -866,7 +866,7 @@ static void GenerateRoomPlacements(struct AdvPathSettings* pathSettings)
     }
 
     // Wild dens
-    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL && experimentalHideRoutes)
+    if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_FAST_PATH && fastPathHideRoutes)
     {
         // Leave a single column with routes in and that is all
         for(i = 0; i < gRogueAdvPath.roomCount; ++i)
@@ -1179,11 +1179,11 @@ bool8 RogueAdv_GenerateAdventurePathsIfRequired()
                 pathSettings.totalLength = 2;
             break;
 
-        case ADV_GENERATOR_EXPERIMENTAL:
+        case ADV_GENERATOR_FAST_PATH:
             if(GetPathGenerationDifficulty() >= ROGUE_CHAMP_START_DIFFICULTY)
                 pathSettings.totalLength = 3 + 2;
             else
-                pathSettings.totalLength = (ExperimentalAreRoutesHidden() ? 2 : 4) + 2;
+                pathSettings.totalLength = (FastPathAreRoutesHidden() ? 2 : 4) + 2;
             break;
 
         default:
@@ -1229,7 +1229,7 @@ bool8 RogueAdv_GenerateAdventurePathsIfRequired()
                     generator.connectionsSettingsPerColumn[i].branchingChance[ROOM_CONNECTION_MID] = 40;
                     generator.connectionsSettingsPerColumn[i].branchingChance[ROOM_CONNECTION_BOT] = 40;
                 }
-                if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_EXPERIMENTAL && !ExperimentalAreRoutesHidden())
+                if(gRogueRun.gameRules.adventureGenerator == ADV_GENERATOR_FAST_PATH && !FastPathAreRoutesHidden())
                 {
                     // Reduce variation to avoid spliting too wide
                     switch (RogueRandom() % 3)

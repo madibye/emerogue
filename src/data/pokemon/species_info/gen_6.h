@@ -1307,7 +1307,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .formChangeTable = sPyroarFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_PYROAR_MEGA] =
     {
         .baseHP        = 86,
@@ -1324,41 +1323,40 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_FIELD },
-        .abilities = { ABILITY_FIRE_MANE, ABILITY_FIRE_MANE, ABILITY_THERMAL_BOOST },
+        .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_FIELD },
+        .abilities = { ABILITY_FIRE_MANE, ABILITY_FIRE_MANE, ABILITY_FIRE_MANE },
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Pyroar"),
-        .cryId = CRY_PYROAR, // CRY_PYROAR_MEGA,
+        .cryId = CRY_PYROAR,
         .natDexNum = NATIONAL_DEX_PYROAR,
         .categoryName = _("Royal"),
         .height = 15,
-        .weight = 933,
-        .description = COMPOUND_STRING(
-            "This Pokémon spews flames hotter\n"
-            "than 18,000 degrees Fahrenheit.\n"
-            "It swings around its grand, blazing\n"
-            "mane as it protects its allies."),
-        .frontPic = gMonFrontPic_PyroarMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .weight = 815,
+        .description = POKEDEX_DESC_STRING(
+            "The male with the largest mane of fire\n"
+            "is the leader of the pride. The females\n"
+            "protect the pride's cubs. They viciously\n"
+            "threaten any challenger."),
+        .pokemonScale = 268,
+        .pokemonOffset = 2,
+        .trainerScale = 271,
+        .trainerOffset = 0,
+        FRONT_PIC(PyroarMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_PyroarMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_PyroarMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_V_SHAKE,
+        BACK_PIC(PyroarMega, 64, 64),
         .backPicYOffset = 6,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_PyroarMega,
-        .shinyPalette = gMonShinyPalette_PyroarMega,
-        .iconSprite = gMonIcon_PyroarMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sPyroarLevelUpLearnset,
-        // .teachableLearnset = sPyroarTeachableLearnset,
+        .backAnimId = BACK_ANIM_H_STRETCH,
+        PALETTES(PyroarMega),
+        ICON(PyroarMega, 2),
+        .footprint = gMonFootprint_Pyroar,
+        LEARNSETS(PyroarMega),
         .formSpeciesIdTable = sPyroarFormSpeciesIdTable,
         .formChangeTable = sPyroarFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_LITLEO
 
 #if P_FAMILY_FLABEBE
@@ -2718,7 +2716,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .formChangeTable = sMalamarFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_MALAMAR_MEGA] =
     {
         .baseHP        = 86,
@@ -2739,39 +2736,36 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .abilities = { ABILITY_CONTRARY, ABILITY_CONTRARY, ABILITY_CONTRARY },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Malamar"),
-        .cryId = CRY_MALAMAR, // CRY_MALAMAR_MEGA,
+        .cryId = CRY_MALAMAR,
         .natDexNum = NATIONAL_DEX_MALAMAR,
         .categoryName = _("Overturning"),
-        .height = 29,
-        .weight = 698,
-        .description = COMPOUND_STRING(
-            "It uses its colorful lights to\n"
-            "overwrite the personality and\n"
-            "memories of others-and to\n"
-            "control them."),
-        .frontPic = gMonFrontPic_MalamarMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 15,
+        .weight = 470,
+        .description = POKEDEX_DESC_STRING(
+            "It lures prey close with hypnotic motions,\n"
+            "then wraps its tentacles around it before\n"
+            "finishing it off with digestive fluids. It\n"
+            "forces others to do whatever it wants."),
+        .pokemonScale = 268,
+        .pokemonOffset = 2,
+        .trainerScale = 271,
+        .trainerOffset = 0,
+        FRONT_PIC(MalamarMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_MalamarMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_MalamarMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_MalamarMega,
-        .shinyPalette = gMonShinyPalette_MalamarMega,
-        .iconSprite = gMonIcon_MalamarMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sMalamarLevelUpLearnset,
-        // .teachableLearnset = sMalamarTeachableLearnset,
+        .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
+        BACK_PIC(MalamarMega, 64, 64),
+        .backPicYOffset = 8,
+        .backAnimId = BACK_ANIM_V_STRETCH,
+        PALETTES(MalamarMega),
+        ICON(MalamarMega, 0),
+        .footprint = gMonFootprint_Malamar,
+        LEARNSETS(MalamarMega),
         .formSpeciesIdTable = sMalamarFormSpeciesIdTable,
         .formChangeTable = sMalamarFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_INKAY
 
 #if P_FAMILY_BINACLE
@@ -2873,7 +2867,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .formChangeTable = sBarbaracleFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_BARBARACLE_MEGA] =
     {
         .baseHP        = 72,
@@ -2890,43 +2883,41 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = { EGG_GROUP_WATER_3 },
+        .eggGroups = { EGG_GROUP_WATER_3, EGG_GROUP_WATER_3 },
         .abilities = { ABILITY_TOUGH_CLAWS, ABILITY_TOUGH_CLAWS, ABILITY_TOUGH_CLAWS },
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = TRUE,
         .speciesName = _("Barbaracle"),
-        .cryId = CRY_BARBARACLE, // CRY_BARBARACLE_MEGA,
+        .cryId = CRY_BARBARACLE,
         .natDexNum = NATIONAL_DEX_BARBARACLE,
         .categoryName = _("Collective"),
-        .height = 22,
-        .weight = 1000,
-        .description = COMPOUND_STRING(
-            "It uses its many arms to toy\n"
-            "with its opponents. This\n"
-            "keeps the head extremely busy."),
-        .frontPic = gMonFrontPic_BarbaracleMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 13,
+        .weight = 960,
+        .description = POKEDEX_DESC_STRING(
+            "BarbaracleMega's legs and hands have minds\n"
+            "of their own, and they will move\n"
+            "independently. But they usually follow\n"
+            "the head's orders."),
+        .pokemonScale = 272,
+        .pokemonOffset = 3,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(BarbaracleMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_BarbaracleMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_BarbaracleMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        BACK_PIC(BarbaracleMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_BarbaracleMega,
-        .shinyPalette = gMonShinyPalette_BarbaracleMega,
-        .iconSprite = gMonIcon_BarbaracleMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sBarbaracleLevelUpLearnset,
-        // .teachableLearnset = sBarbaracleTeachableLearnset,
+        .backAnimId = BACK_ANIM_V_SHAKE_H_SLIDE,
+        PALETTES(BarbaracleMega),
+        ICON(BarbaracleMega,  2),
+        .footprint = gMonFootprint_Barbaracle,
+        LEARNSETS(BarbaracleMega),
         .formSpeciesIdTable = sBarbaracleFormSpeciesIdTable,
         .formChangeTable = sBarbaracleFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_BINACLE
 
 #if P_FAMILY_SKRELP
@@ -3027,7 +3018,6 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .formChangeTable = sDragalgeFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_DRAGALGE_MEGA] =
     {
         .baseHP        = 65,
@@ -3048,39 +3038,36 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .abilities = { ABILITY_REGENERATOR, ABILITY_REGENERATOR, ABILITY_REGENERATOR },
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Dragalge"),
-        .cryId = CRY_DRAGALGE, // CRY_DRAGALGE_MEGA,
+        .cryId = CRY_DRAGALGE,
         .natDexNum = NATIONAL_DEX_DRAGALGE,
         .categoryName = _("Mock Kelp"),
-        .height = 21,
-        .weight = 1003,
-        .description = COMPOUND_STRING(
-            "It spits a liquid that causes the\n"
-            "regenerative power of cells to run\n"
-            "wild. The liquid is deadly poison\n"
-            "to everything other than itself."),
-        .frontPic = gMonFrontPic_DragalgeMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 18,
+        .weight = 815,
+        .description = POKEDEX_DESC_STRING(
+            "Their poison is strong enough to eat\n"
+            "through the hull of a tanker. Tales are\n"
+            "told of ships that wander into seas where\n"
+            "DragalgeMega live, never to return."),
+        .pokemonScale = 267,
+        .pokemonOffset = 2,
+        .trainerScale = 286,
+        .trainerOffset = 1,
+        FRONT_PIC(DragalgeMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_DragalgeMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_DragalgeMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .frontAnimId = ANIM_FRONT_FLIP,
+        BACK_PIC(DragalgeMega, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_DragalgeMega,
-        .shinyPalette = gMonShinyPalette_DragalgeMega,
-        .iconSprite = gMonIcon_DragalgeMega,
-        .iconPalIndex = 2,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sDragalgeLevelUpLearnset,
-        // .teachableLearnset = sDragalgeTeachableLearnset,
+        .backAnimId = BACK_ANIM_H_STRETCH,
+        PALETTES(DragalgeMega),
+        ICON(DragalgeMega,  2),
+        .footprint = gMonFootprint_Dragalge,
+        LEARNSETS(DragalgeMega),
         .formSpeciesIdTable = sDragalgeFormSpeciesIdTable,
         .formChangeTable = sDragalgeFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_SKRELP
 
 #if P_FAMILY_CLAUNCHER

@@ -3462,7 +3462,6 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .formChangeTable = sFalinksFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_FALINKS_MEGA] =
     {
         .baseHP        = 65,
@@ -3487,36 +3486,31 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .cryId = CRY_FALINKS,
         .natDexNum = NATIONAL_DEX_FALINKS,
         .categoryName = _("Formation"),
-        .height = 16,
-        .weight = 990,
-        .description = COMPOUND_STRING(
-            "Mega Falinks has taken on the\n"
-            "ultimate battle formation, which\n"
-            "can be achieved only if the troopers\n"
-            "and brass have the strongest of bonds."),
-        .frontPic = gMonFrontPic_FalinksMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 30,
+        .weight = 620,
+        .description = POKEDEX_DESC_STRING(
+            "Five of them are troopers, and one is the\n"
+            "brass. The brass's orders are absolute."),
+        .pokemonScale = 275,
+        .pokemonOffset = 7,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(FalinksMega, 64, 64),
         .frontPicYOffset = 1,
         .frontAnimFrames = sAnims_FalinksMega,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_FalinksMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        BACK_PIC(FalinksMega, 64, 64),
         .backPicYOffset = 3,
         //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_FalinksMega,
-        .shinyPalette = gMonShinyPalette_FalinksMega,
-        .iconSprite = gMonIcon_FalinksMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(QuestionMark)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sFalinksLevelUpLearnset,
-        // .teachableLearnset = sFalinksTeachableLearnset,
+        PALETTES(FalinksMega),
+        ICON(FalinksMega,  0),
+        .footprint = gMonFootprint_Falinks,
+        LEARNSETS(FalinksMega),
         .formSpeciesIdTable = sFalinksFormSpeciesIdTable,
         .formChangeTable = sFalinksFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_FALINKS
 
 #if P_FAMILY_PINCURCHIN

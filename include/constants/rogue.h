@@ -29,6 +29,7 @@
 #endif
 //#define ROGUE_FEATURE_AUTOMATION // Activate this for builds where automated external interactions are enabled (e.g. Soak Tests)
 //#define ROGUE_FEATURE_SKIP_SAVE_WARNINGS // Activate this if you intend on putting on a physical cart with 64k FLASH save
+//#define ROGUE_FEATURE_OVERWORLD_SHADOWS
 
 
 #ifdef ROGUE_FEATURE_HQ_RANDOM
@@ -516,6 +517,8 @@
 
 #define MON_FLAGS_CHAMPIONS_SINGLES_S1      MON_FLAG_SINGLES_STRONG | MON_FLAG_STRONG_WILD
 #define MON_FLAGS_CHAMPIONS_DOUBLES_S1      MON_FLAG_DOUBLES_STRONG | MON_FLAG_STRONG_WILD
+#define MON_FLAGS_CHAMPIONS_SINGLES_S2      MON_FLAG_SINGLES_STRONG | MON_FLAG_STRONG_WILD
+#define MON_FLAGS_CHAMPIONS_DOUBLES_S2      MON_FLAG_DOUBLES_STRONG | MON_FLAG_STRONG_WILD
 
 #else
 
@@ -626,7 +629,7 @@
 //
 #define ROGUE_GAME_MODE_STANDARD                0
 #define ROGUE_GAME_MODE_GAUNTLET                1
-#define ROGUE_GAME_MODE_EXPERIMENTAL            2
+#define ROGUE_GAME_MODE_FAST_PATH               2
 #define ROGUE_GAME_MODE_COUNT                   3
 
 // Order
@@ -638,7 +641,7 @@
 // Generators
 #define ADV_GENERATOR_STANDARD                  0
 #define ADV_GENERATOR_GAUNTLET                  1
-#define ADV_GENERATOR_EXPERIMENTAL              2
+#define ADV_GENERATOR_FAST_PATH                 2
 
 
 // Rogue Campaigns OLD

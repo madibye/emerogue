@@ -26,6 +26,8 @@
 #define P_GIGANTAMAX_FORMS               TRUE
 #define P_TERA_FORMS                     TRUE
 
+#define P_USE_EXTRA_MEGA_CRY             TRUE
+
 #define P_GEN_9_MEGA_EVOLUTIONS          TRUE
 
 // Fusion forms

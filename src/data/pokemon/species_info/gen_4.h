@@ -609,7 +609,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .formChangeTable = sStaraptorFormChangeTable,
     },
 
-#if P_GEN_9_MEGA_EVOLUTIONS
     [SPECIES_STARAPTOR_MEGA] =
     {
         .baseHP        = 85,
@@ -620,58 +619,46 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .baseSpDefense = 90,
         .types = { TYPE_FIGHTING, TYPE_FLYING },
         .catchRate = 45,
-    #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 243,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_7
         .expYield = 218,
-    #elif P_UPDATED_EXP_YIELDS >= GEN_5
-        .expYield = 214,
-    #else
-        .expYield = 172,
-    #endif
         .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = { EGG_GROUP_FLYING },
+        .eggGroups = { EGG_GROUP_FLYING, EGG_GROUP_FLYING },
         .abilities = { ABILITY_CONTRARY, ABILITY_CONTRARY, ABILITY_CONTRARY },
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Staraptor"),
-        .cryId = CRY_STARAPTOR, //CRY_STARAPTOR_MEGA
+        .cryId = CRY_STARAPTOR,
         .natDexNum = NATIONAL_DEX_STARAPTOR,
         .categoryName = _("Predator"),
-        .height = 19,
-        .weight = 500,
-        .description = COMPOUND_STRING(
-            "Mega Staraptor is a top-class flier.\n"
-            "It can easily soar through the sky while\n"
-            "gripping a Steelix that weighs more than\n"
-            "880 lbs."),
-        .frontPic = gMonFrontPic_StaraptorMega,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .height = 12,
+        .weight = 249,
+        .description = POKEDEX_DESC_STRING(
+            "When Staravia evolve into StaraptorMega,\n"
+            "they leave the flock to live alone. It has\n"
+            "a savage nature. It will courageously\n"
+            "challenge foes that are much larger."),
+        .pokemonScale = 282,
+        .pokemonOffset = 4,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(StaraptorMega, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_StaraptorMega,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .enemyMonElevation = 8,
-        .backPic = gMonBackPic_StaraptorMega,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 5,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_StaraptorMega,
-        .shinyPalette = gMonShinyPalette_StaraptorMega,
-        .iconSprite = gMonIcon_StaraptorMega,
-        .iconPalIndex = 0,
-        // .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
-        // FOOTPRINT(Staraptor)
-        // SHADOW(-1, 0, SHADOW_SIZE_M)
-        .isMegaEvolution = TRUE,
-        // .levelUpLearnset = sStaraptorLevelUpLearnset,
-        // .teachableLearnset = sStaraptorTeachableLearnset,
+        .frontAnimId = ANIM_V_SHAKE,
+        BACK_PIC(StaraptorMega, 64, 64),
+        .backPicYOffset = 0,
+        .backAnimId = BACK_ANIM_JOLT_RIGHT,
+        PALETTES(StaraptorMega),
+        ICON(StaraptorMega,  0),
+        .footprint = gMonFootprint_Staraptor,
+        LEARNSETS(StaraptorMega),
         .formSpeciesIdTable = sStaraptorFormSpeciesIdTable,
         .formChangeTable = sStaraptorFormChangeTable,
+        .isMegaEvolution = TRUE,
     },
-#endif //P_GEN_9_MEGA_EVOLUTIONS
+
 #endif //P_FAMILY_STARLY
 
 #if P_FAMILY_BIDOOF

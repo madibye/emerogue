@@ -106,9 +106,9 @@ static u8 const sMenuName_TrainerOrderDefault[] = _("{COLOR GREEN}{SHADOW LIGHT_
 static u8 const sMenuName_TrainerOrderRainbow[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Rainbow");
 static u8 const sMenuName_TrainerOrderOfficial[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Official");
 
-static u8 const sMenuName_GameMode_Standard[] = _("Standard");
+static u8 const sMenuName_GameMode_Standard[] = _("Classic");
 static u8 const sMenuName_GameMode_Gauntlet[] = _("Gauntlet");
-static u8 const sMenuName_GameMode_Experimental[] = _("Fast Path");
+static u8 const sMenuName_GameMode_FastPath[] = _("Fast Path");
 
 static u8 const sMenuName_Affection[] = _("Affection FX");
 static u8 const sMenuName_ReleaseMons[] = _("Release Fainted {PKMN}");
@@ -328,7 +328,9 @@ static u8 const sMenuNameDesc_Paldea[] = _(
 
 static u8 const sMenuNameDesc_GameMode_Standard[] = _(
     "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
-    "Typical Adventure with no custom rules."
+    "Standard Adventure with with slow\n"
+    "pacing. Provides decent Encounters,\n"
+    "Items and {PKMN} at the cost of slower Runs."
 );
 static u8 const sMenuNameDesc_GameMode_Gauntlet[] = _(
     "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
@@ -336,11 +338,11 @@ static u8 const sMenuNameDesc_GameMode_Gauntlet[] = _(
     "Trainers back to back without a chance\n"
     "to catch any {PKMN}. (Disables Challenges)"
 );
-static u8 const sMenuNameDesc_GameMode_Experimental[] = _(
+static u8 const sMenuNameDesc_GameMode_FastPath[] = _(
     "{COLOR GREEN}{SHADOW LIGHT_GREEN}"
-    "This Experiment should result in faster\n"
-    "Adventures. Subject to change.\n"
-    "(All Quests still Enabled)"
+    "Standard Adventure with with fast\n"
+    "pacing. Provides fast Runs at the cost\n"
+    "of fewer Encounters, Items and {PKMN}."
 );
 
 
@@ -516,7 +518,7 @@ enum
 
     MENUITEM_MENU_SLIDER_GAME_MODE_STANDARD,
     MENUITEM_MENU_SLIDER_GAME_MODE_GAUNTLET,
-    MENUITEM_MENU_SLIDER_GAME_MODE_EXPERIMENTAL,
+    MENUITEM_MENU_SLIDER_GAME_MODE_FAST_PATH,
 
 #ifdef ROGUE_DEBUG
     MENUITEM_MENU_DEBUG_SUBMENU,
@@ -885,10 +887,10 @@ static const struct MenuEntry sOptionMenuItems[] =
         .processInput = GameMode_ProcessInput,
         .drawChoices = GameMode_DrawChoices
     },
-    [MENUITEM_MENU_SLIDER_GAME_MODE_EXPERIMENTAL] = 
+    [MENUITEM_MENU_SLIDER_GAME_MODE_FAST_PATH] = 
     {
-        .itemName = sMenuName_GameMode_Experimental,
-        .SINGLE_DESC(sMenuNameDesc_GameMode_Experimental),
+        .itemName = sMenuName_GameMode_FastPath,
+        .SINGLE_DESC(sMenuNameDesc_GameMode_FastPath),
         .processInput = GameMode_ProcessInput,
         .drawChoices = GameMode_DrawChoices
     },
@@ -1107,9 +1109,9 @@ static const struct MenuEntries sOptionMenuEntries[SUBMENUITEM_COUNT] =
     {
         .menuOptions = 
         {
+            MENUITEM_MENU_SLIDER_GAME_MODE_FAST_PATH,
             MENUITEM_MENU_SLIDER_GAME_MODE_STANDARD,
             MENUITEM_MENU_SLIDER_GAME_MODE_GAUNTLET,
-            MENUITEM_MENU_SLIDER_GAME_MODE_EXPERIMENTAL,
             MENUITEM_CANCEL
         }
     },
@@ -1401,8 +1403,8 @@ static bool8 ShowMenuSparkles(u8 menuOption)
     // Options to highlight for this patch
     if(FlagGet(FLAG_ROGUE_SETTINGS_MENU_DISPLAY_HIGHLIGHT))
     {
-        if(menuOption == MENUITEM_MENU_SLIDER_GAME_MODE_EXPERIMENTAL)
-            return TRUE;
+        //if(menuOption == MENUITEM_MENU_SLIDER_GAME_MODE_FAST_PATH)
+        //    return TRUE;
     }
 
     if(prev != curr)
@@ -2431,7 +2433,7 @@ static u8 GetMenuItemValue(u8 menuItem)
 
     case MENUITEM_MENU_SLIDER_GAME_MODE_STANDARD:
     case MENUITEM_MENU_SLIDER_GAME_MODE_GAUNTLET:
-    case MENUITEM_MENU_SLIDER_GAME_MODE_EXPERIMENTAL:
+    case MENUITEM_MENU_SLIDER_GAME_MODE_FAST_PATH:
         return Rogue_GetConfigRange(CONFIG_RANGE_GAME_MODE_NUM) == (ROGUE_GAME_MODE_STANDARD + menuItem - MENUITEM_MENU_SLIDER_GAME_MODE_STANDARD);
 
 #ifdef ROGUE_DEBUG
@@ -2609,7 +2611,7 @@ static void SetMenuItemValue(u8 menuItem, u8 value)
 
     case MENUITEM_MENU_SLIDER_GAME_MODE_STANDARD:
     case MENUITEM_MENU_SLIDER_GAME_MODE_GAUNTLET:
-    case MENUITEM_MENU_SLIDER_GAME_MODE_EXPERIMENTAL:
+    case MENUITEM_MENU_SLIDER_GAME_MODE_FAST_PATH:
         if(value != 0)
             Rogue_SetConfigRange(CONFIG_RANGE_GAME_MODE_NUM, ROGUE_GAME_MODE_STANDARD + menuItem - MENUITEM_MENU_SLIDER_GAME_MODE_STANDARD);
         else

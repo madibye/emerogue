@@ -462,19 +462,19 @@
     },
     "SPECIES_ABSOL_MEGA_Z": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP": 65,
+        "Attack": 154,
+        "Defense": 60,
+        "Speed": 151,
+        "SpAttack": 75,
+        "SpDefense": 60
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DARK",
+        "TYPE_GHOST"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_TECHNICIAN",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

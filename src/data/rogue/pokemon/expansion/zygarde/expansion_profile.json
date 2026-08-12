@@ -575,19 +575,19 @@
     },
     "SPECIES_ZYGARDE_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP": 216,
+        "Attack": 70,
+        "Defense": 91,
+        "Speed": 100,
+        "SpAttack": 216,
+        "SpDefense": 85
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DRAGON",
+        "TYPE_GROUND"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_AURA_BREAK",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

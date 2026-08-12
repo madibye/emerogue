@@ -1014,19 +1014,19 @@
     },
     "SPECIES_LUCARIO_MEGA_Z": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP": 70,
+        "Attack": 100,
+        "Defense": 70,
+        "Speed": 151,
+        "SpAttack": 164,
+        "SpDefense": 70
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_FIGHTING",
+        "TYPE_STEEL"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_MINDS_EYE",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

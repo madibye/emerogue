@@ -348,19 +348,19 @@
     },
     "SPECIES_GOLISOPOD_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":         75,
+        "Attack":     150,
+        "Defense":    175,
+        "Speed":      40,
+        "SpAttack":   70,
+        "SpDefense":  120
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_BUG",
+        "TYPE_STEEL"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_REGENERATOR",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

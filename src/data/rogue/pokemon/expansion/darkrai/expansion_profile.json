@@ -351,19 +351,19 @@
     },
     "SPECIES_DARKRAI_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":         70,
+        "Attack":     120,
+        "Defense":    130,
+        "Speed":      85,
+        "SpAttack":   165,
+        "SpDefense":  130
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DARK",
+        "TYPE_DARK"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_DARK_AURA",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

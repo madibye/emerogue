@@ -1573,19 +1573,19 @@
     },
     "SPECIES_GARCHOMP_MEGA_Z": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP": 108,
+        "Attack": 130,
+        "Defense": 85,
+        "Speed": 151,
+        "SpAttack": 141,
+        "SpDefense": 85
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DRAGON",
+        "TYPE_DRAGON"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_ROUGH_SKIN",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

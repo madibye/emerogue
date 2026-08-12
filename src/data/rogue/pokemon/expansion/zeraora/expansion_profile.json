@@ -597,19 +597,19 @@
     },
     "SPECIES_ZERAORA_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       88,
+        "Attack":   157,
+        "Defense":  75,
+        "Speed":    153,
+        "SpAttack": 147,
+        "SpDefense": 80
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_ELECTRIC",
+        "TYPE_ELECTRIC"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_VOLT_ABSORB",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

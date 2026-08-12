@@ -395,19 +395,19 @@
     },
     "SPECIES_MAGEARNA_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       80,
+        "Attack":   125,
+        "Defense":  115,
+        "Speed":    95,
+        "SpAttack": 170,
+        "SpDefense": 115
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_STEEL",
+        "TYPE_FAIRY"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_SOUL_HEART",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]
@@ -433,19 +433,19 @@
     },
     "SPECIES_MAGEARNA_ORIGINAL_COLOR_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       80,
+        "Attack":   125,
+        "Defense":  115,
+        "Speed":    95,
+        "SpAttack": 170,
+        "SpDefense": 115
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_STEEL",
+        "TYPE_FAIRY"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_SOUL_HEART",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

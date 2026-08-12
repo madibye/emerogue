@@ -1283,19 +1283,19 @@
     },
     "SPECIES_HEATRAN_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":         91,
+        "Attack":     120,
+        "Defense":    106,
+        "Speed":      67,
+        "SpAttack":   175,
+        "SpDefense":  141
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_FIRE",
+        "TYPE_STEEL"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_EARTH_EATER",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

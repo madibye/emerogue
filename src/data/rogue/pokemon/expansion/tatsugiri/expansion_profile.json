@@ -171,19 +171,19 @@
     },
     "SPECIES_TATSUGIRI_CURLY_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       68,
+        "Attack":   65,
+        "Defense":  90,
+        "Speed":    92,
+        "SpAttack": 135,
+        "SpDefense": 125
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DRAGON",
+        "TYPE_WATER"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_DRIZZLE",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]
@@ -209,19 +209,19 @@
     },
     "SPECIES_TATSUGIRI_DROOPY_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       68,
+        "Attack":   65,
+        "Defense":  90,
+        "Speed":    92,
+        "SpAttack": 135,
+        "SpDefense": 125
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DRAGON",
+        "TYPE_WATER"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_DRIZZLE",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]
@@ -247,19 +247,19 @@
     },
     "SPECIES_TATSUGIRI_STRETCHY_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       68,
+        "Attack":   65,
+        "Defense":  90,
+        "Speed":    92,
+        "SpAttack": 135,
+        "SpDefense": 125
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DRAGON",
+        "TYPE_WATER"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_DRIZZLE",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

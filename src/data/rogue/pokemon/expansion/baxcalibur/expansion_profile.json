@@ -290,19 +290,19 @@
     },
     "SPECIES_BAXCALIBUR_MEGA": {
       "BaseStats": {
-        "HP": 0,
-        "Attack": 0,
-        "Defense": 0,
-        "Speed": 0,
-        "SpAttack": 0,
-        "SpDefense": 0
+        "HP":       115,
+        "Attack":   175,
+        "Defense":  117,
+        "Speed":    87,
+        "SpAttack": 105,
+        "SpDefense": 101
       },
       "Types": [
-        "TYPE_NORMAL",
-        "TYPE_NORMAL"
+        "TYPE_DRAGON",
+        "TYPE_ICE"
       ],
       "Abilities": [
-        "ABILITY_NONE",
+        "ABILITY_THERMAL_EXCHANGE",
         "ABILITY_NONE",
         "ABILITY_NONE"
       ]

@@ -101,8 +101,9 @@
 #define ITEM_LARGE_COIN_CASE            (ITEM_ROGUE_ITEM_FIRST + 12)
 #define ITEM_GOLDEN_SEED                (ITEM_ROGUE_ITEM_FIRST + 13)
 #define ITEM_POCKET_PC                  (ITEM_ROGUE_ITEM_FIRST + 14)
+#define ITEM_BATTLE_CHECKER             (ITEM_ROGUE_ITEM_FIRST + 15)
 
-// Free 10 - 19
+// Free 15 - 19
 
 #define ITEM_POKEBLOCK_NORMAL           (ITEM_ROGUE_ITEM_FIRST + 20)
 #define ITEM_POKEBLOCK_FIGHTING         (ITEM_ROGUE_ITEM_FIRST + 21)

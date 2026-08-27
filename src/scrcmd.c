@@ -6,8 +6,6 @@
 #include "clock.h"
 #include "coins.h"
 #include "data.h"
-#include "decoration.h"
-#include "decoration_inventory.h"
 #include "event_data.h"
 #include "field_door.h"
 #include "field_effect.h"
@@ -563,7 +561,8 @@ bool8 ScrCmd_adddecoration(struct ScriptContext *ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = DecorationAdd(decorId);
+    AGB_ASSERT(FALSE);
+    gSpecialVar_Result = FALSE;
     return FALSE;
 }
 
@@ -571,7 +570,8 @@ bool8 ScrCmd_removedecoration(struct ScriptContext *ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = DecorationRemove(decorId);
+    AGB_ASSERT(FALSE);
+    gSpecialVar_Result = FALSE;
     return FALSE;
 }
 
@@ -579,7 +579,8 @@ bool8 ScrCmd_checkdecorspace(struct ScriptContext *ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = DecorationCheckSpace(decorId);
+    AGB_ASSERT(FALSE);
+    gSpecialVar_Result = FALSE;
     return FALSE;
 }
 
@@ -587,7 +588,8 @@ bool8 ScrCmd_checkdecor(struct ScriptContext *ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = CheckHasDecoration(decorId);
+    AGB_ASSERT(FALSE);
+    gSpecialVar_Result = FALSE;
     return FALSE;
 }
 

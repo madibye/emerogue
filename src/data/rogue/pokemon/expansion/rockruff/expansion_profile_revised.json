@@ -2,6 +2,23 @@
   "BuildSettings": {
     "LevelUpMoves": "REPLACE"
   },
+  "Evolutions": [
+    {
+      "Method": "EVO_ITEM",
+      "Param": "ITEM_SUN_STONE",
+      "Species": "SPECIES_LYCANROC_MIDDAY"
+    },
+    {
+      "Method": "EVO_ITEM",
+      "Param": "ITEM_MOON_STONE",
+      "Species": "SPECIES_LYCANROC_MIDNIGHT"
+    },
+    {
+      "Method": "EVO_ITEM",
+      "Param": "ITEM_DUSK_STONE",
+      "Species": "SPECIES_LYCANROC_DUSK"
+    }
+  ],
   "LevelUpMoves": [
     {
       "Move": "MOVE_TACKLE",

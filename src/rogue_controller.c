@@ -5761,7 +5761,9 @@ void Rogue_OnWarpIntoMap(void)
     FlagSet(FLAG_ROGUE_REWARD_ITEM_MART_DISABLED);
     FlagSet(FLAG_ROGUE_RARE_ITEM_MART_DISABLED);
 
-    if (IsRareShopActive())
+    FollowMon_ResetPalettes();
+
+    if(IsRareShopActive())
         FlagClear(FLAG_ROGUE_RARE_ITEM_MART_DISABLED);
 
     // Set new safari flag on entering area
